@@ -25,7 +25,7 @@ namespace MainProject
         private bool isGrounded;
 
         //simulates gravity
-        private const double gravity = -.2;
+        private const double gravity = -0.3;
 
         //very fast horizontal acceleration when player begins to walk
         private const double walkAccel = 20;
@@ -85,7 +85,7 @@ namespace MainProject
             //player is touching the ground, velocity is 0
             else
             {
-                yVelocity = 0;
+                yVelocity = 20;
             }
         }
 
@@ -102,23 +102,26 @@ namespace MainProject
                 for (int j = 0; j < columns; j++)
                 {
                     //makes sure only near blocks that have collision are taken into account
-                    if(Math.Abs(level[i, j].Rect.X - rect.X) < 400 &&
+                    if (Math.Abs(level[i, j].Rect.X - rect.X) < 400 &&
                         Math.Abs(level[i, j].Rect.Y - rect.Y) < 400 && level[i, j].CanCollide)
                     {
                         //creates a rectangle of the overlaping area
                         collisionRect = Rectangle.Intersect(level[i, j].Rect, rect);
 
-                        //player is not rubbing against a wall
-                        if(collisionRect.X > collisionRect.Y)
+                        //player is hitting the top or bottom of a tile
+                        if (collisionRect.X > collisionRect.Y)
                         {
-                            //player is not hitting the bottom of a tile
-                            if(rect.Y < level[i, j].Rect.Y)
+                            //player is landing on a tile
+                            if (rect.Y < level[i, j].Rect.Y)
                             {
+                                //player is on the ground
                                 isGrounded = true;
                             }
+                            //player is hitting the bottom of a tile with their head
                             else
                             {
-                                yVelocity = 0;
+                                //player has a light bounce off of the tile
+                                yVelocity = -1;
                             }
                             
                         }

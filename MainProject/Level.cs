@@ -178,8 +178,8 @@ namespace MainProject
             {
                 for (int j = 0; j < columns; j++)
                 {
-                    levelBlueprint[i, j].RectX += xVelocity;
-                    levelBlueprint[i, j].RectY += yVelocity;
+                    levelBlueprint[i, j].RectX += (int)xVelocity;
+                    levelBlueprint[i, j].RectY += (int)yVelocity;
                 }
             }
         }
