@@ -25,8 +25,21 @@ namespace MainProject
         private Room[,] levelBlueprint;
 
         //x and y pos of player
-        private int playerPosX;
-        private int playerPosY;
+        private double playerPosX;
+        private double playerPosY;
+
+        //rows and columns in the 2d array
+        private int rows;
+        private int columns;
+
+        public double PlayerPosX
+        {
+            get { return playerPosX; }
+        }
+        public double PlayerPosY
+        {
+            get { return playerPosY; }
+        }
 
         //paramaterized constructor
         public Level(Dictionary<string, Texture2D> assets, int width, int height, string filename)
@@ -35,9 +48,13 @@ namespace MainProject
             this.width = width;
             this.height = height;
             this.filename = filename;
+
             //player starts in the middle of the screen
             playerPosX = width / 2;
             playerPosY = height / 2;
+
+            //create 2D array of tiles
+            LoadLevel(filename);
         }
 
         /// <summary>
@@ -48,8 +65,6 @@ namespace MainProject
         {
             StreamReader input = null;
             string currentLine;
-            int rows;
-            int columns;
             List<string> lines = new List<string>();
             string[] data;
             string[] tileData;
@@ -75,7 +90,7 @@ namespace MainProject
                 {
                     //gets one line of data
                     data = lines[i].Split(",");
-                    for (int j = 0; j < columns - 1; j++)
+                    for (int j = 0; j < columns; j++)
                     {
                         //determines what type of tile it is
                         //wall
@@ -112,7 +127,17 @@ namespace MainProject
                         else if (data[j] == "S")
                         {
                             levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), assets["spawn"], false);
+                            playerPosX = j * 100;
+                            playerPosY = i * 100;
                         }
+                    }
+                }
+                for (int i = 0; i < rows; i++)
+                {
+                    for (int j = 0; j < columns; j++)
+                    {
+                        levelBlueprint[i, j].RectX -= playerPosX - width / 2;
+                        levelBlueprint[i, j].RectY -= playerPosY - height / 2;
                     }
                 }
             }
@@ -125,6 +150,37 @@ namespace MainProject
             if (input != null)
             {
                 input.Close();
+            }
+        }
+
+        /// <summary>
+        /// updates the position of the level using player velocity
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public void Update(GameTime gameTime, double xVelocity, double yVelocity)
+        {
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    levelBlueprint[i, j].RectX += xVelocity;
+                    levelBlueprint[i, j].RectY += yVelocity;
+                }
+            }
+        }
+
+        /// <summary>
+        /// draws the level using the 2d array
+        /// </summary>
+        /// <param name="sb"></param>
+        public void Draw(SpriteBatch sb)
+        {
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    levelBlueprint[i,j].Draw(sb);
+                }
             }
         }
     }

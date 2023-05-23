@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lbell\\source\\repos\\Impact\\MainProject\\MainProject.csproj": {}
+    "C:\\Users\\lbell\\Source\\Repos\\Impact\\MainProject\\MainProject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lbell\\source\\repos\\Impact\\MainProject\\MainProject.csproj": {
+    "C:\\Users\\lbell\\Source\\Repos\\Impact\\MainProject\\MainProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lbell\\source\\repos\\Impact\\MainProject\\MainProject.csproj",
+        "projectUniqueName": "C:\\Users\\lbell\\Source\\Repos\\Impact\\MainProject\\MainProject.csproj",
         "projectName": "MainProject",
-        "projectPath": "C:\\Users\\lbell\\source\\repos\\Impact\\MainProject\\MainProject.csproj",
+        "projectPath": "C:\\Users\\lbell\\Source\\Repos\\Impact\\MainProject\\MainProject.csproj",
         "packagesPath": "C:\\Users\\lbell\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lbell\\source\\repos\\Impact\\MainProject\\obj\\",
+        "outputPath": "C:\\Users\\lbell\\Source\\Repos\\Impact\\MainProject\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\lbell\\AppData\\Roaming\\NuGet\\NuGet.Config",

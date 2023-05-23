@@ -25,19 +25,19 @@ namespace MainProject
         /// <summary>
         /// returns and sets the room's Rectangle's X position
         /// </summary>
-        public int RectX
+        public double RectX
         {
             get { return rect.X; }
-            set { rect.X = value; }
+            set { rect.X = (int)value; }
         }
 
         /// <summary>
         /// returns and sets the room's Rectangle's Y position
         /// </summary>
-        public int RectY
+        public double RectY
         {
             get { return rect.Y; }
-            set { rect.Y = value; }
+            set { rect.Y = (int)value; }
         }
 
         /// <summary>

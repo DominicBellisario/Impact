@@ -29,6 +29,9 @@ namespace MainProject
         //levels
         private Level testLevel;
 
+        //player
+        private Player player;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -81,7 +84,10 @@ namespace MainProject
             levelSprites.Add("wall", wall);
 
             //level loading
-            testLevel = new Level(levelSprites, width, height, "TestLevel");
+            testLevel = new Level(levelSprites, width, height, "TestLevel.txt");
+
+            //player loading
+            player = new Player(testLevel.PlayerPosX, testLevel.PlayerPosY);
         }
 
         protected override void Update(GameTime gameTime)
@@ -91,15 +97,23 @@ namespace MainProject
 
             // TODO: Add your update logic here
 
+            //determines the new player x and y velocity
+            player.Update(gameTime);
+
+            //updates the level position each frame
+            testLevel.Update(gameTime, player.XVelocity, player.YVelocity);
+
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
-
+            _spriteBatch.Begin();
+            testLevel.Draw(_spriteBatch);
+            _spriteBatch.End();
             base.Draw(gameTime);
         }
     }
