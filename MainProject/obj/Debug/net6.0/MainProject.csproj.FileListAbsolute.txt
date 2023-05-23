@@ -30,3 +30,4 @@ C:\Users\lbell\source\repos\Impact\MainProject\bin\Debug\net6.0\Content\LeftPlat
 C:\Users\lbell\source\repos\Impact\MainProject\bin\Debug\net6.0\Content\RightPlat.xnb
 C:\Users\lbell\source\repos\Impact\MainProject\bin\Debug\net6.0\Content\Spawn.xnb
 C:\Users\lbell\source\repos\Impact\MainProject\bin\Debug\net6.0\Content\Wall.xnb
+C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\Player.xnb

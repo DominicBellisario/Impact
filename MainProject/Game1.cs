@@ -18,6 +18,7 @@ namespace MainProject
         private Texture2D rightPlat;
         private Texture2D spawn;
         private Texture2D wall;
+        private Texture2D playerSprite;
 
         //list of sprites needed for level loading
         private Dictionary<string, Texture2D> levelSprites;
@@ -83,11 +84,13 @@ namespace MainProject
             wall = Content.Load<Texture2D>("Wall");
             levelSprites.Add("wall", wall);
 
+            playerSprite = Content.Load<Texture2D>("Player");
+
             //level loading
             testLevel = new Level(levelSprites, width, height, "TestLevel.txt");
 
             //player loading
-            player = new Player(testLevel.PlayerPosX, testLevel.PlayerPosY);
+            player = new Player(width/2, height/2, playerSprite);
         }
 
         protected override void Update(GameTime gameTime)
@@ -97,6 +100,8 @@ namespace MainProject
 
             // TODO: Add your update logic here
 
+            //checks for player collison with the level
+            player.Collisions(testLevel.LevelBlueprint, testLevel.Rows, testLevel.Columns);
             //determines the new player x and y velocity
             player.Update(gameTime);
 
@@ -113,6 +118,7 @@ namespace MainProject
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
             testLevel.Draw(_spriteBatch);
+            player.Draw(_spriteBatch);
             _spriteBatch.End();
             base.Draw(gameTime);
         }

@@ -41,6 +41,21 @@ namespace MainProject
             get { return playerPosY; }
         }
 
+        public Room[,] LevelBlueprint
+        {
+            get { return levelBlueprint; }
+        }
+
+        public int Rows
+        {
+            get { return rows; }
+        }
+
+        public int Columns
+        {
+            get { return columns; }
+        }
+
         //paramaterized constructor
         public Level(Dictionary<string, Texture2D> assets, int width, int height, string filename)
         {

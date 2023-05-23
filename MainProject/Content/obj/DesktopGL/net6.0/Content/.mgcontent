@@ -8,11 +8,13 @@
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/CenterPlat.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Floor.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/LeftPlat.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Player.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/RightPlat.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Spawn.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Wall.jpg</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,9 @@ namespace MainProject
         private double xPos;
         private double yPos;
 
+        //player hitbox
+        private Rectangle rect;
+
         //current speed of the player
         private double xVelocity;
         private double yVelocity;
@@ -21,7 +25,7 @@ namespace MainProject
         private bool isGrounded;
 
         //simulates gravity
-        private const double gravity = -.3;
+        private const double gravity = -.2;
 
         //very fast horizontal acceleration when player begins to walk
         private const double walkAccel = 20;
@@ -33,6 +37,9 @@ namespace MainProject
         private const int maxXSpeed = 10;
         private const int maxYSpeed = -30;
 
+        //player asset
+        private Texture2D asset;
+
         public double XVelocity
         {
             get { return xVelocity; }
@@ -43,13 +50,20 @@ namespace MainProject
             get { return yVelocity; }
         }
 
-        public Player(double xPos, double yPos)
+        public Texture2D Asset
+        {
+            get { return asset; }
+        }
+
+        public Player(double xPos, double yPos, Texture2D asset)
         {
             this.xPos = xPos;
             this.yPos = yPos;
+            this.asset = asset;
             xVelocity = 0;
             yVelocity = 0;
             isGrounded = false;
+            rect = new Rectangle((int)xPos - 100, (int)yPos - 100, 200, 200);
         }
 
         /// <summary>
@@ -73,6 +87,49 @@ namespace MainProject
             {
                 yVelocity = 0;
             }
+        }
+
+        /// <summary>
+        /// checks tiles to see if they collide with the player
+        /// </summary>
+        /// <param name="level"></param>
+        public void Collisions(Room[,] level, int rows, int columns)
+        {
+            Rectangle collisionRect;
+            isGrounded = false;
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    //makes sure only near blocks that have collision are taken into account
+                    if(Math.Abs(level[i, j].Rect.X - rect.X) < 400 &&
+                        Math.Abs(level[i, j].Rect.Y - rect.Y) < 400 && level[i, j].CanCollide)
+                    {
+                        //creates a rectangle of the overlaping area
+                        collisionRect = Rectangle.Intersect(level[i, j].Rect, rect);
+
+                        //player is not rubbing against a wall
+                        if(collisionRect.X > collisionRect.Y)
+                        {
+                            //player is not hitting the bottom of a tile
+                            if(rect.Y < level[i, j].Rect.Y)
+                            {
+                                isGrounded = true;
+                            }
+                            else
+                            {
+                                yVelocity = 0;
+                            }
+                            
+                        }
+                    }
+                }
+            }
+        }
+
+        public void Draw(SpriteBatch sb)
+        {
+            sb.Draw(Asset, rect, Color.White);
         }
 
     }
