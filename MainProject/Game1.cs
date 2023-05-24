@@ -33,6 +33,9 @@ namespace MainProject
         //player
         private Player player;
 
+        //fonts
+        private SpriteFont debugFont;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -63,6 +66,7 @@ namespace MainProject
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            //sprites
             background = Content.Load<Texture2D>("Background");
             levelSprites.Add("background", background);
 
@@ -86,11 +90,14 @@ namespace MainProject
 
             playerSprite = Content.Load<Texture2D>("Player");
 
+            //fonts
+            debugFont = Content.Load<SpriteFont>("DebugFont");
+
             //level loading
             testLevel = new Level(levelSprites, width, height, "TestLevel.txt");
 
             //player loading
-            player = new Player(width/2, height/2, playerSprite);
+            player = new Player(width/2, height/2, playerSprite, debugFont);
         }
 
         protected override void Update(GameTime gameTime)

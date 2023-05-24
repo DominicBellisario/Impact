@@ -1,6 +1,7 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
 "C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Background.jpg","C:/Users/lbell/Source/Repos/Impact/MainProject/Content/bin/DesktopGL/Content/Background.xnb","TextureProcessor","Texture2DContent",3830,40085,0.1600256
 "C:/Users/lbell/Source/Repos/Impact/MainProject/Content/CenterPlat.jpg","C:/Users/lbell/Source/Repos/Impact/MainProject/Content/bin/DesktopGL/Content/CenterPlat.xnb","TextureProcessor","Texture2DContent",4130,40085,0.0039976
+"C:/Users/lbell/Source/Repos/Impact/MainProject/Content/DebugFont.spritefont","C:/Users/lbell/Source/Repos/Impact/MainProject/Content/bin/DesktopGL/Content/DebugFont.xnb","FontDescriptionProcessor","SpriteFontContent",2068,267295,0.290294
 "C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Floor.jpg","C:/Users/lbell/Source/Repos/Impact/MainProject/Content/bin/DesktopGL/Content/Floor.xnb","TextureProcessor","Texture2DContent",2494,40085,0.0026018
 "C:/Users/lbell/Source/Repos/Impact/MainProject/Content/LeftPlat.jpg","C:/Users/lbell/Source/Repos/Impact/MainProject/Content/bin/DesktopGL/Content/LeftPlat.xnb","TextureProcessor","Texture2DContent",2125,40085,0.0033013
 "C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Player.jpg","C:/Users/lbell/Source/Repos/Impact/MainProject/Content/bin/DesktopGL/Content/Player.xnb","TextureProcessor","Texture2DContent",11840,160085,0.1227304

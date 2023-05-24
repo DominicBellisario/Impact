@@ -37,6 +37,13 @@
 /processorParam:TextureFormat=Color
 /build:CenterPlat.jpg
 
+#begin DebugFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:DebugFont.spritefont
+
 #begin Floor.jpg
 /importer:TextureImporter
 /processor:TextureProcessor

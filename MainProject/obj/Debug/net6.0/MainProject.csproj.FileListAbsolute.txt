@@ -31,3 +31,4 @@ C:\Users\lbell\source\repos\Impact\MainProject\bin\Debug\net6.0\Content\RightPla
 C:\Users\lbell\source\repos\Impact\MainProject\bin\Debug\net6.0\Content\Spawn.xnb
 C:\Users\lbell\source\repos\Impact\MainProject\bin\Debug\net6.0\Content\Wall.xnb
 C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\Player.xnb
+C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\DebugFont.xnb
