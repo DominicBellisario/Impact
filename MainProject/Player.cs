@@ -37,8 +37,8 @@ namespace MainProject
         private const double airAccel = 1;
 
         //max speeds in the x and y directions
-        private const int maxXSpeed = 10;
-        private const int maxYSpeed = -30;
+        private const int maxXSpeed = 20;
+        private const int maxYSpeed = -50;
 
         //player asset
         private Texture2D asset;
@@ -200,14 +200,14 @@ namespace MainProject
                             {
                                 touchingLeftWall = true;
                                 //player is not stuck in the tile
-                                AdjustPosition(level, collisionRect.Width + 1, true, rows, columns);
+                                AdjustPosition(level, collisionRect.Width, true, rows, columns);
                             }
                             //player is on the left side of the tile, cannot move right
                             else if (rect.X + 100 <= level[i, j].Rect.X)
                             {
                                 touchingRightWall = true;
                                 //player is not stuck in the tile
-                                AdjustPosition(level, -collisionRect.Width - 1, true, rows, columns);
+                                AdjustPosition(level, -collisionRect.Width, true, rows, columns);
                             }
                         }
                         debugText = collisionRect.Width + ", " + collisionRect.Height;
@@ -225,10 +225,12 @@ namespace MainProject
                     if (isHorizontal)
                     {
                         level[i, j].RectX -= distance;
+                        xVelocity = 0;
                     }
                     else
                     {
                         level[i, j].RectY -= distance + 1;
+                        yVelocity = 0;
                     }
                 }
             }
