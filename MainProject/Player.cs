@@ -28,7 +28,7 @@ namespace MainProject
         private bool touchingRightWall;
 
         //simulates gravity
-        private const double gravity = -0.5;
+        private const double gravity = -1;
 
         //very fast horizontal acceleration when player begins to walk
         private const double walkAccel = 2;
@@ -46,8 +46,9 @@ namespace MainProject
         //keyboard stuff
         private KeyboardState prevKBState;
 
-        //fonts
+        //debug
         private SpriteFont debugFont;
+        private string debugText;
 
         public double XVelocity
         {
@@ -103,7 +104,7 @@ namespace MainProject
                 //player jumps up if the space key is pressed
                 if (kbState.IsKeyDown(Keys.Space) && prevKBState.IsKeyUp(Keys.Space))
                 {
-                    yVelocity = 10;
+                    yVelocity = 45;
                 }
                 //otherwise, player rests on the ground
                 else
@@ -158,6 +159,7 @@ namespace MainProject
             isGrounded = false;
             touchingLeftWall = false;
             touchingRightWall = false;
+            debugText = "0, 0";
             for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < columns; j++)
@@ -170,36 +172,63 @@ namespace MainProject
                         collisionRect = Rectangle.Intersect(level[i, j].Rect, rect);
 
                         //player is hitting the top or bottom of a tile
-                        if (collisionRect.X > collisionRect.Y)
+                        if (collisionRect.Width > collisionRect.Height)
                         {
                             //player is landing on a tile
-                            if (rect.Y < level[i, j].Rect.Y)
+                            if (rect.Y <= level[i, j].Rect.Y)
                             {
                                 //player is on the ground
                                 isGrounded = true;
+                                //player is not stuck in the tile
+                                AdjustPosition(level, -collisionRect.Height, false, rows, columns);
                             }
                             //player is hitting the bottom of a tile with their head
                             else
                             {
                                 //player has a light bounce off of the tile
                                 yVelocity = -1;
+                                //player is not stuck in the tile
+                                AdjustPosition(level, collisionRect.Height, false, rows, columns);
                             }
                             
                         }
                         //player is hitting the side of a tile
-                        if (collisionRect.X < collisionRect.Y)
+                        if (Math.Abs(collisionRect.Height) > Math.Abs(collisionRect.Width))
                         {
                             //player is on the right side of the tile, cannot move left
                             if (rect.X + 100 > level[i, j].Rect.X)
                             {
                                 touchingLeftWall = true;
+                                //player is not stuck in the tile
+                                AdjustPosition(level, collisionRect.Width + 1, true, rows, columns);
                             }
                             //player is on the left side of the tile, cannot move right
-                            if (rect.X + 100 <= level[i, j].Rect.X)
+                            else if (rect.X + 100 <= level[i, j].Rect.X)
                             {
                                 touchingRightWall = true;
+                                //player is not stuck in the tile
+                                AdjustPosition(level, -collisionRect.Width - 1, true, rows, columns);
                             }
                         }
+                        debugText = collisionRect.Width + ", " + collisionRect.Height;
+                    }
+                }
+            }
+        }
+
+        private void AdjustPosition(Room[,] level, int distance, bool isHorizontal, int rows, int columns)
+        {
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    if (isHorizontal)
+                    {
+                        level[i, j].RectX -= distance;
+                    }
+                    else
+                    {
+                        level[i, j].RectY -= distance + 1;
                     }
                 }
             }
@@ -208,7 +237,8 @@ namespace MainProject
         public void Draw(SpriteBatch sb)
         {
             sb.Draw(Asset, rect, Color.White);
-            sb.DrawString(debugFont, touchingLeftWall + ", " + touchingRightWall, 
+            sb.DrawString(debugFont, isGrounded + ", " + touchingLeftWall + ", " + touchingRightWall + 
+                ", "  + debugText, 
                 new Vector2(100, 100), Color.Red);
         }
 
