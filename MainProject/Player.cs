@@ -26,6 +26,7 @@ namespace MainProject
         private bool isGrounded;
         private bool touchingLeftWall;
         private bool touchingRightWall;
+        private bool currentlyJumping;
 
         //simulates gravity
         private const double gravity = -1;
@@ -39,6 +40,9 @@ namespace MainProject
         //max speeds in the x and y directions
         private const int maxXSpeed = 20;
         private const int maxYSpeed = -50;
+
+        //deceleration when space bar is released during a jump
+        private const int jumpDecceleration = 3;
 
         //player asset
         private Texture2D asset;
@@ -76,6 +80,7 @@ namespace MainProject
             isGrounded = false;
             touchingLeftWall = false;
             touchingRightWall = false;
+            currentlyJumping = false;
             rect = new Rectangle((int)xPos - 100, (int)yPos - 100, 200, 200);
         }
 
@@ -87,7 +92,7 @@ namespace MainProject
         {
             KeyboardState kbState = Keyboard.GetState();
 
-            //Y VELOCITY
+            //---------------------- motion in the Y direction -----------------------
             //player accelerates downward if not touching the ground and not at max speed
             if (!isGrounded && yVelocity > maxYSpeed)
             {
@@ -105,29 +110,54 @@ namespace MainProject
                 if (kbState.IsKeyDown(Keys.Space) && prevKBState.IsKeyUp(Keys.Space))
                 {
                     yVelocity = 45;
+                    currentlyJumping = true;
                 }
                 //otherwise, player rests on the ground
                 else
                 {
                     yVelocity = 0;
+                    currentlyJumping = false;
                 }
                 
             }
+            //the player can release the space button in the middle of a jump to jump less
+            if (currentlyJumping && kbState.IsKeyUp(Keys.Space) && yVelocity >= 0)
+            {
+                yVelocity = yVelocity / jumpDecceleration;
+                currentlyJumping = false;
+            }
 
-            //X VELOCITY
+            //-----------------------------motion in the X direction ---------------------------
             //player moves left if a is pressed, d is not pressed,
             //the player is not blocked, and they are not at max speed
             if (kbState.IsKeyDown(Keys.A) && kbState.IsKeyUp(Keys.D) && 
                 !touchingLeftWall && Math.Abs(xVelocity) < maxXSpeed)
             {
-                xVelocity += walkAccel;
+                //player accelerates slightly faster on the ground than in the air
+                if (isGrounded)
+                {
+                    xVelocity += walkAccel;
+                }
+                else
+                {
+                    xVelocity += airAccel;
+                }
+                    
             }
             //player moves right if d is pressed, a is not pressed,
             //the player is not blocked, and they are not at max speed
             if (kbState.IsKeyDown(Keys.D) && kbState.IsKeyUp(Keys.A) &&
                 !touchingRightWall && Math.Abs(xVelocity) < maxXSpeed)
             {
-                xVelocity -= walkAccel;
+                //player accelerates slightly faster on the ground than in the air
+                if (isGrounded)
+                {
+                    xVelocity -= walkAccel;
+                }
+                else
+                {
+                    xVelocity -= airAccel;
+                }
             }
 
             //if none or both "a" and "d" are pressed, decelerate the player to 0
