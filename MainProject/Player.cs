@@ -27,6 +27,7 @@ namespace MainProject
         private bool touchingLeftWall;
         private bool touchingRightWall;
         private bool currentlyJumping;
+        private bool canDoubleJump;
 
         //simulates gravity
         private const double gravity = -1;
@@ -81,6 +82,7 @@ namespace MainProject
             touchingLeftWall = false;
             touchingRightWall = false;
             currentlyJumping = false;
+            canDoubleJump = false;
             rect = new Rectangle((int)xPos - 100, (int)yPos - 100, 200, 200);
         }
 
@@ -93,6 +95,33 @@ namespace MainProject
             KeyboardState kbState = Keyboard.GetState();
 
             //---------------------- motion in the Y direction -----------------------
+
+            //player jumps while airborne without jumping previously
+            if (canDoubleJump && kbState.IsKeyDown(Keys.Space) && prevKBState.IsKeyUp(Keys.Space) && !isGrounded)
+            {
+                //player can not jump again
+                canDoubleJump = false;
+                //player jumps right
+                if (kbState.IsKeyDown(Keys.D) && kbState.IsKeyUp(Keys.A))
+                {
+                    xVelocity = -20;
+                    yVelocity = 30;
+                }
+                //player jumps right
+                else if (kbState.IsKeyUp(Keys.D) && kbState.IsKeyDown(Keys.A))
+                {
+                    xVelocity = 20;
+                    yVelocity = 30;
+                }
+                //player jumps straight
+                else if ((kbState.IsKeyDown(Keys.A) && kbState.IsKeyDown(Keys.D)) ||
+                (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D)))
+                {
+                    yVelocity = 30;
+                }
+
+            }
+
             //player accelerates downward if not touching the ground and not at max speed
             if (!isGrounded && yVelocity > maxYSpeed)
             {
@@ -117,6 +146,7 @@ namespace MainProject
                 {
                     yVelocity = 0;
                     currentlyJumping = false;
+                    canDoubleJump = true;
                 }
                 
             }
@@ -124,7 +154,6 @@ namespace MainProject
             if (currentlyJumping && kbState.IsKeyUp(Keys.Space) && yVelocity >= 0)
             {
                 yVelocity = yVelocity / jumpDecceleration;
-                currentlyJumping = false;
             }
 
             //-----------------------------motion in the X direction ---------------------------
