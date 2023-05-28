@@ -30,7 +30,7 @@ namespace MainProject
         private bool canDoubleJump;
 
         //simulates gravity
-        private const double gravity = -1;
+        private const double gravity = -1.5;
 
         //very fast horizontal acceleration when player begins to walk
         private const double walkAccel = 2;
@@ -105,19 +105,19 @@ namespace MainProject
                 if (kbState.IsKeyDown(Keys.D) && kbState.IsKeyUp(Keys.A))
                 {
                     xVelocity = -20;
-                    yVelocity = 30;
+                    yVelocity = 40;
                 }
                 //player jumps left
                 else if (kbState.IsKeyUp(Keys.D) && kbState.IsKeyDown(Keys.A))
                 {
                     xVelocity = 20;
-                    yVelocity = 30;
+                    yVelocity = 40;
                 }
                 //player jumps straight
                 else if ((kbState.IsKeyDown(Keys.A) && kbState.IsKeyDown(Keys.D)) ||
                 (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D)))
                 {
-                    yVelocity = 30;
+                    yVelocity = 45;
                 }
 
             }
@@ -138,7 +138,7 @@ namespace MainProject
                 //player jumps up if the space key is pressed
                 if (kbState.IsKeyDown(Keys.Space) && prevKBState.IsKeyUp(Keys.Space))
                 {
-                    yVelocity = 45;
+                    yVelocity = 55;
                     currentlyJumping = true;
                 }
                 //otherwise, player rests on the ground
@@ -160,7 +160,7 @@ namespace MainProject
             //player moves left if a is pressed, d is not pressed,
             //the player is not blocked, and they are not at max speed
             if (kbState.IsKeyDown(Keys.A) && kbState.IsKeyUp(Keys.D) && 
-                !touchingLeftWall && Math.Abs(xVelocity) < maxXSpeed)
+                !touchingLeftWall && Math.Abs(xVelocity) <= maxXSpeed)
             {
                 //player accelerates slightly faster on the ground than in the air
                 if (isGrounded)
@@ -176,7 +176,7 @@ namespace MainProject
             //player moves right if d is pressed, a is not pressed,
             //the player is not blocked, and they are not at max speed
             if (kbState.IsKeyDown(Keys.D) && kbState.IsKeyUp(Keys.A) &&
-                !touchingRightWall && Math.Abs(xVelocity) < maxXSpeed)
+                !touchingRightWall && Math.Abs(xVelocity) <= maxXSpeed)
             {
                 //player accelerates slightly faster on the ground than in the air
                 if (isGrounded)
@@ -190,8 +190,8 @@ namespace MainProject
             }
 
             //if none or both "a" and "d" are pressed, decelerate the player to 0
-            if ((kbState.IsKeyDown(Keys.A) && kbState.IsKeyDown(Keys.D)) ||
-                (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D)))
+            if (((kbState.IsKeyDown(Keys.A) && kbState.IsKeyDown(Keys.D)) ||
+                (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D))) && isGrounded)
             {
                 if (xVelocity > 0)
                 {
@@ -202,9 +202,33 @@ namespace MainProject
                     xVelocity += walkAccel;
                 }
             }
+            //if in the air, deceleration is faster
 
+            else if (((kbState.IsKeyDown(Keys.A) && kbState.IsKeyDown(Keys.D)) ||
+                (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D))) && !isGrounded)
+            {
+                if (xVelocity > 0)
+                {
+                    xVelocity -= airAccel;
+                }
+                else if (xVelocity < 0)
+                {
+                    xVelocity += airAccel;
+                }
+            }
+
+            //if speed exceeds max speed, such as with a spring, slow down
+            if (xVelocity > maxXSpeed)
+            {
+                xVelocity -= airAccel;
+            }
+            else if (-xVelocity < -maxXSpeed)
+            {
+                xVelocity += airAccel;
+            }
             //updates prev keyboard state
             prevKBState = kbState;
+            
         }
 
         /// <summary>
@@ -213,6 +237,7 @@ namespace MainProject
         /// <param name="level"></param>
         public void Collisions(Room[,] level, int rows, int columns)
         {
+            bool isColliding;
             Rectangle collisionRect;
             //reset all collisions
             isGrounded = false;
@@ -229,9 +254,10 @@ namespace MainProject
                     {
                         //creates a rectangle of the overlaping area
                         collisionRect = Rectangle.Intersect(level[i, j].Rect, rect);
-
+                        isColliding = rect.Intersects(level[i, j].Rect);
+                        
                         //player is hitting the top or bottom of a tile
-                        if (collisionRect.Width > collisionRect.Height)
+                        if (collisionRect.Width > collisionRect.Height && level[i, j].TypeOfCollision == "surface")
                         {
                             //player is landing on a tile
                             if (rect.Y <= level[i, j].Rect.Y)
@@ -252,7 +278,8 @@ namespace MainProject
                             
                         }
                         //player is hitting the side of a tile
-                        if (Math.Abs(collisionRect.Height) > Math.Abs(collisionRect.Width))
+                        else if (Math.Abs(collisionRect.Height) > Math.Abs(collisionRect.Width) 
+                            && level[i, j].TypeOfCollision == "surface")
                         {
                             //player is on the right side of the tile, cannot move left
                             if (rect.X + 100 > level[i, j].Rect.X)
@@ -269,6 +296,13 @@ namespace MainProject
                                 AdjustPosition(level, -collisionRect.Width, true, rows, columns);
                             }
                         }
+                        //player is hiting a left spring
+                        else if (level[i, j].TypeOfCollision == "leftSpring" && isColliding)
+                        {
+                            xVelocity = 50;
+                            yVelocity = 5;
+                        }
+
                         debugText = collisionRect.Width + ", " + collisionRect.Height;
                     }
                 }
@@ -299,7 +333,7 @@ namespace MainProject
         {
             sb.Draw(Asset, rect, Color.White);
             sb.DrawString(debugFont, isGrounded + ", " + touchingLeftWall + ", " + touchingRightWall + 
-                ", "  + debugText, 
+                ", "  + debugText + ", " + xVelocity, 
                 new Vector2(100, 100), Color.Red);
         }
 
