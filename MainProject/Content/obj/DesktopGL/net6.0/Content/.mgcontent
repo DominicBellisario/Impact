@@ -7,14 +7,30 @@
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Background.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/CenterPlat.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/DebugFont.spritefont</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/DownLeftSpring.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/DownRightSpring.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/DownSpring.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Floor.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/LeftPlat.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/LeftSpring.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Player.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/RightPlat.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/RightSpring.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Spawn.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/UpLeftSpring.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/UpRightSpring.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/UpSpring.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Wall.jpg</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

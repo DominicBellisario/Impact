@@ -107,44 +107,101 @@ namespace MainProject
                     data = lines[i].Split(",");
                     for (int j = 0; j < columns; j++)
                     {
+                        #region tileSorting
                         //determines what type of tile it is
                         //wall
                         if (data[j] == "W")
                         {
-                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), assets["wall"], true);
+                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
+                                assets["wall"], true, "surface");
                         }
                         //floor
                         else if (data[j] == "F")
                         {
-                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), assets["floor"], true);
+                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
+                                assets["floor"], true,"surface");
                         }
                         //left platform
                         else if (data[j] == "L")
                         {
-                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), assets["leftPlat"], true);
+                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
+                                assets["leftPlat"], true, "surface");
                         }
                         //center platform
                         else if (data[j] == "C")
                         {
-                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), assets["centerPlat"], true);
+                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
+                                assets["centerPlat"], true, "surface");
                         }
                         //right platform
                         else if (data[j] == "R")
                         {
-                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), assets["rightPlat"], true);
+                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
+                                assets["rightPlat"], true, "surface");
                         }
                         //background
                         else if (data[j] == "B")
                         {
-                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), assets["background"], false);
+                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
+                                assets["background"], false, "none");
                         }
                         //spawn
                         else if (data[j] == "S")
                         {
-                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), assets["spawn"], false);
+                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
+                                assets["spawn"], false, "none");
                             playerPosX = j * 100;
                             playerPosY = i * 100;
                         }
+                        //left spring
+                        else if (data[j] == "LS")
+                        {
+                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
+                                assets["leftSpring"], true, "leftSpring");
+                        }
+                        //right spring
+                        else if (data[j] == "RS")
+                        {
+                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
+                                assets["rightSpring"], true, "rightSpring");
+                        }
+                        //up spring
+                        else if (data[j] == "US")
+                        {
+                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
+                                assets["upSpring"], true, "upSpring");
+                        }
+                        //down spring
+                        else if (data[j] == "DS")
+                        {
+                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
+                                assets["downSpring"], true, "downSpring");
+                        }
+                        //up left spring
+                        else if (data[j] == "ULS")
+                        {
+                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
+                                assets["upLeftSpring"], true, "upLeftSpring");
+                        }
+                        //up right spring
+                        else if (data[j] == "URS")
+                        {
+                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
+                                assets["upRightSpring"], true, "upRightSpring");
+                        }
+                        //down left spring
+                        else if (data[j] == "DLS")
+                        {
+                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
+                                assets["downLeftSpring"], true, "downLeftSpring");
+                        }
+                        //down right spring
+                        else if (data[j] == "DRS")
+                        {
+                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
+                                assets["downRightSpring"], true, "downRightSpring");
+                        }
+                        #endregion
                     }
                 }
                 for (int i = 0; i < rows; i++)

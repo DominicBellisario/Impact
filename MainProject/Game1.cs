@@ -11,13 +11,25 @@ namespace MainProject
         private SpriteBatch _spriteBatch;
 
         //sprites
+        //non collidables
         private Texture2D background;
+        private Texture2D spawn;
+        //collidables
         private Texture2D floor;
         private Texture2D leftPlat;
         private Texture2D centerPlat;
         private Texture2D rightPlat;
-        private Texture2D spawn;
         private Texture2D wall;
+        //springs
+        private Texture2D leftSpring;
+        private Texture2D rightSpring;
+        private Texture2D upSpring;
+        private Texture2D downSpring;
+        private Texture2D upLeftSpring;
+        private Texture2D upRightSpring;
+        private Texture2D downLeftSpring;
+        private Texture2D downRightSpring;
+        //player
         private Texture2D playerSprite;
 
         //list of sprites needed for level loading
@@ -67,6 +79,7 @@ namespace MainProject
 
             // TODO: use this.Content to load your game content here
             //sprites
+            #region spriteLoading
             background = Content.Load<Texture2D>("Background");
             levelSprites.Add("background", background);
 
@@ -88,7 +101,32 @@ namespace MainProject
             wall = Content.Load<Texture2D>("Wall");
             levelSprites.Add("wall", wall);
 
+            leftSpring = Content.Load<Texture2D>("LeftSpring");
+            levelSprites.Add("leftSpring", leftSpring);
+
+            rightSpring = Content.Load<Texture2D>("RightSpring");
+            levelSprites.Add("rightSpring", rightSpring);
+
+            upSpring = Content.Load<Texture2D>("UpSpring");
+            levelSprites.Add("upSpring", upSpring);
+
+            downSpring = Content.Load<Texture2D>("DownSpring");
+            levelSprites.Add("downSpring", downSpring);
+
+            upLeftSpring = Content.Load<Texture2D>("UpLeftSpring");
+            levelSprites.Add("upLeftSpring", upLeftSpring);
+
+            upRightSpring = Content.Load<Texture2D>("UpRightSpring");
+            levelSprites.Add("upRightSpring", upRightSpring);
+
+            downLeftSpring = Content.Load<Texture2D>("DownLeftSpring");
+            levelSprites.Add("downLeftSpring", downLeftSpring);
+
+            downRightSpring = Content.Load<Texture2D>("DownRightSpring");
+            levelSprites.Add("downRightSpring", downRightSpring);
+
             playerSprite = Content.Load<Texture2D>("Player");
+            #endregion
 
             //fonts
             debugFont = Content.Load<SpriteFont>("DebugFont");

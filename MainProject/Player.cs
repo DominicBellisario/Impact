@@ -107,7 +107,7 @@ namespace MainProject
                     xVelocity = -20;
                     yVelocity = 30;
                 }
-                //player jumps right
+                //player jumps left
                 else if (kbState.IsKeyUp(Keys.D) && kbState.IsKeyDown(Keys.A))
                 {
                     xVelocity = 20;

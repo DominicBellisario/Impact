@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
@@ -12,6 +13,7 @@ namespace MainProject
     {
         private Rectangle rect;
         private Texture2D asset;
+        private string typeOfCollision;
         private bool canCollide;
 
         /// <summary>
@@ -49,7 +51,15 @@ namespace MainProject
         }
 
         /// <summary>
-        /// returns wether or not the tile needs collisions
+        /// returns the type of collision of the tile
+        /// </summary>
+        public string TypeOfCollision
+        {
+            get { return typeOfCollision; }
+        }
+
+        /// <summary>
+        /// returns wether or not the tile needs to be checkewd for collisions
         /// </summary>
         public bool CanCollide
         {
@@ -62,11 +72,12 @@ namespace MainProject
         /// <param name="rect"></param>
         /// <param name="asset"></param>
         /// <param name="canCollide"></param>
-        public Room(Rectangle rect, Texture2D asset, bool canCollide)
+        public Room(Rectangle rect, Texture2D asset, bool canCollide, string typeOfCollision)
         {
             this.rect = rect;
             this.asset = asset;
             this.canCollide = canCollide;
+            this.typeOfCollision = typeOfCollision;
         }
 
         /// <summary>
