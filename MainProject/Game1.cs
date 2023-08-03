@@ -131,7 +131,7 @@ namespace MainProject
             // TODO: Add your update logic here
 
             //checks for player collison with the level
-            player.Collisions(testLevel.LevelBlueprint, testLevel.Rows, testLevel.Columns);
+            player.Collisions(testLevel.BgLevelBlueprint, testLevel.Rows, testLevel.Columns);
             //determines the new player x and y velocity
             player.Update(gameTime);
 

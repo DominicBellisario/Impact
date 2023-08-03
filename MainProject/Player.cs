@@ -30,7 +30,7 @@ namespace MainProject
         private bool canDoubleJump;
 
         //initial y jump speed
-        private const int jumpSpeedY = 35;
+        private const int jumpSpeedY = 30;
 
         //initial x jump speed
         private const int jumpSpeedX = 20;
@@ -154,17 +154,15 @@ namespace MainProject
                 //player jumps up if the space key is pressed
                 if (kbState.IsKeyDown(Keys.Space) && prevKBState.IsKeyUp(Keys.Space))
                 {
-                    yVelocity = jumpSpeedY + 10;
+                    yVelocity = jumpSpeedY + 5;
                     currentlyJumping = true;
                 }
                 //otherwise, player rests on the ground
                 else
                 {
-                    yVelocity = 0;
                     currentlyJumping = false;
                     canDoubleJump = true;
                 }
-                
             }
             //the player can release the space button in the middle of a jump to jump less
             if (currentlyJumping && kbState.IsKeyUp(Keys.Space) && yVelocity >= 0)
@@ -256,11 +254,14 @@ namespace MainProject
         public void Collisions(Room[,] level, int rows, int columns)
         {
             bool isColliding;
+            bool collidingWithSpring;
             Rectangle collisionRect;
             //reset all collisions
             isGrounded = false;
             touchingLeftWall = false;
             touchingRightWall = false;
+            collidingWithSpring = false;
+
             debugText = "0, 0";
             for (int i = 0; i < rows; i++)
             {
@@ -274,8 +275,9 @@ namespace MainProject
                         collisionRect = Rectangle.Intersect(level[i, j].Rect, rect);
                         isColliding = rect.Intersects(level[i, j].Rect);
                         
-                        //player is hitting the top or bottom of a tile
-                        if (collisionRect.Width > collisionRect.Height && level[i, j].TypeOfCollision == "surface")
+                        //player is hitting the top or bottom of a tile while not hitting a spring
+                        if (collisionRect.Width > collisionRect.Height && level[i, j].TypeOfCollision == "surface"
+                            && !collidingWithSpring)
                         {
                             //player is landing on a tile
                             if (rect.Y <= level[i, j].Rect.Y)
@@ -296,9 +298,9 @@ namespace MainProject
                             
                         }
 
-                        //player is hitting the side of a tile
+                        //player is hitting the side of a tile and not touching a spring
                         else if (Math.Abs(collisionRect.Height) > Math.Abs(collisionRect.Width) 
-                            && level[i, j].TypeOfCollision == "surface")
+                            && level[i, j].TypeOfCollision == "surface" && !collidingWithSpring)
                         {
                             //player is on the right side of the tile, cannot move left
                             if (rect.X + 100 > level[i, j].Rect.X)
@@ -317,8 +319,9 @@ namespace MainProject
                         }
 
                         //player is hiting a left spring
-                        else if (level[i, j].TypeOfCollision == "leftSpring" && isColliding)
+                        if (level[i, j].TypeOfCollision == "leftSpring" && isColliding)
                         {
+                            collidingWithSpring = true;
                             //launches player left and a bit up
                             xVelocity = xSpringXVelocity;
                             yVelocity = xSpringYVelocity;
@@ -329,6 +332,7 @@ namespace MainProject
                         //player is hiting a right spring
                         else if (level[i, j].TypeOfCollision == "rightSpring" && isColliding)
                         {
+                            collidingWithSpring = true;
                             //launches player right and a bit up
                             xVelocity = -xSpringXVelocity;
                             yVelocity = xSpringYVelocity;
@@ -339,8 +343,10 @@ namespace MainProject
                         //player is hiting an up spring
                         else if (level[i, j].TypeOfCollision == "upSpring" && isColliding)
                         {
-                            //lauches player upwards
+                            collidingWithSpring = true;
+                            //lauches player upwards and resets x momentum
                             yVelocity = ySpringYVelocity;
+                            xVelocity = 0;
                             //resets double jump
                             canDoubleJump = true;
                         }

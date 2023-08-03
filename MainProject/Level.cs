@@ -13,16 +13,14 @@ namespace MainProject
 {
     internal class Level
     {
-        //holds all level assets
-        private Dictionary<string, Texture2D> assets;
+        //holds background level assets
+        private Dictionary<string, Texture2D> bgAssets;
 
         //width and height of screen
         private int width;
         private int height;
 
-        //name of file used to create the level
-        private string filename;
-        private Room[,] levelBlueprint;
+        private Room[,] bgLevelBlueprint;
 
         //x and y pos of player
         private double playerPosX;
@@ -41,9 +39,9 @@ namespace MainProject
             get { return playerPosY; }
         }
 
-        public Room[,] LevelBlueprint
+        public Room[,] BgLevelBlueprint
         {
-            get { return levelBlueprint; }
+            get { return bgLevelBlueprint; }
         }
 
         public int Rows
@@ -57,19 +55,18 @@ namespace MainProject
         }
 
         //paramaterized constructor
-        public Level(Dictionary<string, Texture2D> assets, int width, int height, string filename)
+        public Level(Dictionary<string, Texture2D> assets, int width, int height, string bgFilename)
         {
-            this.assets = assets;
+            this.bgAssets = assets;
             this.width = width;
             this.height = height;
-            this.filename = filename;
 
             //player starts in the middle of the screen
             playerPosX = width / 2;
             playerPosY = height / 2;
 
-            //create 2D array of tiles
-            LoadLevel(filename);
+            //create 2D array of tiles for the background
+            LoadLevel(bgFilename);
         }
 
         /// <summary>
@@ -98,7 +95,7 @@ namespace MainProject
                 //initialize levelBlueprint
                 rows = lines.Count;
                 columns = lines[0].Split(',').Length;
-                levelBlueprint = new Room[rows, columns];
+                bgLevelBlueprint = new Room[rows, columns];
 
                 //break up lines of data into individual letter tiles
                 for (int i = 0; i < rows; i++)
@@ -112,64 +109,64 @@ namespace MainProject
                         //wall
                         if (data[j] == "W")
                         {
-                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                assets["wall"], true, "surface");
+                            bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
+                                bgAssets["wall"], true, "surface");
                         }
                         //floor
                         else if (data[j] == "F")
                         {
-                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
-                                assets["floor"], true,"surface");
+                            bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
+                                bgAssets["floor"], true,"surface");
                         }
                         //left platform
                         else if (data[j] == "L")
                         {
-                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
-                                assets["leftPlat"], true, "surface");
+                            bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
+                                bgAssets["leftPlat"], true, "surface");
                         }
                         //center platform
                         else if (data[j] == "C")
                         {
-                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
-                                assets["centerPlat"], true, "surface");
+                            bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
+                                bgAssets["centerPlat"], true, "surface");
                         }
                         //right platform
                         else if (data[j] == "R")
                         {
-                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
-                                assets["rightPlat"], true, "surface");
+                            bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
+                                bgAssets["rightPlat"], true, "surface");
                         }
                         //background
                         else if (data[j] == "B")
                         {
-                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
-                                assets["background"], false, "none");
+                            bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
+                                bgAssets["background"], false, "none");
                         }
                         //spawn
                         else if (data[j] == "S")
                         {
-                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
-                                assets["spawn"], false, "none");
+                            bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
+                                bgAssets["spawn"], false, "none");
                             playerPosX = j * 100;
                             playerPosY = i * 100;
                         }
                         //left spring
                         else if (data[j] == "LS")
                         {
-                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
-                                assets["leftSpring"], true, "leftSpring");
+                            bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
+                                bgAssets["leftSpring"], true, "leftSpring");
                         }
                         //right spring
                         else if (data[j] == "RS")
                         {
-                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
-                                assets["rightSpring"], true, "rightSpring");
+                            bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
+                                bgAssets["rightSpring"], true, "rightSpring");
                         }
                         //up spring
                         else if (data[j] == "US")
                         {
-                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
-                                assets["upSpring"], true, "upSpring");
+                            bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
+                                bgAssets["upSpring"], true, "upSpring");
                         }
                         #endregion
                     }
@@ -178,8 +175,8 @@ namespace MainProject
                 {
                     for (int j = 0; j < columns; j++)
                     {
-                        levelBlueprint[i, j].RectX -= playerPosX - width / 2;
-                        levelBlueprint[i, j].RectY -= playerPosY - height / 2;
+                        bgLevelBlueprint[i, j].RectX -= playerPosX - width / 2;
+                        bgLevelBlueprint[i, j].RectY -= playerPosY - height / 2;
                     }
                 }
             }
@@ -205,8 +202,8 @@ namespace MainProject
             {
                 for (int j = 0; j < columns; j++)
                 {
-                    levelBlueprint[i, j].RectX += (int)xVelocity;
-                    levelBlueprint[i, j].RectY += (int)yVelocity;
+                    bgLevelBlueprint[i, j].RectX += (int)xVelocity;
+                    bgLevelBlueprint[i, j].RectY += (int)yVelocity;
                 }
             }
         }
@@ -221,7 +218,7 @@ namespace MainProject
             {
                 for (int j = 0; j < columns; j++)
                 {
-                    levelBlueprint[i,j].Draw(sb);
+                    bgLevelBlueprint[i,j].Draw(sb);
                 }
             }
         }
