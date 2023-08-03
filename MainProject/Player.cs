@@ -55,7 +55,7 @@ namespace MainProject
         private const int xSpringXVelocity = 50;
 
         //up velocity when hitting a horizontal spring
-        private const int xSpringYVelocity = 15;
+        private const int xSpringYVelocity = 20;
 
         //up velocity when hitting a vertical spring
         private const int ySpringYVelocity = 50;
@@ -170,6 +170,8 @@ namespace MainProject
             if (currentlyJumping && kbState.IsKeyUp(Keys.Space) && yVelocity >= 0)
             {
                 yVelocity = yVelocity / jumpDecceleration;
+                //jump ends
+                currentlyJumping = false;
             }
 
             //-----------------------------motion in the X direction ---------------------------
