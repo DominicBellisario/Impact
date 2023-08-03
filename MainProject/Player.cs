@@ -29,6 +29,12 @@ namespace MainProject
         private bool currentlyJumping;
         private bool canDoubleJump;
 
+        //initial y jump speed
+        private const int jumpSpeedY = 35;
+
+        //initial x jump speed
+        private const int jumpSpeedX = 20;
+
         //simulates gravity
         private const double gravity = -1.5;
 
@@ -96,6 +102,7 @@ namespace MainProject
 
             //---------------------- motion in the Y direction -----------------------
 
+            //DOUBLE JUMP
             //player jumps while airborne without jumping previously
             if (canDoubleJump && kbState.IsKeyDown(Keys.Space) && prevKBState.IsKeyUp(Keys.Space) && !isGrounded)
             {
@@ -104,20 +111,20 @@ namespace MainProject
                 //player jumps right
                 if (kbState.IsKeyDown(Keys.D) && kbState.IsKeyUp(Keys.A))
                 {
-                    xVelocity = -20;
-                    yVelocity = 40;
+                    xVelocity = -jumpSpeedX;
+                    yVelocity = jumpSpeedY;
                 }
                 //player jumps left
                 else if (kbState.IsKeyUp(Keys.D) && kbState.IsKeyDown(Keys.A))
                 {
-                    xVelocity = 20;
-                    yVelocity = 40;
+                    xVelocity = jumpSpeedX;
+                    yVelocity = jumpSpeedY;
                 }
-                //player jumps straight
+                //player jumps straight up
                 else if ((kbState.IsKeyDown(Keys.A) && kbState.IsKeyDown(Keys.D)) ||
                 (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D)))
                 {
-                    yVelocity = 45;
+                    yVelocity = jumpSpeedY;
                 }
 
             }
@@ -138,7 +145,7 @@ namespace MainProject
                 //player jumps up if the space key is pressed
                 if (kbState.IsKeyDown(Keys.Space) && prevKBState.IsKeyUp(Keys.Space))
                 {
-                    yVelocity = 55;
+                    yVelocity = jumpSpeedY + 10;
                     currentlyJumping = true;
                 }
                 //otherwise, player rests on the ground
@@ -202,8 +209,8 @@ namespace MainProject
                     xVelocity += walkAccel;
                 }
             }
-            //if in the air, deceleration is faster
 
+            //if in the air, deceleration is slower
             else if (((kbState.IsKeyDown(Keys.A) && kbState.IsKeyDown(Keys.D)) ||
                 (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D))) && !isGrounded)
             {
@@ -217,8 +224,8 @@ namespace MainProject
                 }
             }
 
-            //if speed exceeds max speed, such as with a spring, slow down
-            if (xVelocity > maxXSpeed)
+            //if speed exceeds max speed, such as with a spring, slow down faster than normal
+            else if (xVelocity > maxXSpeed)
             {
                 xVelocity -= airAccel;
             }
@@ -301,6 +308,8 @@ namespace MainProject
                         {
                             xVelocity = 50;
                             yVelocity = 5;
+                            //resets double jump
+                            canDoubleJump = true;
                         }
 
                         debugText = collisionRect.Width + ", " + collisionRect.Height;
