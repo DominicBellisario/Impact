@@ -171,36 +171,6 @@ namespace MainProject
                             levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
                                 assets["upSpring"], true, "upSpring");
                         }
-                        //down spring
-                        else if (data[j] == "DS")
-                        {
-                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
-                                assets["downSpring"], true, "downSpring");
-                        }
-                        //up left spring
-                        else if (data[j] == "ULS")
-                        {
-                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
-                                assets["upLeftSpring"], true, "upLeftSpring");
-                        }
-                        //up right spring
-                        else if (data[j] == "URS")
-                        {
-                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
-                                assets["upRightSpring"], true, "upRightSpring");
-                        }
-                        //down left spring
-                        else if (data[j] == "DLS")
-                        {
-                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
-                                assets["downLeftSpring"], true, "downLeftSpring");
-                        }
-                        //down right spring
-                        else if (data[j] == "DRS")
-                        {
-                            levelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100), 
-                                assets["downRightSpring"], true, "downRightSpring");
-                        }
                         #endregion
                     }
                 }

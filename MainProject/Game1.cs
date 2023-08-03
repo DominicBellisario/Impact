@@ -110,21 +110,6 @@ namespace MainProject
             upSpring = Content.Load<Texture2D>("UpSpring");
             levelSprites.Add("upSpring", upSpring);
 
-            downSpring = Content.Load<Texture2D>("DownSpring");
-            levelSprites.Add("downSpring", downSpring);
-
-            upLeftSpring = Content.Load<Texture2D>("UpLeftSpring");
-            levelSprites.Add("upLeftSpring", upLeftSpring);
-
-            upRightSpring = Content.Load<Texture2D>("UpRightSpring");
-            levelSprites.Add("upRightSpring", upRightSpring);
-
-            downLeftSpring = Content.Load<Texture2D>("DownLeftSpring");
-            levelSprites.Add("downLeftSpring", downLeftSpring);
-
-            downRightSpring = Content.Load<Texture2D>("DownRightSpring");
-            levelSprites.Add("downRightSpring", downRightSpring);
-
             playerSprite = Content.Load<Texture2D>("Player");
             #endregion
 
