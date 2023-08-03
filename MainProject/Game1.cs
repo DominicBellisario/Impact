@@ -14,26 +14,34 @@ namespace MainProject
         //non collidables
         private Texture2D background;
         private Texture2D spawn;
+
         //collidables
         private Texture2D floor;
         private Texture2D leftPlat;
         private Texture2D centerPlat;
         private Texture2D rightPlat;
         private Texture2D wall;
+
+        //transparent tile
+        private Texture2D nullTile;
+
         //springs
         private Texture2D leftSpring;
         private Texture2D rightSpring;
         private Texture2D upSpring;
-        private Texture2D downSpring;
-        private Texture2D upLeftSpring;
-        private Texture2D upRightSpring;
-        private Texture2D downLeftSpring;
-        private Texture2D downRightSpring;
+
+        //tubes
+        private Texture2D leftTube;
+        private Texture2D rightTube;
+        private Texture2D upTube;
+        private Texture2D downTube;
+
         //player
         private Texture2D playerSprite;
 
         //list of sprites needed for level loading
-        private Dictionary<string, Texture2D> levelSprites;
+        private Dictionary<string, Texture2D> bgLevelSprites;
+        private Dictionary<string, Texture2D> intLevelSprites;
 
         //width and height of screen
         private int width;
@@ -68,8 +76,8 @@ namespace MainProject
             width = _graphics.GraphicsDevice.Viewport.Width;
             height = _graphics.GraphicsDevice.Viewport.Height;
 
-            levelSprites = new Dictionary<string, Texture2D>();
-
+            bgLevelSprites = new Dictionary<string, Texture2D>();
+            intLevelSprites = new Dictionary<string, Texture2D>();
             base.Initialize();
         }
 
@@ -78,38 +86,56 @@ namespace MainProject
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            //sprites
             #region spriteLoading
+            //background sprites
             background = Content.Load<Texture2D>("Background");
-            levelSprites.Add("background", background);
+            bgLevelSprites.Add("background", background);
 
             leftPlat = Content.Load<Texture2D>("LeftPlat");
-            levelSprites.Add("leftPlat", leftPlat);
+            bgLevelSprites.Add("leftPlat", leftPlat);
 
             centerPlat = Content.Load<Texture2D>("CenterPlat");
-            levelSprites.Add("centerPlat", centerPlat);
+            bgLevelSprites.Add("centerPlat", centerPlat);
 
             rightPlat = Content.Load<Texture2D>("RightPlat");
-            levelSprites.Add("rightPlat", rightPlat);
+            bgLevelSprites.Add("rightPlat", rightPlat);
 
             floor = Content.Load<Texture2D>("Floor");
-            levelSprites.Add("floor", floor);
+            bgLevelSprites.Add("floor", floor);
 
             spawn = Content.Load<Texture2D>("Spawn");
-            levelSprites.Add("spawn", spawn);
+            bgLevelSprites.Add("spawn", spawn);
 
             wall = Content.Load<Texture2D>("Wall");
-            levelSprites.Add("wall", wall);
+            bgLevelSprites.Add("wall", wall);
+
+            //interactable sprites
+
+            nullTile = Content.Load<Texture2D>("Null");
+            intLevelSprites.Add("null", nullTile);
 
             leftSpring = Content.Load<Texture2D>("LeftSpring");
-            levelSprites.Add("leftSpring", leftSpring);
+            intLevelSprites.Add("leftSpring", leftSpring);
 
             rightSpring = Content.Load<Texture2D>("RightSpring");
-            levelSprites.Add("rightSpring", rightSpring);
+            intLevelSprites.Add("rightSpring", rightSpring);
 
             upSpring = Content.Load<Texture2D>("UpSpring");
-            levelSprites.Add("upSpring", upSpring);
+            intLevelSprites.Add("upSpring", upSpring);
 
+            upTube = Content.Load<Texture2D>("UpTube");
+            intLevelSprites.Add("upTube", upTube);
+
+            downTube = Content.Load<Texture2D>("DownTube");
+            intLevelSprites.Add("downTube", downTube);
+
+            leftTube = Content.Load<Texture2D>("LeftTube");
+            intLevelSprites.Add("leftTube", leftTube);
+
+            rightTube = Content.Load<Texture2D>("RightTube");
+            intLevelSprites.Add("rightTube", rightTube);
+
+            //player sprite
             playerSprite = Content.Load<Texture2D>("Player");
             #endregion
 
@@ -117,7 +143,8 @@ namespace MainProject
             debugFont = Content.Load<SpriteFont>("DebugFont");
 
             //level loading
-            testLevel = new Level(levelSprites, width, height, "TestLevel.txt");
+            testLevel = new Level(bgLevelSprites, intLevelSprites, 
+                width, height, "TestLevel.txt", "TestLevelInteractables.txt");
 
             //player loading
             player = new Player(width/2, height/2, playerSprite, debugFont);
@@ -130,8 +157,8 @@ namespace MainProject
 
             // TODO: Add your update logic here
 
-            //checks for player collison with the level
-            player.Collisions(testLevel.BgLevelBlueprint, testLevel.Rows, testLevel.Columns);
+            //checks for player collison
+            player.Collisions(testLevel.BgLevelBlueprint, testLevel.IntLevelBlueprint, testLevel.Rows, testLevel.Columns);
             //determines the new player x and y velocity
             player.Update(gameTime);
 

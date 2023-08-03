@@ -40,3 +40,8 @@ C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\RightSpr
 C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\UpLeftSpring.xnb
 C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\UpRightSpring.xnb
 C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\UpSpring.xnb
+C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\DownTube.xnb
+C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\LeftTube.xnb
+C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\Null.xnb
+C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\RightTube.xnb
+C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\UpTube.xnb

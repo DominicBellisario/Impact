@@ -251,7 +251,7 @@ namespace MainProject
         /// checks tiles to see if they collide with the player
         /// </summary>
         /// <param name="level"></param>
-        public void Collisions(Room[,] level, int rows, int columns)
+        public void Collisions(Room[,] bgLevel, Room[,] intLevel, int rows, int columns)
         {
             bool isColliding;
             bool collidingWithSpring;
@@ -263,29 +263,32 @@ namespace MainProject
             collidingWithSpring = false;
 
             debugText = "0, 0";
+
+            //----------collisions with background layer----------
+
             for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < columns; j++)
                 {
                     //makes sure only near blocks that have collision are taken into account
-                    if (Math.Abs(level[i, j].Rect.X - rect.X) < 400 &&
-                        Math.Abs(level[i, j].Rect.Y - rect.Y) < 400 && level[i, j].CanCollide)
+                    if (Math.Abs(bgLevel[i, j].Rect.X - rect.X) < 400 &&
+                        Math.Abs(bgLevel[i, j].Rect.Y - rect.Y) < 400 && bgLevel[i, j].CanCollide)
                     {
                         //creates a rectangle of the overlaping area
-                        collisionRect = Rectangle.Intersect(level[i, j].Rect, rect);
-                        isColliding = rect.Intersects(level[i, j].Rect);
+                        collisionRect = Rectangle.Intersect(bgLevel[i, j].Rect, rect);
+                        isColliding = rect.Intersects(bgLevel[i, j].Rect);
                         
                         //player is hitting the top or bottom of a tile while not hitting a spring
-                        if (collisionRect.Width > collisionRect.Height && level[i, j].TypeOfCollision == "surface"
-                            && !collidingWithSpring)
+                        if (collisionRect.Width > collisionRect.Height && bgLevel[i, j].TypeOfCollision == "surface")
                         {
                             //player is landing on a tile
-                            if (rect.Y <= level[i, j].Rect.Y)
+                            if (rect.Y <= bgLevel[i, j].Rect.Y)
                             {
                                 //player is on the ground
                                 isGrounded = true;
                                 //player is not stuck in the tile
-                                AdjustPosition(level, -collisionRect.Height, false, rows, columns);
+                                AdjustPosition(bgLevel, -collisionRect.Height, false, rows, columns);
+                                AdjustPosition(intLevel, -collisionRect.Height, false, rows, columns);
                             }
                             //player is hitting the bottom of a tile with their head
                             else
@@ -293,35 +296,54 @@ namespace MainProject
                                 //player has a light bounce off of the tile
                                 yVelocity = -1;
                                 //player is not stuck in the tile
-                                AdjustPosition(level, collisionRect.Height, false, rows, columns);
+                                AdjustPosition(bgLevel, collisionRect.Height, false, rows, columns);
+                                AdjustPosition(intLevel, collisionRect.Height, false, rows, columns);
                             }
                             
                         }
 
                         //player is hitting the side of a tile and not touching a spring
                         else if (Math.Abs(collisionRect.Height) > Math.Abs(collisionRect.Width) 
-                            && level[i, j].TypeOfCollision == "surface" && !collidingWithSpring)
+                            && bgLevel[i, j].TypeOfCollision == "surface" && !collidingWithSpring)
                         {
                             //player is on the right side of the tile, cannot move left
-                            if (rect.X + 100 > level[i, j].Rect.X)
+                            if (rect.X + 100 > bgLevel[i, j].Rect.X)
                             {
                                 touchingLeftWall = true;
                                 //player is not stuck in the tile
-                                AdjustPosition(level, collisionRect.Width, true, rows, columns);
+                                AdjustPosition(bgLevel, collisionRect.Width, true, rows, columns);
+                                AdjustPosition(intLevel, collisionRect.Width, true, rows, columns);
                             }
                             //player is on the left side of the tile, cannot move right
-                            else if (rect.X + 100 <= level[i, j].Rect.X)
+                            else if (rect.X + 100 <= bgLevel[i, j].Rect.X)
                             {
                                 touchingRightWall = true;
                                 //player is not stuck in the tile
-                                AdjustPosition(level, -collisionRect.Width, true, rows, columns);
+                                AdjustPosition(bgLevel, -collisionRect.Width, true, rows, columns);
+                                AdjustPosition(intLevel, -collisionRect.Width, true, rows, columns);
                             }
                         }
+                    }
+                }
+            }
+
+            //----------interactbale collisions----------
+
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    //makes sure only near blocks that have collision are taken into account
+                    if (Math.Abs(intLevel[i, j].Rect.X - rect.X) < 400 &&
+                        Math.Abs(intLevel[i, j].Rect.Y - rect.Y) < 400 && intLevel[i, j].CanCollide)
+                    {
+                        //creates a rectangle of the overlaping area
+                        //collisionRect = Rectangle.Intersect(intLevel[i, j].Rect, rect);
+                        isColliding = rect.Intersects(intLevel[i, j].Rect);
 
                         //player is hiting a left spring
-                        if (level[i, j].TypeOfCollision == "leftSpring" && isColliding)
+                        if (intLevel[i, j].TypeOfCollision == "leftSpring" && isColliding)
                         {
-                            collidingWithSpring = true;
                             //launches player left and a bit up
                             xVelocity = xSpringXVelocity;
                             yVelocity = xSpringYVelocity;
@@ -330,9 +352,8 @@ namespace MainProject
                         }
 
                         //player is hiting a right spring
-                        else if (level[i, j].TypeOfCollision == "rightSpring" && isColliding)
+                        else if (intLevel[i, j].TypeOfCollision == "rightSpring" && isColliding)
                         {
-                            collidingWithSpring = true;
                             //launches player right and a bit up
                             xVelocity = -xSpringXVelocity;
                             yVelocity = xSpringYVelocity;
@@ -341,20 +362,19 @@ namespace MainProject
                         }
 
                         //player is hiting an up spring
-                        else if (level[i, j].TypeOfCollision == "upSpring" && isColliding)
+                        else if (intLevel[i, j].TypeOfCollision == "upSpring" && isColliding)
                         {
-                            collidingWithSpring = true;
                             //lauches player upwards and resets x momentum
                             yVelocity = ySpringYVelocity;
                             xVelocity = 0;
                             //resets double jump
                             canDoubleJump = true;
                         }
-
-                        debugText = collisionRect.Width + ", " + collisionRect.Height;
                     }
+                        
                 }
             }
+            
         }
 
         private void AdjustPosition(Room[,] level, int distance, bool isHorizontal, int rows, int columns)

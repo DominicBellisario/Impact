@@ -16,11 +16,15 @@ namespace MainProject
         //holds background level assets
         private Dictionary<string, Texture2D> bgAssets;
 
+        //holds interactable level assets
+        private Dictionary<string, Texture2D> intAssets;
+
         //width and height of screen
         private int width;
         private int height;
 
         private Room[,] bgLevelBlueprint;
+        private Room[,] intLevelBlueprint;
 
         //x and y pos of player
         private double playerPosX;
@@ -44,6 +48,11 @@ namespace MainProject
             get { return bgLevelBlueprint; }
         }
 
+        public Room[,] IntLevelBlueprint
+        {
+            get { return intLevelBlueprint; }
+        }
+
         public int Rows
         {
             get { return rows; }
@@ -55,9 +64,11 @@ namespace MainProject
         }
 
         //paramaterized constructor
-        public Level(Dictionary<string, Texture2D> assets, int width, int height, string bgFilename)
+        public Level(Dictionary<string, Texture2D> bgAssets, Dictionary<string, Texture2D> intAssets, 
+            int width, int height, string bgFilename, string intFilename)
         {
-            this.bgAssets = assets;
+            this.bgAssets = bgAssets;
+            this.intAssets = intAssets;
             this.width = width;
             this.height = height;
 
@@ -66,16 +77,18 @@ namespace MainProject
             playerPosY = height / 2;
 
             //create 2D array of tiles for the background
-            LoadLevel(bgFilename);
+            LoadBgLevel(bgFilename);
+            //create one for the interactables
+            LoadIntLevel(intFilename);
         }
 
         /// <summary>
-        /// Loads the level's layout from a text file and creates a 2D array that represents the level
+        /// Loads the level's background layout from a text file and creates a 2D array that represents it
         /// </summary>
         /// <param name="filename"></param>
-        public void LoadLevel(string filename)
+        public void LoadBgLevel(string filename)
         {
-            StreamReader input = null;
+            StreamReader input;
             string currentLine;
             List<string> lines = new List<string>();
             string[] data;
@@ -150,24 +163,6 @@ namespace MainProject
                             playerPosX = j * 100;
                             playerPosY = i * 100;
                         }
-                        //left spring
-                        else if (data[j] == "LS")
-                        {
-                            bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["leftSpring"], true, "leftSpring");
-                        }
-                        //right spring
-                        else if (data[j] == "RS")
-                        {
-                            bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["rightSpring"], true, "rightSpring");
-                        }
-                        //up spring
-                        else if (data[j] == "US")
-                        {
-                            bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["upSpring"], true, "upSpring");
-                        }
                         #endregion
                     }
                 }
@@ -193,6 +188,115 @@ namespace MainProject
         }
 
         /// <summary>
+        /// Loads the level's background layout from a text file and creates a 2D array that represents it
+        /// </summary>
+        /// <param name="filename"></param>
+        public void LoadIntLevel(string filename)
+        {
+            StreamReader input;
+            string currentLine;
+            List<string> lines = new List<string>();
+            string[] data;
+            string[] tileData;
+
+
+            try
+            {
+                input = new StreamReader("..\\..\\..\\" + filename); //may need 2 or 0 double slashes
+
+                //reads through each line of the text file and stores it in a list
+                while ((currentLine = input.ReadLine()) != null)
+                {
+                    lines.Add(currentLine);
+                }
+
+                //initialize levelBlueprint
+                rows = lines.Count;
+                columns = lines[0].Split(',').Length;
+                intLevelBlueprint = new Room[rows, columns];
+
+                //break up lines of data into individual letter tiles
+                for (int i = 0; i < rows; i++)
+                {
+                    //gets one line of data
+                    data = lines[i].Split(",");
+                    for (int j = 0; j < columns; j++)
+                    {
+                        #region tileSorting
+                        //determines what type of tile it is
+                        //null
+                        if (data[j] == "N")
+                        {
+                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
+                                intAssets["null"], false, "none");
+                        }
+                        //left spring
+                        else if (data[j] == "LS")
+                        {
+                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
+                                intAssets["leftSpring"], true, "leftSpring");
+                        }
+                        //right spring
+                        else if (data[j] == "RS")
+                        {
+                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
+                                intAssets["rightSpring"], true, "rightSpring");
+                        }
+                        //up spring
+                        else if (data[j] == "US")
+                        {
+                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
+                                intAssets["upSpring"], true, "upSpring");
+                        }
+                        //left tube
+                        else if (data[j] == "LT")
+                        {
+                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
+                                intAssets["leftTube"], true, "leftTube");
+                        }
+                        //right tube
+                        else if (data[j] == "RT")
+                        {
+                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
+                                intAssets["rightTube"], true, "rightTube");
+                        }
+                        //up tube
+                        else if (data[j] == "UT")
+                        {
+                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
+                                intAssets["upTube"], true, "upTube");
+                        }
+                        //down tube
+                        else if (data[j] == "DT")
+                        {
+                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
+                                intAssets["downTube"], true, "downTube");
+                        }
+                        #endregion
+                    }
+                }
+                for (int i = 0; i < rows; i++)
+                {
+                    for (int j = 0; j < columns; j++)
+                    {
+                        intLevelBlueprint[i, j].RectX -= playerPosX - width / 2;
+                        intLevelBlueprint[i, j].RectY -= playerPosY - height / 2;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
+            //if file was opened close it
+            if (input != null)
+            {
+                input.Close();
+            }
+        }
+
+        /// <summary>
         /// updates the position of the level using player velocity
         /// </summary>
         /// <param name="gameTime"></param>
@@ -202,8 +306,11 @@ namespace MainProject
             {
                 for (int j = 0; j < columns; j++)
                 {
+                    intLevelBlueprint[i, j].RectX += (int)xVelocity;
+                    intLevelBlueprint[i, j].RectY += (int)yVelocity;
                     bgLevelBlueprint[i, j].RectX += (int)xVelocity;
                     bgLevelBlueprint[i, j].RectY += (int)yVelocity;
+                    
                 }
             }
         }
@@ -218,7 +325,9 @@ namespace MainProject
             {
                 for (int j = 0; j < columns; j++)
                 {
+                    //interactables are drawn over background
                     bgLevelBlueprint[i,j].Draw(sb);
+                    intLevelBlueprint[i, j].Draw(sb);
                 }
             }
         }
