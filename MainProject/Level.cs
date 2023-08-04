@@ -251,25 +251,25 @@ namespace MainProject
                         //left tube
                         else if (data[j] == "LT")
                         {
-                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
+                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100 - 100, 100, 300),
                                 intAssets["leftTube"], true, "leftTube");
                         }
                         //right tube
                         else if (data[j] == "RT")
                         {
-                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
+                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100 - 100, 100, 300),
                                 intAssets["rightTube"], true, "rightTube");
                         }
                         //up tube
                         else if (data[j] == "UT")
                         {
-                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
+                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100 - 100, i * 100, 300, 100),
                                 intAssets["upTube"], true, "upTube");
                         }
                         //down tube
                         else if (data[j] == "DT")
                         {
-                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
+                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100 - 100, i * 100, 300, 100),
                                 intAssets["downTube"], true, "downTube");
                         }
                         #endregion
@@ -321,12 +321,19 @@ namespace MainProject
         /// <param name="sb"></param>
         public void Draw(SpriteBatch sb)
         {
+            //draws background
             for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < columns; j++)
                 {
-                    //interactables are drawn over background
                     bgLevelBlueprint[i,j].Draw(sb);
+                }
+            }
+            //draws interactables
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
                     intLevelBlueprint[i, j].Draw(sb);
                 }
             }
