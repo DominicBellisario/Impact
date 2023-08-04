@@ -4,7 +4,9 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MainProject
@@ -29,6 +31,7 @@ namespace MainProject
         private bool currentlyJumping;
         private bool canDoubleJump;
 
+        #region general speeds and accelerations
         //initial y jump speed
         private const int jumpSpeedY = 30;
 
@@ -50,7 +53,9 @@ namespace MainProject
 
         //deceleration when space bar is released during a jump
         private const int jumpDecceleration = 3;
+        #endregion
 
+        #region spring variables
         //left or right velocity when hitting a horizontal spring
         private const int xSpringXVelocity = 50;
 
@@ -59,6 +64,21 @@ namespace MainProject
 
         //up velocity when hitting a vertical spring
         private const int ySpringYVelocity = 50;
+        #endregion
+
+        #region tube variables
+        //helps the tubes accelerate the player slower
+        private int tubeAccelerationChance;
+
+        //turns off gravity, horizontal controls, and ground pound when in a horizontal tube
+        private bool inHTube;
+
+        //turns off ground pound and double jump when in a verical tube
+        private bool inVTube;
+
+        //timer that disables a beam to allow the player to jump while in it
+        private int tubeDisableTimer;
+        #endregion 
 
         //player asset
         private Texture2D asset;
@@ -99,6 +119,11 @@ namespace MainProject
             currentlyJumping = false;
             canDoubleJump = false;
             rect = new Rectangle((int)xPos - 100, (int)yPos - 100, 200, 200);
+            tubeAccelerationChance = 0;
+            inHTube = false;
+            inVTube = false;
+            //60 frames before tube is reactivated
+            tubeDisableTimer = 60;
         }
 
         /// <summary>
@@ -118,33 +143,38 @@ namespace MainProject
                 //player can not jump again
                 canDoubleJump = false;
                 //player jumps right
-                if (kbState.IsKeyDown(Keys.D) && kbState.IsKeyUp(Keys.A))
+                if (kbState.IsKeyDown(Keys.D) && kbState.IsKeyUp(Keys.A) && !inHTube && !inVTube)
                 {
                     xVelocity = -jumpSpeedX;
                     yVelocity = jumpSpeedY;
                 }
                 //player jumps left
-                else if (kbState.IsKeyUp(Keys.D) && kbState.IsKeyDown(Keys.A))
+                else if (kbState.IsKeyUp(Keys.D) && kbState.IsKeyDown(Keys.A) && !inHTube && !inVTube)
                 {
                     xVelocity = jumpSpeedX;
                     yVelocity = jumpSpeedY;
                 }
                 //player jumps straight up
                 else if ((kbState.IsKeyDown(Keys.A) && kbState.IsKeyDown(Keys.D)) ||
-                (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D)))
+                (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D)) && !inVTube)
                 {
+                    //starts the timer to disable the tube
+                    if (inHTube)
+                    {
+                        tubeDisableTimer = 0;
+                    }
                     yVelocity = jumpSpeedY;
                 }
 
             }
 
-            //player accelerates downward if not touching the ground and not at max speed
-            if (!isGrounded && yVelocity > maxYSpeed)
+            //player accelerates downward if not touching the ground, not at max speed, and not in a tube
+            if (!isGrounded && yVelocity > maxYSpeed && !inHTube && !inVTube)
             {
                 yVelocity += gravity;
             }
             //player reaches terminal velocity, no acceleration
-            else if (!isGrounded && yVelocity <= maxYSpeed)
+            else if (!isGrounded && yVelocity <= maxYSpeed && !inHTube && !inVTube)
             {
                 yVelocity = maxYSpeed;
             }
@@ -152,7 +182,7 @@ namespace MainProject
             else
             {
                 //player jumps up if the space key is pressed
-                if (kbState.IsKeyDown(Keys.Space) && prevKBState.IsKeyUp(Keys.Space))
+                if (kbState.IsKeyDown(Keys.Space) && prevKBState.IsKeyUp(Keys.Space) &&!inHTube && !inVTube)
                 {
                     yVelocity = jumpSpeedY + 5;
                     currentlyJumping = true;
@@ -176,7 +206,7 @@ namespace MainProject
             //player moves left if a is pressed, d is not pressed,
             //the player is not blocked, and they are not at max speed
             if (kbState.IsKeyDown(Keys.A) && kbState.IsKeyUp(Keys.D) && 
-                !touchingLeftWall && Math.Abs(xVelocity) <= maxXSpeed)
+                !touchingLeftWall && Math.Abs(xVelocity) <= maxXSpeed && !inHTube)
             {
                 //player accelerates slightly faster on the ground than in the air
                 if (isGrounded)
@@ -192,7 +222,7 @@ namespace MainProject
             //player moves right if d is pressed, a is not pressed,
             //the player is not blocked, and they are not at max speed
             if (kbState.IsKeyDown(Keys.D) && kbState.IsKeyUp(Keys.A) &&
-                !touchingRightWall && Math.Abs(xVelocity) <= maxXSpeed)
+                !touchingRightWall && Math.Abs(xVelocity) <= maxXSpeed && !inHTube)
             {
                 //player accelerates slightly faster on the ground than in the air
                 if (isGrounded)
@@ -207,7 +237,7 @@ namespace MainProject
 
             //if none or both "a" and "d" are pressed, decelerate the player to 0
             if (((kbState.IsKeyDown(Keys.A) && kbState.IsKeyDown(Keys.D)) ||
-                (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D))) && isGrounded)
+                (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D))) && isGrounded && !inHTube && !inVTube)
             {
                 if (xVelocity > 0)
                 {
@@ -221,7 +251,7 @@ namespace MainProject
 
             //if in the air, deceleration is slower
             else if (((kbState.IsKeyDown(Keys.A) && kbState.IsKeyDown(Keys.D)) ||
-                (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D))) && !isGrounded)
+                (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D))) && !isGrounded && !inHTube && !inVTube)
             {
                 if (xVelocity > 0)
                 {
@@ -233,12 +263,12 @@ namespace MainProject
                 }
             }
 
-            //if speed exceeds max speed, such as with a spring, slow down faster than normal
-            else if (xVelocity > maxXSpeed)
+            //if speed exceeds max speed, such as with a spring, slow down faster than normal (except for tubes)
+            else if (xVelocity > maxXSpeed && !inHTube && !inVTube)
             {
                 xVelocity -= airAccel;
             }
-            else if (xVelocity < -maxXSpeed)
+            else if (xVelocity < -maxXSpeed && !inHTube && !inVTube)
             {
                 xVelocity += airAccel;
             }
@@ -256,11 +286,16 @@ namespace MainProject
             bool isColliding;
             bool collidingWithSpring;
             Rectangle collisionRect;
+            bool hitHTube;
+            bool hitVTube;
             //reset all collisions
             isGrounded = false;
             touchingLeftWall = false;
             touchingRightWall = false;
             collidingWithSpring = false;
+            hitHTube = false;
+            hitVTube = false;
+
 
             debugText = "0, 0";
 
@@ -370,10 +405,85 @@ namespace MainProject
                             //resets double jump
                             canDoubleJump = true;
                         }
+
+                        //player is hiting an up tube
+                        else if (intLevel[i, j].TypeOfCollision == "upTube" && isColliding)
+                        {
+                            //resets x momentum
+                            xVelocity = 0;
+                            //resets double jump
+                            canDoubleJump = true;
+                            //on the 3rd frame, accelerate by 1
+                            if (tubeAccelerationChance % 3 == 0)
+                            {
+                                yVelocity ++;
+                            }
+                            tubeAccelerationChance += 1;
+                            hitVTube = true;
+                        }
+
+                        //player is hiting a down tube
+                        else if (intLevel[i, j].TypeOfCollision == "downTube" && isColliding)
+                        {
+                            //resets x momentum
+                            xVelocity = 0;
+                            //resets double jump
+                            canDoubleJump = true;
+                            //on the 3rd frame, accelerate by 1
+                            if (tubeAccelerationChance % 3 == 0)
+                            {
+                                yVelocity--;
+                            }
+                            tubeAccelerationChance += 1;
+                            hitVTube = true;
+                        }
+
+                        //player is hiting a left tube
+                        else if (intLevel[i, j].TypeOfCollision == "leftTube" && isColliding
+                            && tubeDisableTimer == 60)
+                        {
+                            //resets y momentum
+                            yVelocity = 0;
+                            //resets double jump
+                            canDoubleJump = true;
+                            //on the 3rd frame, accelerate by 1
+                            if (tubeAccelerationChance % 3 == 0)
+                            {
+                                xVelocity++;
+                            }
+                            tubeAccelerationChance += 1;
+                            hitHTube = true;
+                        }
+
+                        //player is hiting a right tube
+                        else if (intLevel[i, j].TypeOfCollision == "rightTube" && isColliding
+                            && tubeDisableTimer == 60)
+                        {
+                            //resets y momentum
+                            yVelocity = 0;
+                            //resets double jump
+                            canDoubleJump = true;
+                            //on the 3rd frame, accelerate by 1
+                            if (tubeAccelerationChance % 3 == 0)
+                            {
+                                xVelocity--;
+                            }
+                            tubeAccelerationChance += 1;
+                            hitHTube = true;
+                        }
+
+                        //count up if the timer is not at its final value
+                        if (tubeDisableTimer != 60)
+                        {
+                            tubeDisableTimer++;
+                        }
                     }
                         
                 }
             }
+            //if the player touched a tube at all, inTube = true;
+            inHTube = hitHTube;
+            inVTube = hitVTube;
             
         }
 
