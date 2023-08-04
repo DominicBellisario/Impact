@@ -502,7 +502,7 @@ namespace MainProject
             inVTube = hitVTube;
             
         }
-
+        
         /// <summary>
         /// performs a slight correction when player hits a 
         /// collidable surface to prevent the player getting stuck
