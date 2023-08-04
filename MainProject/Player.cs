@@ -51,7 +51,8 @@ namespace MainProject
         private const double airAccel = 1;
 
         //max speeds in the x and y directions
-        private const int maxXSpeed = 20;
+        private const int maxXGroundSpeed = 20;
+        private const int maxXAirSpeed = 30;
         private const int maxYSpeed = -50;
 
         //deceleration when space bar is released during a jump
@@ -84,6 +85,9 @@ namespace MainProject
 
         //when true, player is attempting to leave the beam and the center attraction stops
         private bool playerWantsOut;
+
+        //max speed for beams
+        private const int maxBeamSpeed = 70;
 
         #endregion 
 
@@ -222,7 +226,7 @@ namespace MainProject
             //player moves left if a is pressed, d is not pressed,
             //the player is not blocked, and they are not at max speed
             if (kbState.IsKeyDown(Keys.A) && kbState.IsKeyUp(Keys.D) && 
-                !touchingLeftWall && Math.Abs(xVelocity) <= maxXSpeed)
+                !touchingLeftWall && Math.Abs(xVelocity) <= maxXGroundSpeed)
             {
                 if (!inHTube)
                 {
@@ -245,7 +249,7 @@ namespace MainProject
             //player moves right if d is pressed, a is not pressed,
             //the player is not blocked, and they are not at max speed
             if (kbState.IsKeyDown(Keys.D) && kbState.IsKeyUp(Keys.A) &&
-                !touchingRightWall && Math.Abs(xVelocity) <= maxXSpeed)
+                !touchingRightWall && Math.Abs(xVelocity) <= maxXGroundSpeed)
             {
                 if (!inHTube)
                 {
@@ -308,11 +312,19 @@ namespace MainProject
             }
 
             //if speed exceeds max speed, such as with a spring, slow down faster than normal (except for tubes)
-            else if (xVelocity > maxXSpeed && !inHTube && !inVTube)
+            else if (xVelocity > maxXGroundSpeed && !inHTube && !inVTube && isGrounded)
             {
                 xVelocity -= airAccel;
             }
-            else if (xVelocity < -maxXSpeed && !inHTube && !inVTube)
+            else if (xVelocity < -maxXGroundSpeed && !inHTube && !inVTube && isGrounded)
+            {
+                xVelocity += airAccel;
+            }
+            else if (xVelocity > maxXAirSpeed && !inHTube && !inVTube && !isGrounded)
+            {
+                xVelocity -= airAccel;
+            }
+            else if (xVelocity < -maxXAirSpeed && !inHTube && !inVTube && !isGrounded)
             {
                 xVelocity += airAccel;
             }
@@ -466,7 +478,7 @@ namespace MainProject
                             //resets double jump
                             canDoubleJump = true;
                             //on the 3rd frame, accelerate by 1
-                            if (tubeAccelerationChance % 3 == 0)
+                            if (tubeAccelerationChance % 3 == 0 && Math.Abs(yVelocity) <= maxBeamSpeed)
                             {
                                 yVelocity ++;
                             }
@@ -489,7 +501,7 @@ namespace MainProject
                             //resets double jump
                             canDoubleJump = true;
                             //on the 3rd frame, accelerate by 1
-                            if (tubeAccelerationChance % 3 == 0)
+                            if (tubeAccelerationChance % 3 == 0 && Math.Abs(yVelocity) <= maxBeamSpeed)
                             {
                                 yVelocity--;
                             }
@@ -514,7 +526,7 @@ namespace MainProject
                             //resets double jump
                             canDoubleJump = true;
                             //on the 3rd frame, accelerate by 1
-                            if (tubeAccelerationChance % 3 == 0)
+                            if (tubeAccelerationChance % 3 == 0 && Math.Abs(xVelocity) <= maxBeamSpeed)
                             {
                                 xVelocity++;
                             }
@@ -539,7 +551,7 @@ namespace MainProject
                             //resets double jump
                             canDoubleJump = true;
                             //on the 3rd frame, accelerate by 1
-                            if (tubeAccelerationChance % 3 == 0)
+                            if (tubeAccelerationChance % 3 == 0 && Math.Abs(xVelocity) <= maxBeamSpeed)
                             {
                                 xVelocity--;
                             }
