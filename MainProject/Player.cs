@@ -222,61 +222,89 @@ namespace MainProject
             //player moves left if a is pressed, d is not pressed,
             //the player is not blocked, and they are not at max speed
             if (kbState.IsKeyDown(Keys.A) && kbState.IsKeyUp(Keys.D) && 
-                !touchingLeftWall && Math.Abs(xVelocity) <= maxXSpeed && !inHTube)
+                !touchingLeftWall && Math.Abs(xVelocity) <= maxXSpeed)
             {
-                //player accelerates slightly faster on the ground than in the air
-                if (isGrounded)
+                if (!inHTube)
                 {
-                    xVelocity += walkAccel;
+                    //player accelerates slightly faster on the ground than in the air
+                    if (isGrounded)
+                    {
+                        xVelocity += walkAccel;
+                    }
+                    else
+                    {
+                        xVelocity += airAccel;
+                    }
                 }
-                else
+                if (inVTube)
                 {
-                    xVelocity += airAccel;
+                    //turns off beam center pull so player can escape
+                    playerWantsOut = true;
                 }
-                    
             }
             //player moves right if d is pressed, a is not pressed,
             //the player is not blocked, and they are not at max speed
             if (kbState.IsKeyDown(Keys.D) && kbState.IsKeyUp(Keys.A) &&
-                !touchingRightWall && Math.Abs(xVelocity) <= maxXSpeed && !inHTube)
+                !touchingRightWall && Math.Abs(xVelocity) <= maxXSpeed)
             {
-                //player accelerates slightly faster on the ground than in the air
-                if (isGrounded)
+                if (!inHTube)
                 {
-                    xVelocity -= walkAccel;
+                    //player accelerates slightly faster on the ground than in the air
+                    if (isGrounded)
+                    {
+                        xVelocity -= walkAccel;
+                    }
+                    else
+                    {
+                        xVelocity -= airAccel;
+                    }
+                    
                 }
-                else
+                if (inVTube)
                 {
-                    xVelocity -= airAccel;
+                    //turns off beam center pull so player can escape
+                    playerWantsOut = true;
                 }
+                
+                
             }
 
             //if none or both "a" and "d" are pressed, decelerate the player to 0
             if (((kbState.IsKeyDown(Keys.A) && kbState.IsKeyDown(Keys.D)) ||
-                (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D))) && isGrounded && !inHTube && !inVTube)
+                (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D))) && isGrounded)
             {
-                if (xVelocity > 0)
+                if (!inHTube && !inVTube)
                 {
-                    xVelocity -= walkAccel;
+                    if (xVelocity > 0)
+                    {
+                        xVelocity -= walkAccel;
+                    }
+                    else if (xVelocity < 0)
+                    {
+                        xVelocity += walkAccel;
+                    }
                 }
-                else if (xVelocity < 0)
-                {
-                    xVelocity += walkAccel;
-                }
+                //turns back on beam center pull
+                playerWantsOut = false;
             }
 
             //if in the air, deceleration is slower
             else if (((kbState.IsKeyDown(Keys.A) && kbState.IsKeyDown(Keys.D)) ||
-                (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D))) && !isGrounded && !inHTube && !inVTube)
+                (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D))) && !isGrounded)
             {
-                if (xVelocity > 0)
+                if(!inHTube && !inVTube)
                 {
-                    xVelocity -= airAccel;
+                    if (xVelocity > 0)
+                    {
+                        xVelocity -= airAccel;
+                    }
+                    else if (xVelocity < 0)
+                    {
+                        xVelocity += airAccel;
+                    }
                 }
-                else if (xVelocity < 0)
-                {
-                    xVelocity += airAccel;
-                }
+                //turns back on beam center pull
+                playerWantsOut = false;
             }
 
             //if speed exceeds max speed, such as with a spring, slow down faster than normal (except for tubes)
@@ -425,8 +453,16 @@ namespace MainProject
                         //player is hiting an up tube
                         else if (intLevel[i, j].TypeOfCollision == "upTube" && isColliding)
                         {
-                            //resets x momentum
-                            xVelocity += CenterPlayerInTube(intLevel[i, j].Rect, rect, false);
+                            //centers x momentum if player is not attempting to leave beam 
+                            if (!playerWantsOut)
+                            {
+                                xVelocity = CenterPlayerInTube(intLevel[i, j].Rect, rect, false);
+                            }
+                            else
+                            {
+                                xVelocity = 0;
+                            } 
+
                             //resets double jump
                             canDoubleJump = true;
                             //on the 3rd frame, accelerate by 1
@@ -441,8 +477,15 @@ namespace MainProject
                         //player is hiting a down tube
                         else if (intLevel[i, j].TypeOfCollision == "downTube" && isColliding)
                         {
-                            //resets x momentum
-                            xVelocity += CenterPlayerInTube(intLevel[i, j].Rect, rect, false);
+                            //centers x momentum if player is not attempting to leave beam 
+                            if (!playerWantsOut)
+                            {
+                                xVelocity = CenterPlayerInTube(intLevel[i, j].Rect, rect, false);
+                            }
+                            else
+                            {
+                                xVelocity = 0;
+                            }
                             //resets double jump
                             canDoubleJump = true;
                             //on the 3rd frame, accelerate by 1
@@ -458,8 +501,16 @@ namespace MainProject
                         else if (intLevel[i, j].TypeOfCollision == "leftTube" && isColliding
                             && tubeDisableTimer == 60)
                         {
-                            //resets y momentum
-                            yVelocity += CenterPlayerInTube(intLevel[i, j].Rect, rect, true);
+                            //centers y momentum if player is not attempting to leave beam 
+                            if (!playerWantsOut)
+                            {
+                                yVelocity = CenterPlayerInTube(intLevel[i, j].Rect, rect, true);
+                            }
+                            else
+                            {
+                                yVelocity = 0;
+                            }
+                                
                             //resets double jump
                             canDoubleJump = true;
                             //on the 3rd frame, accelerate by 1
@@ -475,8 +526,16 @@ namespace MainProject
                         else if (intLevel[i, j].TypeOfCollision == "rightTube" && isColliding
                             && tubeDisableTimer == 60)
                         {
-                            //resets y momentum
-                            yVelocity += CenterPlayerInTube(intLevel[i, j].Rect, rect, true);
+                            //centers y momentum if player is not attempting to leave beam 
+                            if (!playerWantsOut)
+                            {
+                                yVelocity = CenterPlayerInTube(intLevel[i, j].Rect, rect, true);
+                            }
+                            else
+                            {
+                                yVelocity = 0;
+                            }
+                                
                             //resets double jump
                             canDoubleJump = true;
                             //on the 3rd frame, accelerate by 1
@@ -542,8 +601,7 @@ namespace MainProject
         private int CenterPlayerInTube(Rectangle tubeRect, Rectangle playerRect, bool isHorizontal)
         {
             //speed that the player will be corrected
-            const int correctionStrength = 2;
-            const int deteriationSpeed = 7;
+            const int correctionStrength = 5;
 
             //value stays at 0 if player is already in center
             int velocityUpdate = 0;
@@ -561,15 +619,6 @@ namespace MainProject
                 {
                     velocityUpdate = -correctionStrength;
                 }
-                //chips away at the pull to zero in on the center
-                if (timer % deteriationSpeed == 0 && xVelocity > 0)
-                {
-                    velocityUpdate --;
-                }
-                else if (timer % deteriationSpeed == 0 && xVelocity < 0)
-                {
-                    velocityUpdate ++;
-                }
             }
             //changes the y velocity if in a horizontal tube
             else
@@ -583,15 +632,6 @@ namespace MainProject
                 else if (playerRect.Center.Y < tubeRect.Center.Y)
                 {
                     velocityUpdate = -correctionStrength;
-                }
-                //chips away at the pull to zero in on the center
-                if (timer % deteriationSpeed == 0 && yVelocity > 0)
-                {
-                    velocityUpdate --;
-                }
-                else if (timer % deteriationSpeed == 0 && yVelocity < 0)
-                {
-                    velocityUpdate ++;
                 }
             }
             return velocityUpdate;
