@@ -13,6 +13,9 @@ namespace MainProject
 {
     internal class Player
     {
+        //counts to 1000, then repeats
+        private int timer;
+
         //position of the player
         private double xPos;
         private double yPos;
@@ -78,6 +81,10 @@ namespace MainProject
 
         //timer that disables a beam to allow the player to jump while in it
         private int tubeDisableTimer;
+
+        //when true, player is attempting to leave the beam and the center attraction stops
+        private bool playerWantsOut;
+
         #endregion 
 
         //player asset
@@ -107,6 +114,7 @@ namespace MainProject
 
         public Player(double xPos, double yPos, Texture2D asset, SpriteFont debugFont)
         {
+            timer = 0;
             this.xPos = xPos;
             this.yPos = yPos;
             this.asset = asset;
@@ -124,6 +132,7 @@ namespace MainProject
             inVTube = false;
             //60 frames before tube is reactivated
             tubeDisableTimer = 60;
+            playerWantsOut = false;
         }
 
         /// <summary>
@@ -132,6 +141,13 @@ namespace MainProject
         /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
+            //timer counting
+            timer++;
+            if (timer == 1000)
+            {
+                timer = 0;
+            }
+
             KeyboardState kbState = Keyboard.GetState();
 
             //---------------------- motion in the Y direction -----------------------
@@ -410,7 +426,7 @@ namespace MainProject
                         else if (intLevel[i, j].TypeOfCollision == "upTube" && isColliding)
                         {
                             //resets x momentum
-                            xVelocity = 0;
+                            xVelocity += CenterPlayerInTube(intLevel[i, j].Rect, rect, false);
                             //resets double jump
                             canDoubleJump = true;
                             //on the 3rd frame, accelerate by 1
@@ -426,7 +442,7 @@ namespace MainProject
                         else if (intLevel[i, j].TypeOfCollision == "downTube" && isColliding)
                         {
                             //resets x momentum
-                            xVelocity = 0;
+                            xVelocity += CenterPlayerInTube(intLevel[i, j].Rect, rect, false);
                             //resets double jump
                             canDoubleJump = true;
                             //on the 3rd frame, accelerate by 1
@@ -443,7 +459,7 @@ namespace MainProject
                             && tubeDisableTimer == 60)
                         {
                             //resets y momentum
-                            yVelocity = 0;
+                            yVelocity += CenterPlayerInTube(intLevel[i, j].Rect, rect, true);
                             //resets double jump
                             canDoubleJump = true;
                             //on the 3rd frame, accelerate by 1
@@ -460,7 +476,7 @@ namespace MainProject
                             && tubeDisableTimer == 60)
                         {
                             //resets y momentum
-                            yVelocity = 0;
+                            yVelocity += CenterPlayerInTube(intLevel[i, j].Rect, rect, true);
                             //resets double jump
                             canDoubleJump = true;
                             //on the 3rd frame, accelerate by 1
@@ -487,6 +503,15 @@ namespace MainProject
             
         }
 
+        /// <summary>
+        /// performs a slight correction when player hits a 
+        /// collidable surface to prevent the player getting stuck
+        /// </summary>
+        /// <param name="level"></param>
+        /// <param name="distance"></param>
+        /// <param name="isHorizontal"></param>
+        /// <param name="rows"></param>
+        /// <param name="columns"></param>
         private void AdjustPosition(Room[,] level, int distance, bool isHorizontal, int rows, int columns)
         {
             for (int i = 0; i < rows; i++)
@@ -505,6 +530,71 @@ namespace MainProject
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// slowly moves the player towards the center of the tube in an attempt to center it
+        /// </summary>
+        /// <param name="tubeRect"></param>
+        /// <param name="playerRect"></param>
+        /// <param name="isHorizontal"></param>
+        /// <returns> a value that will be added to the current x or y velocity </returns>
+        private int CenterPlayerInTube(Rectangle tubeRect, Rectangle playerRect, bool isHorizontal)
+        {
+            //speed that the player will be corrected
+            const int correctionStrength = 2;
+            const int deteriationSpeed = 7;
+
+            //value stays at 0 if player is already in center
+            int velocityUpdate = 0;
+
+            //changes the x velocity if in a vertical tube
+            if (!isHorizontal)
+            {
+                //moves left if center is to the right of tube
+                if (playerRect.Center.X > tubeRect.Center.X)
+                {
+                    velocityUpdate = correctionStrength;
+                }
+                //right if center is to the left
+                else if (playerRect.Center.X < tubeRect.Center.X)
+                {
+                    velocityUpdate = -correctionStrength;
+                }
+                //chips away at the pull to zero in on the center
+                if (timer % deteriationSpeed == 0 && xVelocity > 0)
+                {
+                    velocityUpdate --;
+                }
+                else if (timer % deteriationSpeed == 0 && xVelocity < 0)
+                {
+                    velocityUpdate ++;
+                }
+            }
+            //changes the y velocity if in a horizontal tube
+            else
+            {
+                //moves up if center is below the tube
+                if (playerRect.Center.Y > tubeRect.Center.Y)
+                {
+                    velocityUpdate = correctionStrength;
+                }
+                //down if center is above
+                else if (playerRect.Center.Y < tubeRect.Center.Y)
+                {
+                    velocityUpdate = -correctionStrength;
+                }
+                //chips away at the pull to zero in on the center
+                if (timer % deteriationSpeed == 0 && yVelocity > 0)
+                {
+                    velocityUpdate --;
+                }
+                else if (timer % deteriationSpeed == 0 && yVelocity < 0)
+                {
+                    velocityUpdate ++;
+                }
+            }
+            return velocityUpdate;
         }
 
         public void Draw(SpriteBatch sb)
