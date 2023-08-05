@@ -89,6 +89,9 @@ namespace MainProject
         //max speed for beams
         private const int maxBeamSpeed = 70;
 
+        //keeps track of the direction that the tubes take the player
+        private bool normalTube;
+
         #endregion 
 
         //player asset
@@ -116,6 +119,11 @@ namespace MainProject
             get { return asset; }
         }
 
+        public bool NormalTube
+        {
+            get { return normalTube; }
+        }
+
         public Player(double xPos, double yPos, Texture2D asset, SpriteFont debugFont)
         {
             timer = 0;
@@ -137,6 +145,7 @@ namespace MainProject
             //60 frames before tube is reactivated
             tubeDisableTimer = 60;
             playerWantsOut = false;
+            normalTube = true;
         }
 
         /// <summary>
