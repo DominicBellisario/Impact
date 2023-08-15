@@ -693,6 +693,17 @@ namespace MainProject
             return velocityUpdate;
         }
 
+        private void SwitchDirections(Room[,] interactableTiles, int rows, int columns)
+        {
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+
+                }
+            }
+        }
+
         public void Draw(SpriteBatch sb)
         {
             sb.Draw(Asset, rect, Color.White);
