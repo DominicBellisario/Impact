@@ -163,10 +163,16 @@ namespace MainProject
 
             KeyboardState kbState = Keyboard.GetState();
 
+            //pressing the E key reverses every tube's direction
+            if (kbState.IsKeyDown(Keys.E) && prevKBState.IsKeyUp(Keys.E))
+            {
+                normalTube = !normalTube;
+            }
+
             //---------------------- motion in the Y direction -----------------------
 
-            //DOUBLE JUMP
-            //player jumps while airborne without jumping previously
+                //DOUBLE JUMP
+                //player jumps while airborne without jumping previously
             if (canDoubleJump && kbState.IsKeyDown(Keys.Space) && prevKBState.IsKeyUp(Keys.Space) && !isGrounded)
             {
                 //player can not jump again
@@ -489,7 +495,15 @@ namespace MainProject
                             //on the 3rd frame, accelerate by 1
                             if (tubeAccelerationChance % 3 == 0 && Math.Abs(yVelocity) <= maxBeamSpeed)
                             {
-                                yVelocity ++;
+                                if (normalTube)
+                                {
+                                    yVelocity++;
+                                }
+                                else
+                                {
+                                    yVelocity--;
+                                }
+                                
                             }
                             tubeAccelerationChance += 1;
                             hitVTube = true;
@@ -512,7 +526,14 @@ namespace MainProject
                             //on the 3rd frame, accelerate by 1
                             if (tubeAccelerationChance % 3 == 0 && Math.Abs(yVelocity) <= maxBeamSpeed)
                             {
-                                yVelocity--;
+                                if (normalTube)
+                                {
+                                    yVelocity--;
+                                }
+                                else
+                                {
+                                    yVelocity++;
+                                }
                             }
                             tubeAccelerationChance += 1;
                             hitVTube = true;
@@ -537,7 +558,14 @@ namespace MainProject
                             //on the 3rd frame, accelerate by 1
                             if (tubeAccelerationChance % 3 == 0 && Math.Abs(xVelocity) <= maxBeamSpeed)
                             {
-                                xVelocity++;
+                                if (normalTube)
+                                {
+                                    xVelocity++;
+                                }
+                                else
+                                {
+                                    xVelocity--;
+                                }
                             }
                             tubeAccelerationChance += 1;
                             hitHTube = true;
@@ -562,7 +590,14 @@ namespace MainProject
                             //on the 3rd frame, accelerate by 1
                             if (tubeAccelerationChance % 3 == 0 && Math.Abs(xVelocity) <= maxBeamSpeed)
                             {
-                                xVelocity--;
+                                if (normalTube)
+                                {
+                                    xVelocity--;
+                                }
+                                else
+                                {
+                                    xVelocity++;
+                                }
                             }
                             tubeAccelerationChance += 1;
                             hitHTube = true;
@@ -662,7 +697,7 @@ namespace MainProject
         {
             sb.Draw(Asset, rect, Color.White);
             sb.DrawString(debugFont, isGrounded + ", " + touchingLeftWall + ", " + touchingRightWall + 
-                ", "  + debugText + ", " + xVelocity, 
+                ", "  + debugText + ", " + xVelocity + ", " + normalTube, 
                 new Vector2(100, 100), Color.Red);
         }
 
