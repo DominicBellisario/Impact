@@ -15,6 +15,12 @@ namespace MainProject
         private Texture2D asset;
         private string typeOfCollision;
         private bool canCollide;
+        //how many frames need to pass for the next animation frame (larger # = slower speed)
+        private int animationSpeed;
+        //numnber of frames that this tile has in its animation 
+        private int numberOfFrames;
+        //the current frame of the animation
+        private int currentFrame;
 
         /// <summary>
         /// returns the room object's Rectangle
@@ -25,7 +31,7 @@ namespace MainProject
         }
 
         /// <summary>
-        /// returns and sets the room's Rectangle's X position
+        /// returns and sets the tile's Rectangle's X position
         /// </summary>
         public double RectX
         {
@@ -34,7 +40,7 @@ namespace MainProject
         }
 
         /// <summary>
-        /// returns and sets the room's Rectangle's Y position
+        /// returns and sets the tile's Rectangle's Y position
         /// </summary>
         public double RectY
         {
@@ -59,11 +65,36 @@ namespace MainProject
         }
 
         /// <summary>
-        /// returns wether or not the tile needs to be checkewd for collisions
+        /// returns wether or not the tile needs to be checked for collisions
         /// </summary>
         public bool CanCollide
         {
             get { return canCollide; }
+        }
+
+        /// <summary>
+        /// returns how fast the tile switches animation frames
+        /// </summary>
+        public int AnimationSpeed
+        {
+            get { return animationSpeed; }
+        }
+
+        /// <summary>
+        /// returns the number of unique frames in the tile's animation
+        /// </summary>
+        public int NumberOfFrames
+        {
+            get { return numberOfFrames; }
+        }
+
+        /// <summary>
+        /// returns or updates the current frame of the tile
+        /// </summary>
+        public int CurrentFrame 
+        { 
+            get { return currentFrame; } 
+            set { currentFrame = value; }
         }
 
         /// <summary>
@@ -72,12 +103,16 @@ namespace MainProject
         /// <param name="rect"></param>
         /// <param name="asset"></param>
         /// <param name="canCollide"></param>
-        public Room(Rectangle rect, Texture2D asset, bool canCollide, string typeOfCollision)
+        public Room(Rectangle rect, Texture2D asset, bool canCollide, 
+            string typeOfCollision, int animationSpeed, int numberOfFrames)
         {
             this.rect = rect;
             this.asset = asset;
             this.canCollide = canCollide;
             this.typeOfCollision = typeOfCollision;
+            this.animationSpeed = animationSpeed;
+            this.numberOfFrames = numberOfFrames;
+            currentFrame = 1;
         }
 
         /// <summary>
@@ -86,7 +121,10 @@ namespace MainProject
         /// <param name="sb"></param>
         public virtual void Draw(SpriteBatch sb)
         {
-            sb.Draw(Asset, Rect, Color.White);
+            sb.Draw(Asset, 
+                new Vector2((float)RectX, (float) RectY), 
+                Rect,
+                Color.White);
         }
     }
 }

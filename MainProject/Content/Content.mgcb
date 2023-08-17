@@ -80,7 +80,7 @@
 /processorParam:TextureFormat=Color
 /build:DownSpring.jpg
 
-#begin DownTube.jpg
+#begin DownTube.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -90,7 +90,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:DownTube.jpg
+/build:DownTube.png
 
 #begin Floor.jpg
 /importer:TextureImporter
@@ -128,7 +128,7 @@
 /processorParam:TextureFormat=Color
 /build:LeftSpring.jpg
 
-#begin LeftTube.jpg
+#begin LeftTube.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -138,7 +138,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:LeftTube.jpg
+/build:LeftTube.png
 
 #begin Null.png
 /importer:TextureImporter
@@ -188,7 +188,7 @@
 /processorParam:TextureFormat=Color
 /build:RightSpring.jpg
 
-#begin RightTube.jpg
+#begin RightTube.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -198,7 +198,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:RightTube.jpg
+/build:RightTube.png
 
 #begin Spawn.jpg
 /importer:TextureImporter
@@ -248,7 +248,7 @@
 /processorParam:TextureFormat=Color
 /build:UpSpring.jpg
 
-#begin UpTube.jpg
+#begin UpTube.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -258,7 +258,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:UpTube.jpg
+/build:UpTube.png
 
 #begin Wall.jpg
 /importer:TextureImporter

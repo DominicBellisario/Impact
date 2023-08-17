@@ -8,11 +8,16 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.IO;
 using Microsoft.Xna.Framework.Audio;
+using System.Threading;
+using System.Security.AccessControl;
 
 namespace MainProject
 {
     internal class Level
     {
+        //keeps track of what frame the level is on (60 fps)
+        private int timer;
+
         //holds background level assets
         private Dictionary<string, Texture2D> bgAssets;
 
@@ -72,6 +77,9 @@ namespace MainProject
             this.width = width;
             this.height = height;
 
+            //start timer at 0
+            timer = 0;
+
             //player starts in the middle of the screen
             playerPosX = width / 2;
             playerPosY = height / 2;
@@ -123,43 +131,43 @@ namespace MainProject
                         if (data[j] == "W")
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["wall"], true, "surface");
+                                bgAssets["wall"], true, "surface", 0, 0);
                         }
                         //floor
                         else if (data[j] == "F")
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["floor"], true,"surface");
+                                bgAssets["floor"], true,"surface", 0, 0);
                         }
                         //left platform
                         else if (data[j] == "L")
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["leftPlat"], true, "surface");
+                                bgAssets["leftPlat"], true, "surface", 0, 0);
                         }
                         //center platform
                         else if (data[j] == "C")
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["centerPlat"], true, "surface");
+                                bgAssets["centerPlat"], true, "surface", 0, 0);
                         }
                         //right platform
                         else if (data[j] == "R")
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["rightPlat"], true, "surface");
+                                bgAssets["rightPlat"], true, "surface", 0, 0);
                         }
                         //background
                         else if (data[j] == "B")
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["background"], false, "none");
+                                bgAssets["background"], false, "none", 0, 0);
                         }
                         //spawn
                         else if (data[j] == "S")
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["spawn"], false, "none");
+                                bgAssets["spawn"], false, "none", 0, 0);
                             playerPosX = j * 100;
                             playerPosY = i * 100;
                         }
@@ -228,49 +236,49 @@ namespace MainProject
                         if (data[j] == "N")
                         {
                             intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                intAssets["null"], false, "none");
+                                intAssets["null"], false, "none", 0, 0);
                         }
                         //left spring
                         else if (data[j] == "LS")
                         {
                             intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                intAssets["leftSpring"], true, "leftSpring");
+                                intAssets["leftSpring"], true, "leftSpring", 5, 4);
                         }
                         //right spring
                         else if (data[j] == "RS")
                         {
                             intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                intAssets["rightSpring"], true, "rightSpring");
+                                intAssets["rightSpring"], true, "rightSpring", 5, 4);
                         }
                         //up spring
                         else if (data[j] == "US")
                         {
                             intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                intAssets["upSpring"], true, "upSpring");
+                                intAssets["upSpring"], true, "upSpring", 5, 4);
                         }
                         //left tube
                         else if (data[j] == "LT")
                         {
                             intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100 - 100, 100, 300),
-                                intAssets["leftTube"], true, "leftTube");
+                                intAssets["leftTube"], true, "leftTube", 5, 3);
                         }
                         //right tube
                         else if (data[j] == "RT")
                         {
                             intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100 - 100, 100, 300),
-                                intAssets["rightTube"], true, "rightTube");
+                                intAssets["rightTube"], true, "rightTube", 5, 3);
                         }
                         //up tube
                         else if (data[j] == "UT")
                         {
                             intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100 - 100, i * 100, 300, 100),
-                                intAssets["upTube"], true, "upTube");
+                                intAssets["upTube"], true, "upTube", 5, 3);
                         }
                         //down tube
                         else if (data[j] == "DT")
                         {
                             intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100 - 100, i * 100, 300, 100),
-                                intAssets["downTube"], true, "downTube");
+                                intAssets["downTube"], true, "downTube", 5, 3);
                         }
                         #endregion
                     }
@@ -297,20 +305,43 @@ namespace MainProject
         }
 
         /// <summary>
-        /// updates the position of the level using player velocity
+        /// updates the position and animation frame of the level tiles
         /// </summary>
         /// <param name="gameTime"></param>
         public void Update(GameTime gameTime, double xVelocity, double yVelocity)
         {
+            //increment timer
+            timer++;
+
             for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < columns; j++)
                 {
+                    //updates the position of each level tile
                     intLevelBlueprint[i, j].RectX += (int)xVelocity;
                     intLevelBlueprint[i, j].RectY += (int)yVelocity;
                     bgLevelBlueprint[i, j].RectX += (int)xVelocity;
                     bgLevelBlueprint[i, j].RectY += (int)yVelocity;
-                    
+
+                    //as long as the timer has a speed
+                    if (intLevelBlueprint[i, j].AnimationSpeed != 0)
+                    {
+                        //update the tile's frame.  different depending on the individual tile's speed
+                        if (timer % intLevelBlueprint[i, j].AnimationSpeed == 0)
+                        {
+                            //repeats the animation if it is at its end
+                            if (intLevelBlueprint[i, j].CurrentFrame == intLevelBlueprint[i, j].NumberOfFrames)
+                            {
+                                intLevelBlueprint[i, j].CurrentFrame = 0;
+                            }
+                            //otherwise, go to next frame
+                            else
+                            {
+                                intLevelBlueprint[i, j].CurrentFrame++;
+                            }
+
+                        }
+                    }
                 }
             }
         }
