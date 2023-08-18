@@ -123,7 +123,7 @@ namespace MainProject
         {
             sb.Draw(Asset, 
                 new Vector2((float)RectX, (float) RectY), 
-                Rect,
+                null,
                 Color.White);
         }
     }
