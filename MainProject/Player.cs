@@ -244,7 +244,7 @@ namespace MainProject
             //player moves left if a is pressed, d is not pressed,
             //the player is not blocked, and they are not at max speed
             if (kbState.IsKeyDown(Keys.A) && kbState.IsKeyUp(Keys.D) && 
-                !touchingLeftWall && Math.Abs(xVelocity) <= maxXGroundSpeed)
+                !touchingLeftWall && xVelocity <= maxXGroundSpeed)
             {
                 if (!inHTube)
                 {
@@ -267,7 +267,7 @@ namespace MainProject
             //player moves right if d is pressed, a is not pressed,
             //the player is not blocked, and they are not at max speed
             if (kbState.IsKeyDown(Keys.D) && kbState.IsKeyUp(Keys.A) &&
-                !touchingRightWall && Math.Abs(xVelocity) <= maxXGroundSpeed)
+                !touchingRightWall && xVelocity >= -maxXGroundSpeed)
             {
                 if (!inHTube)
                 {
@@ -291,9 +291,9 @@ namespace MainProject
                 
             }
 
-            //if none or both "a" and "d" are pressed, decelerate the player to 0
+            //if none or both "a" and "d" are pressed, and the player is not on ice, decelerate the player to 0
             if (((kbState.IsKeyDown(Keys.A) && kbState.IsKeyDown(Keys.D)) ||
-                (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D))) && isGrounded)
+                (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D))) && isGrounded && !onIce)
             {
                 if (!inHTube && !inVTube)
                 {
@@ -421,7 +421,8 @@ namespace MainProject
 
                         //player is hitting the side of a tile and not touching a spring
                         else if (Math.Abs(collisionRect.Height) > Math.Abs(collisionRect.Width) 
-                            && bgLevel[i, j].TypeOfCollision == "surface" && !collidingWithSpring)
+                            && (bgLevel[i, j].TypeOfCollision == "surface" || 
+                            bgLevel[i, j].TypeOfCollision == "ice") && !collidingWithSpring)
                         {
                             //player is on the right side of the tile, cannot move left
                             if (rect.X + 100 > bgLevel[i, j].Rect.X)
