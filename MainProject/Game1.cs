@@ -21,6 +21,7 @@ namespace MainProject
         private Texture2D centerPlat;
         private Texture2D rightPlat;
         private Texture2D wall;
+        private Texture2D ice;
 
         //transparent tile
         private Texture2D nullTile;
@@ -108,6 +109,9 @@ namespace MainProject
 
             wall = Content.Load<Texture2D>("Wall");
             bgLevelSprites.Add("wall", wall);
+
+            ice = Content.Load<Texture2D>("Ice");
+            bgLevelSprites.Add("ice", ice);
 
             //interactable sprites
 

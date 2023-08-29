@@ -157,6 +157,12 @@ namespace MainProject
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
                                 bgAssets["rightPlat"], true, "surface", 0, 0);
                         }
+                        //ice
+                        else if (data[j] == "I")
+                        {
+                            bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
+                                bgAssets["ice"], true, "ice", 0, 0);
+                        }
                         //background
                         else if (data[j] == "B")
                         {

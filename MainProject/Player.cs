@@ -94,6 +94,8 @@ namespace MainProject
 
         #endregion 
 
+        private bool onIce;
+
         //player asset
         private Texture2D asset;
 
@@ -146,6 +148,7 @@ namespace MainProject
             tubeDisableTimer = 60;
             playerWantsOut = false;
             normalTube = true;
+            onIce = false;
         }
 
         /// <summary>
@@ -327,11 +330,11 @@ namespace MainProject
             }
 
             //if speed exceeds max speed, such as with a spring, slow down faster than normal (except for tubes)
-            else if (xVelocity > maxXGroundSpeed && !inHTube && !inVTube && isGrounded)
+            else if (xVelocity > maxXGroundSpeed && !inHTube && !inVTube && isGrounded && !onIce)
             {
                 xVelocity -= airAccel;
             }
-            else if (xVelocity < -maxXGroundSpeed && !inHTube && !inVTube && isGrounded)
+            else if (xVelocity < -maxXGroundSpeed && !inHTube && !inVTube && isGrounded && !onIce)
             {
                 xVelocity += airAccel;
             }
@@ -345,6 +348,8 @@ namespace MainProject
             }
             //updates prev keyboard state
             prevKBState = kbState;
+            //resets ice trigger
+            onIce = false;
             
         }
 
@@ -385,7 +390,8 @@ namespace MainProject
                         isColliding = rect.Intersects(bgLevel[i, j].Rect);
                         
                         //player is hitting the top or bottom of a tile while not hitting a spring
-                        if (collisionRect.Width > collisionRect.Height && bgLevel[i, j].TypeOfCollision == "surface")
+                        if (collisionRect.Width > collisionRect.Height && (bgLevel[i, j].TypeOfCollision == "surface" 
+                            || bgLevel[i, j].TypeOfCollision == "ice"))
                         {
                             //player is landing on a tile
                             if (rect.Y <= bgLevel[i, j].Rect.Y)
@@ -405,7 +411,12 @@ namespace MainProject
                                 AdjustPosition(bgLevel, collisionRect.Height, false, rows, columns);
                                 AdjustPosition(intLevel, collisionRect.Height, false, rows, columns);
                             }
-                            
+
+                            //triggers if the player is hitting ice
+                            if (bgLevel[i, j].TypeOfCollision == "ice")
+                            {
+                                onIce = true;
+                            }
                         }
 
                         //player is hitting the side of a tile and not touching a spring
