@@ -287,8 +287,6 @@ namespace MainProject
                     //turns off beam center pull so player can escape
                     playerWantsOut = true;
                 }
-                
-                
             }
 
             //if none or both "a" and "d" are pressed, and the player is not on ice, decelerate the player to 0
@@ -393,7 +391,6 @@ namespace MainProject
                     {
                         //creates a rectangle of the overlaping area
                         collisionRect = Rectangle.Intersect(bgLevel[i, j].Rect, rect);
-                        isColliding = rect.Intersects(bgLevel[i, j].Rect);
                         
                         //player is hitting the top or bottom of a tile while not hitting a spring
                         if (collisionRect.Width > collisionRect.Height && (bgLevel[i, j].TypeOfCollision == "surface" 
