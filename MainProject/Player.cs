@@ -61,7 +61,7 @@ namespace MainProject
 
         #region spring variables
         //left or right velocity when hitting a horizontal spring
-        private const int xSpringXVelocity = 50;
+        private const int xSpringXVelocity = 30;
 
         //up velocity when hitting a horizontal spring
         private const int xSpringYVelocity = 20;
@@ -314,7 +314,8 @@ namespace MainProject
             else if (((kbState.IsKeyDown(Keys.A) && kbState.IsKeyDown(Keys.D)) ||
                 (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D))) && !isGrounded)
             {
-                if(!inHTube && !inVTube)
+                /*
+                if (!inHTube && !inVTube && timer % 100 == 0)
                 {
                     if (xVelocity > 0)
                     {
@@ -325,6 +326,7 @@ namespace MainProject
                         xVelocity += airAccel;
                     }
                 }
+                */
                 //turns back on beam center pull
                 playerWantsOut = false;
             }
@@ -338,11 +340,11 @@ namespace MainProject
             {
                 xVelocity += airAccel;
             }
-            else if (xVelocity > maxXAirSpeed && !inHTube && !inVTube && !isGrounded)
+            else if (xVelocity > maxXAirSpeed && !inHTube && !inVTube && !isGrounded && timer % 3 == 0)
             {
                 xVelocity -= airAccel;
             }
-            else if (xVelocity < -maxXAirSpeed && !inHTube && !inVTube && !isGrounded)
+            else if (xVelocity < -maxXAirSpeed && !inHTube && !inVTube && !isGrounded && timer % 3 == 0)
             {
                 xVelocity += airAccel;
             }
