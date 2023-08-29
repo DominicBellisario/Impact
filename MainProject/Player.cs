@@ -297,13 +297,17 @@ namespace MainProject
             {
                 if (!inHTube && !inVTube)
                 {
-                    if (xVelocity > 0)
+                    if (xVelocity > 2)
                     {
                         xVelocity -= walkAccel;
                     }
-                    else if (xVelocity < 0)
+                    else if (xVelocity < -2)
                     {
                         xVelocity += walkAccel;
+                    }
+                    else
+                    {
+                        xVelocity = 0;
                     }
                 }
                 //turns back on beam center pull
