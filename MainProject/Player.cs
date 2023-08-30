@@ -316,7 +316,7 @@ namespace MainProject
             else if (((kbState.IsKeyDown(Keys.A) && kbState.IsKeyDown(Keys.D)) ||
                 (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D))) && !isGrounded)
             {
-                /*
+                /* reactivate if natural air deceleration is needed
                 if (!inHTube && !inVTube && timer % 100 == 0)
                 {
                     if (xVelocity > 0)
@@ -424,8 +424,8 @@ namespace MainProject
 
                         //player is hitting the side of a tile and not touching a spring
                         else if (Math.Abs(collisionRect.Height) > Math.Abs(collisionRect.Width) 
-                            && (bgLevel[i, j].TypeOfCollision == "surface" || 
-                            bgLevel[i, j].TypeOfCollision == "ice") && !collidingWithSpring)
+                            && (bgLevel[i, j].TypeOfCollision == "surface"/* || 
+                            bgLevel[i, j].TypeOfCollision == "ice"*/) && !collidingWithSpring)
                         {
                             //player is on the right side of the tile, cannot move left
                             if (rect.X + 100 > bgLevel[i, j].Rect.X)
