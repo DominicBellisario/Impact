@@ -39,6 +39,11 @@ namespace MainProject
         private int rows;
         private int columns;
 
+        //keyboard stuff
+        private KeyboardState kBState;
+        private KeyboardState prevKBState;
+        private bool normalTube;
+
         public double PlayerPosX
         {
             get { return playerPosX; }
@@ -76,6 +81,7 @@ namespace MainProject
             this.intAssets = intAssets;
             this.width = width;
             this.height = height;
+            normalTube = true;
 
             //start timer at 0
             timer = 0;
@@ -131,49 +137,49 @@ namespace MainProject
                         if (data[j] == "W")
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["wall"], true, "surface", 0, 0);
+                                bgAssets["wall"], bgAssets["wall"], true, "surface", 0, 0);
                         }
                         //floor
                         else if (data[j] == "F")
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["floor"], true,"surface", 0, 0);
+                                bgAssets["floor"], bgAssets["floor"], true,"surface", 0, 0);
                         }
                         //left platform
                         else if (data[j] == "L")
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["leftPlat"], true, "surface", 0, 0);
+                                bgAssets["leftPlat"], bgAssets["leftPlat"], true, "surface", 0, 0);
                         }
                         //center platform
                         else if (data[j] == "C")
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["centerPlat"], true, "surface", 0, 0);
+                                bgAssets["centerPlat"], bgAssets["centerPlat"], true, "surface", 0, 0);
                         }
                         //right platform
                         else if (data[j] == "R")
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["rightPlat"], true, "surface", 0, 0);
+                                bgAssets["rightPlat"], bgAssets["rightPlat"], true, "surface", 0, 0);
                         }
                         //ice
                         else if (data[j] == "I")
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["ice"], true, "ice", 0, 0);
+                                bgAssets["ice"], bgAssets["ice"], true, "ice", 0, 0);
                         }
                         //background
                         else if (data[j] == "B")
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["background"], false, "none", 0, 0);
+                                bgAssets["background"], bgAssets["background"], false, "none", 0, 0);
                         }
                         //spawn
                         else if (data[j] == "S")
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["spawn"], false, "none", 0, 0);
+                                bgAssets["spawn"], bgAssets["spawn"], false, "none", 0, 0);
                             playerPosX = j * 100;
                             playerPosY = i * 100;
                         }
@@ -242,49 +248,49 @@ namespace MainProject
                         if (data[j] == "N")
                         {
                             intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                intAssets["null"], false, "none", 0, 0);
+                                intAssets["null"], intAssets["null"], false, "none", 0, 0);
                         }
                         //left spring
                         else if (data[j] == "LS")
                         {
                             intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                intAssets["leftSpring"], true, "leftSpring", 5, 4);
+                                intAssets["leftSpring"], intAssets["leftSpring"], true, "leftSpring", 5, 4);
                         }
                         //right spring
                         else if (data[j] == "RS")
                         {
                             intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                intAssets["rightSpring"], true, "rightSpring", 5, 4);
+                                intAssets["rightSpring"], intAssets["rightSpring"], true, "rightSpring", 5, 4);
                         }
                         //up spring
                         else if (data[j] == "US")
                         {
                             intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                intAssets["upSpring"], true, "upSpring", 5, 4);
+                                intAssets["upSpring"], intAssets["upSpring"], true, "upSpring", 5, 4);
                         }
                         //left tube
                         else if (data[j] == "LT")
                         {
                             intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100 - 100, 100, 300),
-                                intAssets["leftTube"], true, "leftTube", 5, 3);
+                                intAssets["leftTube"], intAssets["rightTube"], true, "leftTube", 5, 3);
                         }
                         //right tube
                         else if (data[j] == "RT")
                         {
                             intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100 - 100, 100, 300),
-                                intAssets["rightTube"], true, "rightTube", 5, 3);
+                                intAssets["rightTube"], intAssets["leftTube"], true, "rightTube", 5, 3);
                         }
                         //up tube
                         else if (data[j] == "UT")
                         {
                             intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100 - 100, i * 100, 300, 100),
-                                intAssets["upTube"], true, "upTube", 5, 3);
+                                intAssets["upTube"], intAssets["downTube"], true, "upTube", 5, 3);
                         }
                         //down tube
                         else if (data[j] == "DT")
                         {
                             intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100 - 100, i * 100, 300, 100),
-                                intAssets["downTube"], true, "downTube", 5, 3);
+                                intAssets["downTube"], intAssets["upTube"], true, "downTube", 5, 3);
                         }
                         #endregion
                     }
@@ -350,6 +356,14 @@ namespace MainProject
                     }
                 }
             }
+            KeyboardState kbState = Keyboard.GetState();
+
+            //pressing the E key reverses every tube's direction
+            if (kbState.IsKeyDown(Keys.E) && prevKBState.IsKeyUp(Keys.E))
+            {
+                normalTube = !normalTube;
+            }
+            prevKBState = kbState;
         }
 
         /// <summary>
@@ -363,7 +377,14 @@ namespace MainProject
             {
                 for (int j = 0; j < columns; j++)
                 {
-                    bgLevelBlueprint[i,j].Draw(sb);
+                    if (normalTube)
+                    {
+                        bgLevelBlueprint[i,j].Draw(sb, true);
+                    }
+                    else
+                    {
+                        bgLevelBlueprint[i, j].Draw(sb, false);
+                    }
                 }
             }
             //draws interactables
@@ -371,7 +392,14 @@ namespace MainProject
             {
                 for (int j = 0; j < columns; j++)
                 {
-                    intLevelBlueprint[i, j].Draw(sb);
+                    if (normalTube)
+                    {
+                        intLevelBlueprint[i, j].Draw(sb, true);
+                    }
+                    else
+                    {
+                        intLevelBlueprint[i, j].Draw(sb, false);
+                    }
                 }
             }
         }

@@ -13,6 +13,7 @@ namespace MainProject
     {
         private Rectangle rect;
         private Texture2D asset;
+        private Texture2D asset2;
         private string typeOfCollision;
         private bool canCollide;
         //how many frames need to pass for the next animation frame (larger # = slower speed)
@@ -54,6 +55,14 @@ namespace MainProject
         public Texture2D Asset
         {
             get { return asset; }
+        }
+
+        /// <summary>
+        /// returns the texture of the asset
+        /// </summary>
+        public Texture2D Asset2
+        {
+            get { return asset2; }
         }
 
         /// <summary>
@@ -103,11 +112,12 @@ namespace MainProject
         /// <param name="rect"></param>
         /// <param name="asset"></param>
         /// <param name="canCollide"></param>
-        public Room(Rectangle rect, Texture2D asset, bool canCollide, 
+        public Room(Rectangle rect, Texture2D asset, Texture2D asset2, bool canCollide, 
             string typeOfCollision, int animationSpeed, int numberOfFrames)
         {
             this.rect = rect;
             this.asset = asset;
+            this.asset2 = asset2;
             this.canCollide = canCollide;
             this.typeOfCollision = typeOfCollision;
             this.animationSpeed = animationSpeed;
@@ -119,12 +129,23 @@ namespace MainProject
         /// Draws the room object
         /// </summary>
         /// <param name="sb"></param>
-        public virtual void Draw(SpriteBatch sb)
+        public virtual void Draw(SpriteBatch sb, bool normalTube)
         {
-            sb.Draw(Asset, 
+            if (normalTube)
+            {
+                sb.Draw(Asset, 
                 new Vector2((float)RectX, (float) RectY), 
                 null,
                 Color.White);
+            }
+            else
+            {
+                sb.Draw(Asset2,
+                new Vector2((float)RectX, (float)RectY),
+                null,
+                Color.White);
+            }
+            
         }
     }
 }
