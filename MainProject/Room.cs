@@ -144,8 +144,7 @@ namespace MainProject
                 new Vector2((float)RectX, (float)RectY),
                 null,
                 Color.White);
-            }
-            
+            } 
         }
     }
 }
