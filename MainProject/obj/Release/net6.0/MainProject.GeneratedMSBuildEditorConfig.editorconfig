@@ -5,6 +5,13 @@ build_property.UsingMicrosoftNETSdkWeb =
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
 build_property.PlatformNeutralAssembly = 
+<<<<<<< HEAD
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = MainProject
 build_property.ProjectDir = C:\Users\lbell\source\repos\Impact\MainProject\
+=======
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = MainProject
+build_property.ProjectDir = D:\Profiles\dlb5102\Source\Repos\Impact\MainProject\
+>>>>>>> eab1bc67f919e59398ddd8c1cf7a3af28fe7ed1d
