@@ -102,19 +102,19 @@
     ]
   },
   "packageFolders": {
-    "D:\\Profiles\\dlb5102\\.nuget\\packages\\": {}
+    "C:\\Users\\lbell\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Profiles\\dlb5102\\Source\\Repos\\Impact\\MainProject\\MainProject.csproj",
+      "projectUniqueName": "C:\\Users\\lbell\\Source\\Repos\\Impact\\MainProject\\MainProject.csproj",
       "projectName": "MainProject",
-      "projectPath": "D:\\Profiles\\dlb5102\\Source\\Repos\\Impact\\MainProject\\MainProject.csproj",
-      "packagesPath": "D:\\Profiles\\dlb5102\\.nuget\\packages\\",
-      "outputPath": "D:\\Profiles\\dlb5102\\Source\\Repos\\Impact\\MainProject\\obj\\",
+      "projectPath": "C:\\Users\\lbell\\Source\\Repos\\Impact\\MainProject\\MainProject.csproj",
+      "packagesPath": "C:\\Users\\lbell\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\lbell\\Source\\Repos\\Impact\\MainProject\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "Z:\\IGMProfile\\AppData\\NuGet\\NuGet.Config",
+        "C:\\Users\\lbell\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -165,7 +165,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }
