@@ -4,29 +4,29 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/Background.jpg</File>
-    <File>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/CenterPlat.jpg</File>
-    <File>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/DebugFont.spritefont</File>
-    <File>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/DownLeftSpring.jpg</File>
-    <File>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/DownRightSpring.jpg</File>
-    <File>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/DownSpring.jpg</File>
-    <File>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/DownTube.png</File>
-    <File>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/Floor.jpg</File>
-    <File>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/Ice.jpg</File>
-    <File>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/LeftPlat.jpg</File>
-    <File>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/LeftSpring.jpg</File>
-    <File>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/LeftTube.png</File>
-    <File>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/Null.png</File>
-    <File>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/Player.jpg</File>
-    <File>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/RightPlat.jpg</File>
-    <File>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/RightSpring.jpg</File>
-    <File>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/RightTube.png</File>
-    <File>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/Spawn.jpg</File>
-    <File>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/UpLeftSpring.jpg</File>
-    <File>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/UpRightSpring.jpg</File>
-    <File>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/UpSpring.jpg</File>
-    <File>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/UpTube.png</File>
-    <File>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/Wall.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Background.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/CenterPlat.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/DebugFont.spritefont</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/DownLeftSpring.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/DownRightSpring.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/DownSpring.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/DownTube.png</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Floor.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Ice.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/LeftPlat.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/LeftSpring.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/LeftTube.png</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Null.png</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Player.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/RightPlat.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/RightSpring.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/RightTube.png</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Spawn.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/UpLeftSpring.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/UpRightSpring.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/UpSpring.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/UpTube.png</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Wall.jpg</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/RightTube.png</SourceFile>
-  <SourceTime>2023-08-31T14:00:08.6448189-04:00</SourceTime>
-  <DestFile>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/bin/DesktopGL/Content/RightTube.xnb</DestFile>
-  <DestTime>2023-08-31T14:08:05.6093808-04:00</DestTime>
+  <SourceFile>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/RightTube.png</SourceFile>
+  <SourceTime>2023-08-17T18:12:39.6561221-04:00</SourceTime>
+  <DestFile>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/bin/DesktopGL/Content/RightTube.xnb</DestFile>
+  <DestTime>2023-08-31T16:08:02.5855762-04:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T07:44:56-04:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

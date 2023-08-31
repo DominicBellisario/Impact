@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/LeftSpring.jpg</SourceFile>
-  <SourceTime>2023-08-31T14:00:08.6438205-04:00</SourceTime>
-  <DestFile>D:/Profiles/dlb5102/Source/Repos/Impact/MainProject/Content/bin/DesktopGL/Content/LeftSpring.xnb</DestFile>
-  <DestTime>2023-08-31T14:08:05.53458-04:00</DestTime>
+  <SourceFile>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/LeftSpring.jpg</SourceFile>
+  <SourceTime>2023-05-28T12:58:05.1896086-04:00</SourceTime>
+  <DestFile>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/bin/DesktopGL/Content/LeftSpring.xnb</DestFile>
+  <DestTime>2023-08-31T16:08:02.5478919-04:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T07:44:56-04:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
