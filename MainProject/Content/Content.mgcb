@@ -92,7 +92,7 @@
 /processorParam:TextureFormat=Color
 /build:DownTube.png
 
-#begin Enemy Shooting.jpg
+#begin EnemyShooting.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -102,9 +102,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Enemy Shooting.jpg
+/build:EnemyShooting.jpg
 
-#begin Enemy Walking.jpg
+#begin EnemyWalking.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -114,7 +114,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Enemy Walking.jpg
+/build:EnemyWalking.jpg
 
 #begin Floor.jpg
 /importer:TextureImporter

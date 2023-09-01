@@ -54,12 +54,11 @@ namespace MainProject
         /// <param name="leftY"></param>
         /// <param name="rightX"></param>
         /// <param name="rightY"></param>
-        public Enemy(int speed, int aggroRadius, Rectangle hitbox, int leftX, int leftY, 
+        public Enemy(int speed, int aggroRadius, int xPos, int yPos, int leftX, int leftY, 
             int rightX, int rightY, Texture2D walkingSpriteSheet, Texture2D shootingSpriteSheet)
         {
             this.speed = speed;
             this.aggroRadius = aggroRadius;
-            this.hitbox = hitbox;
             this.walkingSpriteSheet = walkingSpriteSheet;
             this.shootingSpriteSheet = shootingSpriteSheet;
 
@@ -69,6 +68,9 @@ namespace MainProject
             //creates edge rectangles
             leftRect = new Rectangle(leftX, leftY, 100, 100);
             rightRect = new Rectangle(rightX, rightY, 100, 100);
+
+            //creates hitbox
+            hitbox = new Rectangle(xPos, yPos, 300, 300);
 
             //3 animation frames/second
             fps = 3.0;

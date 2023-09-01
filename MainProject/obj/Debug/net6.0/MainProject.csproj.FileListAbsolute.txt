@@ -94,3 +94,5 @@ D:\Profiles\dlb5102\Source\Repos\Impact\MainProject\obj\Debug\net6.0\refint\Main
 D:\Profiles\dlb5102\Source\Repos\Impact\MainProject\obj\Debug\net6.0\MainProject.pdb
 D:\Profiles\dlb5102\Source\Repos\Impact\MainProject\obj\Debug\net6.0\MainProject.genruntimeconfig.cache
 D:\Profiles\dlb5102\Source\Repos\Impact\MainProject\obj\Debug\net6.0\ref\MainProject.dll
+C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\EnemyShooting.xnb
+C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\EnemyWalking.xnb

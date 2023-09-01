@@ -40,6 +40,10 @@ namespace MainProject
         //player
         private Texture2D playerSprite;
 
+        //enemies
+        private Texture2D enemyWalking;
+        private Texture2D enemyShooting;
+
         //list of sprites needed for level loading
         private Dictionary<string, Texture2D> bgLevelSprites;
         private Dictionary<string, Texture2D> intLevelSprites;
@@ -53,6 +57,9 @@ namespace MainProject
 
         //player
         private Player player;
+
+        //list of enemies
+        private List<Enemy> enemies;
 
         //fonts
         private SpriteFont debugFont;
@@ -79,6 +86,7 @@ namespace MainProject
 
             bgLevelSprites = new Dictionary<string, Texture2D>();
             intLevelSprites = new Dictionary<string, Texture2D>();
+            enemies = new List<Enemy>();
             base.Initialize();
         }
 
@@ -143,6 +151,10 @@ namespace MainProject
             playerSprite = Content.Load<Texture2D>("Player");
             #endregion
 
+            //enemy sprites
+            enemyWalking = Content.Load<Texture2D>("EnemyWalking");
+            enemyShooting = Content.Load<Texture2D>("EnemyShooting");
+
             //fonts
             debugFont = Content.Load<SpriteFont>("DebugFont");
 
@@ -152,6 +164,10 @@ namespace MainProject
 
             //player loading
             player = new Player(width/2, height/2, playerSprite, debugFont);
+
+            //test level enemies
+            enemies.Add(new Enemy(10, 500, 1900, 3200, 1800, 3200, 2600, 3200,
+                enemyWalking, enemyShooting));
         }
 
         protected override void Update(GameTime gameTime)
@@ -169,6 +185,12 @@ namespace MainProject
             //updates the level position each frame
             testLevel.Update(gameTime, player.XVelocity, player.YVelocity);
 
+            //updates every enemy each frame
+            foreach (Enemy enemy in enemies)
+            {
+                enemy.Update(gameTime, (int)player.XVelocity, (int)player.YVelocity);
+            }
+
             base.Update(gameTime);
         }
 
@@ -178,8 +200,15 @@ namespace MainProject
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
+            //draws level first
             testLevel.Draw(_spriteBatch);
+            //then player
             player.Draw(_spriteBatch);
+            //then enemies
+            foreach (Enemy enemy in enemies)
+            {
+                enemy.Draw(_spriteBatch);
+            }
             _spriteBatch.End();
             base.Draw(gameTime);
         }
