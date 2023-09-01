@@ -42,7 +42,7 @@ namespace MainProject
         double timeCounter;     // The amount of time that has passed
         double fps;             // The speed of the animation
         double timePerFrame;    // The amount of time (in fractional seconds) per frame
-        const int WalkFrameCount = 3;       // The number of frames in the animation
+        const int WalkFrameCount = 4;       // The number of frames in the animation
 
         /// <summary>
         /// 
@@ -73,7 +73,7 @@ namespace MainProject
             hitbox = new Rectangle(xPos, yPos, 300, 300);
 
             //3 animation frames/second
-            fps = 3.0;
+            fps = 6.0;
             timePerFrame = 1.0 / fps;
         }
 
@@ -93,8 +93,8 @@ namespace MainProject
                 hitbox.Y += yVelocity;
                 leftRect.X += xVelocity;
                 leftRect.Y += yVelocity;
-                rightRect.X = xVelocity;
-                rightRect.Y = yVelocity;
+                rightRect.X += xVelocity;
+                rightRect.Y += yVelocity;
 
                 //enemy walks the other way if they hit an edge
                 if (CollidingWithEdge())
@@ -123,8 +123,8 @@ namespace MainProject
                 hitbox.Y += yVelocity;
                 leftRect.X += xVelocity;
                 leftRect.Y += yVelocity;
-                rightRect.X = xVelocity;
-                rightRect.Y = yVelocity;
+                rightRect.X += xVelocity;
+                rightRect.Y += yVelocity;
 
                 //begin walking again if the player leaves radius
                 if (!PlayerInAggroRange())
@@ -148,8 +148,8 @@ namespace MainProject
             {
                 frame += 1;                     // Adjust the frame to the next image
 
-                if (frame > WalkFrameCount)     // Check the bounds - have we reached the end of walk cycle?
-                    frame = 1;                  // Back to 1 (since 0 is the "standing" frame)
+                if (frame >= WalkFrameCount)     // Check the bounds - have we reached the end of walk cycle?
+                    frame = 0;                  // Back to 1 (since 0 is the "standing" frame)
 
                 timeCounter -= timePerFrame;    // Remove the time we "used" - don't reset to 0
                                                 // This keeps the time passed 
@@ -159,7 +159,7 @@ namespace MainProject
         public void Draw(SpriteBatch sb)
         {
             //draws walking sprites when walking
-            if (isWalking || !isWalking)
+            if (isWalking)
             {
                 //enemy is waling towards the right
                 if (speed > 0)

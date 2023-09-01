@@ -166,7 +166,7 @@ namespace MainProject
             player = new Player(width/2, height/2, playerSprite, debugFont);
 
             //test level enemies
-            enemies.Add(new Enemy(10, 500, 1900, 3200, 1800, 3200, 2600, 3200,
+            enemies.Add(new Enemy(5, 500, 2000, 0, 1500, 0, 2000, 0, //1900, 3200, 1800, 3200, 2600, 3200
                 enemyWalking, enemyShooting));
         }
 
@@ -178,7 +178,8 @@ namespace MainProject
             // TODO: Add your update logic here
 
             //checks for player collison
-            player.Collisions(testLevel.BgLevelBlueprint, testLevel.IntLevelBlueprint, testLevel.Rows, testLevel.Columns);
+            player.Collisions(testLevel.BgLevelBlueprint, testLevel.IntLevelBlueprint, 
+                testLevel.Rows, testLevel.Columns, enemies);
             //determines the new player x and y velocity
             player.Update(gameTime);
 

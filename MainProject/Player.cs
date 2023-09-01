@@ -361,7 +361,8 @@ namespace MainProject
         /// checks tiles to see if they collide with the player
         /// </summary>
         /// <param name="level"></param>
-        public void Collisions(Room[,] bgLevel, Room[,] intLevel, int rows, int columns)
+        public void Collisions(Room[,] bgLevel, Room[,] intLevel, int rows, int columns, 
+            List<Enemy> enemies)
         {
             bool isColliding;
             bool collidingWithSpring;
@@ -402,8 +403,8 @@ namespace MainProject
                                 //player is on the ground
                                 isGrounded = true;
                                 //player is not stuck in the tile
-                                AdjustPosition(bgLevel, -collisionRect.Height, false, rows, columns);
-                                AdjustPosition(intLevel, -collisionRect.Height, false, rows, columns);
+                                AdjustPosition(bgLevel, -collisionRect.Height, false, rows, columns, enemies);
+                                AdjustPosition(intLevel, -collisionRect.Height, false, rows, columns, enemies);
                             }
                             //player is hitting the bottom of a tile with their head
                             else
@@ -411,8 +412,8 @@ namespace MainProject
                                 //player has a light bounce off of the tile
                                 yVelocity = -1;
                                 //player is not stuck in the tile
-                                AdjustPosition(bgLevel, collisionRect.Height, false, rows, columns);
-                                AdjustPosition(intLevel, collisionRect.Height, false, rows, columns);
+                                AdjustPosition(bgLevel, collisionRect.Height, false, rows, columns, enemies);
+                                AdjustPosition(intLevel, collisionRect.Height, false, rows, columns, enemies);
                             }
 
                             //triggers if the player is hitting ice
@@ -432,16 +433,16 @@ namespace MainProject
                             {
                                 touchingLeftWall = true;
                                 //player is not stuck in the tile
-                                AdjustPosition(bgLevel, collisionRect.Width, true, rows, columns);
-                                AdjustPosition(intLevel, collisionRect.Width, true, rows, columns);
+                                AdjustPosition(bgLevel, collisionRect.Width, true, rows, columns, enemies);
+                                AdjustPosition(intLevel, collisionRect.Width, true, rows, columns, enemies);
                             }
                             //player is on the left side of the tile, cannot move right
                             else if (rect.X + 100 <= bgLevel[i, j].Rect.X)
                             {
                                 touchingRightWall = true;
                                 //player is not stuck in the tile
-                                AdjustPosition(bgLevel, -collisionRect.Width, true, rows, columns);
-                                AdjustPosition(intLevel, -collisionRect.Width, true, rows, columns);
+                                AdjustPosition(bgLevel, -collisionRect.Width, true, rows, columns, enemies);
+                                AdjustPosition(intLevel, -collisionRect.Width, true, rows, columns, enemies);
                             }
                         }
                     }
@@ -642,15 +643,21 @@ namespace MainProject
         /// <param name="isHorizontal"></param>
         /// <param name="rows"></param>
         /// <param name="columns"></param>
-        private void AdjustPosition(Room[,] level, int distance, bool isHorizontal, int rows, int columns)
+        private void AdjustPosition(Room[,] level, int distance, bool isHorizontal, 
+            int rows, int columns, List<Enemy> enemies)
         {
             for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < columns; j++)
                 {
-                    if (isHorizontal)
+                    if (isHorizontal && xVelocity > 0)
                     {
-                        level[i, j].RectX -= distance;
+                        level[i, j].RectX -= distance + 1;
+                        xVelocity = 0;
+                    }
+                    else if (isHorizontal && xVelocity <= 0)
+                    {
+                        level[i, j].RectX -= distance - 1;
                         xVelocity = 0;
                     }
                     else
