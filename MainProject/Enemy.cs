@@ -42,11 +42,14 @@ namespace MainProject
         private Texture2D shootingSpriteSheet;
 
         //animation
-        int frame;              // The current animation frame
-        double timeCounter;     // The amount of time that has passed
-        double fps;             // The speed of the animation
-        double timePerFrame;    // The amount of time (in fractional seconds) per frame
-        const int WalkFrameCount = 4;       // The number of frames in the animation
+        private int frame;              // The current animation frame
+        private double timeCounter;     // The amount of time that has passed
+        private double fps;             // The speed of the animation
+        private double timePerFrame;    // The amount of time (in fractional seconds) per frame
+        private const int WalkFrameCount = 4;       // The number of frames in the animation
+
+        //list of bullets
+        private List<Bullet> bullets;
 
         public int AdjustmentX
         {
@@ -102,6 +105,8 @@ namespace MainProject
 
             adjustmentX = 0;
             adjustmentY = 0;
+
+            bullets = new List<Bullet>();
         }
 
         /// <summary>
