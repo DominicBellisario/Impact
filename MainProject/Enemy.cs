@@ -61,6 +61,14 @@ namespace MainProject
         }
 
         /// <summary>
+        /// used in player collisions
+        /// </summary>
+        public Rectangle Hitbox
+        {
+            get { return hitbox; }
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="speed"></param>

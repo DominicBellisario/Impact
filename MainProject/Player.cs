@@ -640,6 +640,30 @@ namespace MainProject
             inHTube = hitHTube;
             inVTube = hitVTube;
             
+            //------ enemy collisions -------
+            foreach (Enemy e in enemies)
+            {
+                isColliding = rect.Intersects(e.Hitbox);
+                collisionRect = Rectangle.Intersect(rect, e.Hitbox);
+                if (isColliding)
+                {
+                    //player is to the right of the enemy
+                    if (rect.Center.X - e.Hitbox.Center.X >= 0)
+                    {
+                        xVelocity = -20;
+                        yVelocity = 20;
+                        canDoubleJump = true;
+                    }
+                    //player is to the left of the enemy
+                    else
+                    {
+                        xVelocity = 20;
+                        yVelocity = 20;
+                        canDoubleJump = true;
+                    }
+                }
+                
+            }
         }
         
         /// <summary>
