@@ -173,9 +173,9 @@ namespace MainProject
 
             //test level enemies
             enemies.Add(new Enemy(5, 1000, 4000, -400, 3500, -400, 4300, -400,
-                enemyWalking, enemyShooting, bullet));
+                enemyWalking, enemyShooting, bullet, debugFont));
             enemies.Add(new Enemy(3, 1000, 4900, -900, 4600, -900, 5200, -900,
-                enemyWalking, enemyShooting, bullet));
+                enemyWalking, enemyShooting, bullet, debugFont));
         }
 
         protected override void Update(GameTime gameTime)

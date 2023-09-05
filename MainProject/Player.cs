@@ -641,6 +641,7 @@ namespace MainProject
             inVTube = hitVTube;
             
             //------ enemy collisions -------
+            /*
             foreach (Enemy e in enemies)
             {
                 isColliding = rect.Intersects(e.Hitbox);
@@ -664,6 +665,7 @@ namespace MainProject
                 }
                 
             }
+            */
         }
         
         /// <summary>
@@ -769,9 +771,11 @@ namespace MainProject
         public void Draw(SpriteBatch sb)
         {
             sb.Draw(Asset, rect, Color.White);
+            /*
             sb.DrawString(debugFont, isGrounded + ", " + touchingLeftWall + ", " + touchingRightWall + 
                 ", "  + debugText + ", " + xVelocity + ", " + normalTube, 
                 new Vector2(100, 100), Color.Red);
+            */
         }
 
     }

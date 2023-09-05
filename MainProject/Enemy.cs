@@ -11,6 +11,9 @@ namespace MainProject
 {
     internal class Enemy
     {
+        private SpriteFont testFont;
+        private int angle;
+
         //how fast the enemy moves
         private int speed;
 
@@ -89,9 +92,9 @@ namespace MainProject
         /// <param name="leftY"></param>
         /// <param name="rightX"></param>
         /// <param name="rightY"></param>
-        public Enemy(int speed, int aggroRadius, int xPos, int yPos, int leftX, int leftY, 
-            int rightX, int rightY, 
-            Texture2D walkingSpriteSheet, Texture2D shootingSpriteSheet, Texture2D bulletSprite)
+        public Enemy(int speed, int aggroRadius, int xPos, int yPos, int leftX, int leftY,
+            int rightX, int rightY,
+            Texture2D walkingSpriteSheet, Texture2D shootingSpriteSheet, Texture2D bulletSprite, SpriteFont test)
         {
             this.speed = speed;
             this.aggroRadius = aggroRadius;
@@ -118,6 +121,8 @@ namespace MainProject
 
             bullets = new List<Bullet>();
             bulletTimer = 0;
+
+            testFont = test;
         }
 
         /// <summary>
@@ -188,7 +193,30 @@ namespace MainProject
             if (bulletTimer % fireRate == 0)
             {
                 //calculate the angle enemy fires the bullet.  enemy aims at player
-                int angle = (int)Math.Tan((hitbox.Center.Y - playerYPos) / (hitbox.Center.Y - playerYPos));
+                //top right quadrant
+                //+X, -Y
+                if (playerXPos - hitbox.Center.X >= 0 && playerYPos - hitbox.Center.Y <= 0)
+                {
+                    angle = (int)Math.Tan((playerYPos - hitbox.Center.Y) / (playerXPos - hitbox.Center.X));
+                }
+                //top left quadrant
+                //-X, -Y
+                else if (playerXPos - hitbox.Center.X <= 0 && playerYPos - hitbox.Center.Y <= 0)
+                {
+                    angle = (int)Math.Tan(-(hitbox.Center.Y - playerYPos) / (hitbox.Center.X - playerXPos));
+                }
+                //bottom left quadrant
+                //-X, +Y
+                else if (playerXPos - hitbox.Center.X <= 0 && playerYPos - hitbox.Center.Y >= 0)
+                {
+                    angle = (int)Math.Tan(-(hitbox.Center.Y - playerYPos) / (hitbox.Center.X - playerXPos));
+                }
+                //bottom right quadrant
+                //+X, +Y
+                else if (playerXPos - hitbox.Center.X >= 0 && playerYPos - hitbox.Center.Y >= 0)
+                {
+                    angle = 6;
+                }
                 //create a new bullet object and add it to the list of bullets
                 bullets.Add(new Bullet(hitbox.Center.X, hitbox.Center.Y, angle, bulletSprite));
 
@@ -312,6 +340,7 @@ namespace MainProject
             {
                 b.Draw(sb);
             }
+            sb.DrawString(testFont, "" + angle, new Vector2(30, 30), Color.Red);
         }
 
         /// <summary>
