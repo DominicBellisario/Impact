@@ -218,7 +218,46 @@ namespace MainProject
                         SpriteEffects.FlipHorizontally,
                         0);
                 }
-
+            }
+            //draws shooting sprites when shooting
+            else
+            {
+                //enemy is to the right of the player
+                if (playerXPos >= hitbox.Center.X)
+                {
+                    sb.Draw(
+                        shootingSpriteSheet,
+                        new Vector2(hitbox.X, hitbox.Y),
+                        new Rectangle(
+                            frame * hitbox.Width,
+                            0,
+                            hitbox.Width,
+                            hitbox.Height),
+                        Color.White,
+                        0,
+                        Vector2.Zero,
+                        1.0f,
+                        SpriteEffects.None,
+                        0);
+                }
+                //enemy is to the left of the player
+                else
+                {
+                    sb.Draw(
+                        shootingSpriteSheet,
+                        new Vector2(hitbox.X, hitbox.Y),
+                        new Rectangle(
+                            frame * hitbox.Width,
+                            0,
+                            hitbox.Width,
+                            hitbox.Height),
+                        Color.White,
+                        0,
+                        Vector2.Zero,
+                        1.0f,
+                        SpriteEffects.FlipHorizontally,
+                        0);
+                }
             }
         }
 
