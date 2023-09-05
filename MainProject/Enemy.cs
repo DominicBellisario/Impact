@@ -188,7 +188,7 @@ namespace MainProject
             if (bulletTimer % fireRate == 0)
             {
                 //calculate the angle enemy fires the bullet.  enemy aims at player
-                int angle = 0;
+                int angle = (int)Math.Tan((hitbox.Center.Y - playerYPos) / (hitbox.Center.Y - playerYPos));
                 //create a new bullet object and add it to the list of bullets
                 bullets.Add(new Bullet(hitbox.Center.X, hitbox.Center.Y, angle, bulletSprite));
 
