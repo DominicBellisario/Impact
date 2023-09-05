@@ -31,6 +31,10 @@ namespace MainProject
         private const int playerXPos = 1920;
         private const int playerYPos = 1080;
 
+        //an update to enemy position when the player hits something
+        private int adjustmentX;
+        private int adjustmentY;
+
         //walking sprite sheet
         private Texture2D walkingSpriteSheet;
 
@@ -43,6 +47,18 @@ namespace MainProject
         double fps;             // The speed of the animation
         double timePerFrame;    // The amount of time (in fractional seconds) per frame
         const int WalkFrameCount = 4;       // The number of frames in the animation
+
+        public int AdjustmentX
+        {
+            get { return adjustmentX; }
+            set { adjustmentX = value; }
+        }
+
+        public int AdjustmentY
+        {
+            get { return adjustmentY; }
+            set { adjustmentY = value; }
+        }
 
         /// <summary>
         /// 
@@ -75,6 +91,9 @@ namespace MainProject
             //3 animation frames/second
             fps = 6.0;
             timePerFrame = 1.0 / fps;
+
+            adjustmentX = 0;
+            adjustmentY = 0;
         }
 
         /// <summary>
@@ -89,12 +108,12 @@ namespace MainProject
             if (isWalking)
             {
                 //updates enemy position and edge position when player moves
-                hitbox.X += xVelocity;
-                hitbox.Y += yVelocity;
-                leftRect.X += xVelocity;
-                leftRect.Y += yVelocity;
-                rightRect.X += xVelocity;
-                rightRect.Y += yVelocity;
+                hitbox.X += xVelocity - adjustmentX;
+                hitbox.Y += yVelocity - adjustmentY;
+                leftRect.X += xVelocity - adjustmentX;
+                leftRect.Y += yVelocity - adjustmentY;
+                rightRect.X += xVelocity - adjustmentX;
+                rightRect.Y += yVelocity - adjustmentY;
 
                 //enemy walks the other way if they hit an edge
                 if (CollidingWithEdge())
@@ -119,12 +138,12 @@ namespace MainProject
             else
             {
                 //updates enemy position and edge position when player moves
-                hitbox.X += xVelocity;
-                hitbox.Y += yVelocity;
-                leftRect.X += xVelocity;
-                leftRect.Y += yVelocity;
-                rightRect.X += xVelocity;
-                rightRect.Y += yVelocity;
+                hitbox.X += xVelocity - adjustmentX;
+                hitbox.Y += yVelocity - adjustmentY;
+                leftRect.X += xVelocity - adjustmentX;
+                leftRect.Y += yVelocity - adjustmentY;
+                rightRect.X += xVelocity - adjustmentX;
+                rightRect.Y += yVelocity - adjustmentY;
 
                 //begin walking again if the player leaves radius
                 if (!PlayerInAggroRange())
@@ -132,6 +151,8 @@ namespace MainProject
                     isWalking = true;
                 }
             }
+            adjustmentX = 0;
+            adjustmentY = 0;
         }
 
         private void UpdateAnimation(GameTime gameTime)

@@ -403,8 +403,10 @@ namespace MainProject
                                 //player is on the ground
                                 isGrounded = true;
                                 //player is not stuck in the tile
-                                AdjustPosition(bgLevel, -collisionRect.Height, false, rows, columns, enemies);
-                                AdjustPosition(intLevel, -collisionRect.Height, false, rows, columns, enemies);
+                                AdjustEnemyPosition(-collisionRect.Height, false, enemies);
+                                AdjustPosition(bgLevel, -collisionRect.Height, false, rows, columns);
+                                AdjustPosition(intLevel, -collisionRect.Height, false, rows, columns);
+                                
                             }
                             //player is hitting the bottom of a tile with their head
                             else
@@ -412,8 +414,10 @@ namespace MainProject
                                 //player has a light bounce off of the tile
                                 yVelocity = -1;
                                 //player is not stuck in the tile
-                                AdjustPosition(bgLevel, collisionRect.Height, false, rows, columns, enemies);
-                                AdjustPosition(intLevel, collisionRect.Height, false, rows, columns, enemies);
+                                AdjustEnemyPosition(collisionRect.Height, false, enemies);
+                                AdjustPosition(bgLevel, collisionRect.Height, false, rows, columns);
+                                AdjustPosition(intLevel, collisionRect.Height, false, rows, columns);
+                                
                             }
 
                             //triggers if the player is hitting ice
@@ -433,16 +437,20 @@ namespace MainProject
                             {
                                 touchingLeftWall = true;
                                 //player is not stuck in the tile
-                                AdjustPosition(bgLevel, collisionRect.Width, true, rows, columns, enemies);
-                                AdjustPosition(intLevel, collisionRect.Width, true, rows, columns, enemies);
+                                AdjustEnemyPosition(collisionRect.Width, true, enemies);
+                                AdjustPosition(bgLevel, collisionRect.Width, true, rows, columns);
+                                AdjustPosition(intLevel, collisionRect.Width, true, rows, columns);
+                                
                             }
                             //player is on the left side of the tile, cannot move right
                             else if (rect.X + 100 <= bgLevel[i, j].Rect.X)
                             {
                                 touchingRightWall = true;
                                 //player is not stuck in the tile
-                                AdjustPosition(bgLevel, -collisionRect.Width, true, rows, columns, enemies);
-                                AdjustPosition(intLevel, -collisionRect.Width, true, rows, columns, enemies);
+                                AdjustEnemyPosition(-collisionRect.Width, true, enemies);
+                                AdjustPosition(bgLevel, -collisionRect.Width, true, rows, columns);
+                                AdjustPosition(intLevel, -collisionRect.Width, true, rows, columns);
+                                
                             }
                         }
                     }
@@ -644,7 +652,7 @@ namespace MainProject
         /// <param name="rows"></param>
         /// <param name="columns"></param>
         private void AdjustPosition(Room[,] level, int distance, bool isHorizontal, 
-            int rows, int columns, List<Enemy> enemies)
+            int rows, int columns)
         {
             for (int i = 0; i < rows; i++)
             {
@@ -665,6 +673,25 @@ namespace MainProject
                         level[i, j].RectY -= distance + 1;
                         yVelocity = 0;
                     }
+                }
+            }
+        }
+
+        private void AdjustEnemyPosition(int distance, bool isHorizontal, List<Enemy> enemies)
+        {
+            foreach (Enemy e in enemies)
+            {
+                if (isHorizontal && xVelocity > 0)
+                {
+                    e.AdjustmentX += distance + 1;
+                }
+                else if (isHorizontal && xVelocity <= 0)
+                {
+                    e.AdjustmentX += distance - 1;
+                }
+                else
+                {
+                    e.AdjustmentY += distance + 1;
                 }
             }
         }
