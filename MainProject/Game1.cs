@@ -166,7 +166,9 @@ namespace MainProject
             player = new Player(width/2, height/2, playerSprite, debugFont);
 
             //test level enemies
-            enemies.Add(new Enemy(5, 500, 2000, 0, 1500, 0, 2500, 0, //1900, 3200, 1800, 3200, 2600, 3200
+            enemies.Add(new Enemy(5, 1000, 4000, -400, 3500, -400, 4300, -400,
+                enemyWalking, enemyShooting));
+            enemies.Add(new Enemy(3, 1000, 4900, -900, 4600, -900, 5200, -900,
                 enemyWalking, enemyShooting));
         }
 
