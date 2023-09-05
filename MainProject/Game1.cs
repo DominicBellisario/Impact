@@ -44,6 +44,9 @@ namespace MainProject
         private Texture2D enemyWalking;
         private Texture2D enemyShooting;
 
+        //bullets
+        private Texture2D bullet;
+
         //list of sprites needed for level loading
         private Dictionary<string, Texture2D> bgLevelSprites;
         private Dictionary<string, Texture2D> intLevelSprites;
@@ -155,6 +158,9 @@ namespace MainProject
             enemyWalking = Content.Load<Texture2D>("EnemyWalking");
             enemyShooting = Content.Load<Texture2D>("EnemyShooting");
 
+            //bullet sprite
+            bullet = Content.Load<Texture2D>("Bullet");
+
             //fonts
             debugFont = Content.Load<SpriteFont>("DebugFont");
 
@@ -167,9 +173,9 @@ namespace MainProject
 
             //test level enemies
             enemies.Add(new Enemy(5, 1000, 4000, -400, 3500, -400, 4300, -400,
-                enemyWalking, enemyShooting));
+                enemyWalking, enemyShooting, bullet));
             enemies.Add(new Enemy(3, 1000, 4900, -900, 4600, -900, 5200, -900,
-                enemyWalking, enemyShooting));
+                enemyWalking, enemyShooting, bullet));
         }
 
         protected override void Update(GameTime gameTime)

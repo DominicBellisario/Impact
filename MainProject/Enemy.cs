@@ -48,8 +48,16 @@ namespace MainProject
         private double timePerFrame;    // The amount of time (in fractional seconds) per frame
         private const int WalkFrameCount = 4;       // The number of frames in the animation
 
+        //bullet sprite
+        private Texture2D bulletSprite;
+
         //list of bullets
         private List<Bullet> bullets;
+
+        //timer that controls bullet firing
+        private int bulletTimer;
+        //firing rate for bullets
+        private const int fireRate = 60;
 
         public int AdjustmentX
         {
@@ -82,12 +90,14 @@ namespace MainProject
         /// <param name="rightX"></param>
         /// <param name="rightY"></param>
         public Enemy(int speed, int aggroRadius, int xPos, int yPos, int leftX, int leftY, 
-            int rightX, int rightY, Texture2D walkingSpriteSheet, Texture2D shootingSpriteSheet)
+            int rightX, int rightY, 
+            Texture2D walkingSpriteSheet, Texture2D shootingSpriteSheet, Texture2D bulletSprite)
         {
             this.speed = speed;
             this.aggroRadius = aggroRadius;
             this.walkingSpriteSheet = walkingSpriteSheet;
             this.shootingSpriteSheet = shootingSpriteSheet;
+            this.bulletSprite = bulletSprite;
 
             //enemy begins by walking
             isWalking = true;
@@ -107,6 +117,7 @@ namespace MainProject
             adjustmentY = 0;
 
             bullets = new List<Bullet>();
+            bulletTimer = 0;
         }
 
         /// <summary>
@@ -137,6 +148,9 @@ namespace MainProject
                 //move the enemy
                 hitbox.X += speed;
 
+                //reset bullet fire time
+                bulletTimer = 0;
+
                 //switch to shooting mode if player is in radius
                 if (PlayerInAggroRange())
                 {
@@ -166,6 +180,27 @@ namespace MainProject
             }
             adjustmentX = 0;
             adjustmentY = 0;
+
+            //increment bullet timer
+            bulletTimer++;
+
+            //every (fireRate) frames, spawn a bullet on the enemy
+            if (bulletTimer % fireRate == 0)
+            {
+                //calculate the angle enemy fires the bullet.  enemy aims at player
+                int angle = 0;
+                //create a new bullet object and add it to the list of bullets
+                bullets.Add(new Bullet(hitbox.Center.X, hitbox.Center.Y, angle, bulletSprite));
+
+                //reset bullet timer
+                bulletTimer = 0;
+            }
+
+            //update every bullet in the list
+            foreach (Bullet b in bullets)
+            {
+                b.Update(xVelocity, yVelocity);
+            }
         }
 
         private void UpdateAnimation(GameTime gameTime)
@@ -271,6 +306,11 @@ namespace MainProject
                         SpriteEffects.FlipHorizontally,
                         0);
                 }
+            }
+            //draw each bullet in the list
+            foreach (Bullet b in bullets)
+            {
+                b.Draw(sb);
             }
         }
 

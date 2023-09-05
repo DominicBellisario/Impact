@@ -96,3 +96,4 @@ D:\Profiles\dlb5102\Source\Repos\Impact\MainProject\obj\Debug\net6.0\MainProject
 D:\Profiles\dlb5102\Source\Repos\Impact\MainProject\obj\Debug\net6.0\ref\MainProject.dll
 C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\EnemyShooting.xnb
 C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\EnemyWalking.xnb
+C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\Bullet.xnb

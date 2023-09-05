@@ -1,5 +1,6 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
 "C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Background.jpg","C:/Users/lbell/Source/Repos/Impact/MainProject/Content/bin/DesktopGL/Content/Background.xnb","TextureProcessor","Texture2DContent",3830,40085,0.2204402
+"C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Bullet.jpg","C:/Users/lbell/Source/Repos/Impact/MainProject/Content/bin/DesktopGL/Content/Bullet.xnb","TextureProcessor","Texture2DContent",6151,40085,0.192917
 "C:/Users/lbell/Source/Repos/Impact/MainProject/Content/CenterPlat.jpg","C:/Users/lbell/Source/Repos/Impact/MainProject/Content/bin/DesktopGL/Content/CenterPlat.xnb","TextureProcessor","Texture2DContent",4130,40085,0.0036521
 "C:/Users/lbell/Source/Repos/Impact/MainProject/Content/DebugFont.spritefont","C:/Users/lbell/Source/Repos/Impact/MainProject/Content/bin/DesktopGL/Content/DebugFont.xnb","FontDescriptionProcessor","SpriteFontContent",2068,267295,0.2079135
 "C:/Users/lbell/Source/Repos/Impact/MainProject/Content/DownLeftSpring.jpg","C:/Users/lbell/Source/Repos/Impact/MainProject/Content/bin/DesktopGL/Content/DownLeftSpring.xnb","TextureProcessor","Texture2DContent",4796,40085,0.0032743

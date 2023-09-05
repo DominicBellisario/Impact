@@ -5,6 +5,7 @@
   <Config />
   <SourceFiles>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Background.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Bullet.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/CenterPlat.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/DebugFont.spritefont</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/DownLeftSpring.jpg</File>
@@ -31,6 +32,7 @@
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Wall.jpg</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

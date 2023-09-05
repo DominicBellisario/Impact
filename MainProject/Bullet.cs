@@ -33,11 +33,11 @@ namespace MainProject
         /// <summary>
         /// updates the bullets position
         /// </summary>
-        public void Update()
+        public void Update(int playerXVelocity, int playerYVelocity)
         {
             //update the bullet's location
-            hitbox.X += (int)(speed * Math.Cos(angle));
-            hitbox.Y += (int)(speed * Math.Sin(angle));
+            hitbox.X += (int)(speed * Math.Cos(angle) + playerXVelocity);
+            hitbox.Y += (int)(speed * Math.Sin(angle) + playerYVelocity);
         }
 
 
