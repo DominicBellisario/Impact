@@ -12,7 +12,7 @@ namespace MainProject
     internal class Enemy
     {
         private SpriteFont testFont;
-        private int angle;
+        private double angle;
 
         //how fast the enemy moves
         private int speed;
@@ -193,30 +193,12 @@ namespace MainProject
             if (bulletTimer % fireRate == 0)
             {
                 //calculate the angle enemy fires the bullet.  enemy aims at player
-                //top right quadrant
-                //+X, -Y
-                if (playerXPos - hitbox.Center.X >= 0 && playerYPos - hitbox.Center.Y <= 0)
-                {
-                    angle = (int)Math.Tan((playerYPos - hitbox.Center.Y) / (playerXPos - hitbox.Center.X));
-                }
-                //top left quadrant
-                //-X, -Y
-                else if (playerXPos - hitbox.Center.X <= 0 && playerYPos - hitbox.Center.Y <= 0)
-                {
-                    angle = (int)Math.Tan(-(hitbox.Center.Y - playerYPos) / (hitbox.Center.X - playerXPos));
-                }
-                //bottom left quadrant
-                //-X, +Y
-                else if (playerXPos - hitbox.Center.X <= 0 && playerYPos - hitbox.Center.Y >= 0)
-                {
-                    angle = (int)Math.Tan(-(hitbox.Center.Y - playerYPos) / (hitbox.Center.X - playerXPos));
-                }
-                //bottom right quadrant
-                //+X, +Y
-                else if (playerXPos - hitbox.Center.X >= 0 && playerYPos - hitbox.Center.Y >= 0)
-                {
-                    angle = 6;
-                }
+                //calculates x and y distances between player and enemy
+                int xDistance = playerXPos - hitbox.Center.X;
+                int yDistance = playerYPos - hitbox.Center.Y;
+                //finds the angle in radians
+                angle = Math.Atan2(yDistance, xDistance);
+                
                 //create a new bullet object and add it to the list of bullets
                 bullets.Add(new Bullet(hitbox.Center.X, hitbox.Center.Y, angle, bulletSprite));
 

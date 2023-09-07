@@ -18,12 +18,12 @@ namespace MainProject
         private Rectangle hitbox;
 
         //angle that the bullet was fired at
-        private int angle;
+        private double angle;
 
         //bullet texture
         private Texture2D bulletSprite;
 
-        public Bullet (int xPos, int yPos, int angle, Texture2D bulletSprite)
+        public Bullet (int xPos, int yPos, double angle, Texture2D bulletSprite)
         {
             this.angle = angle;
             this.bulletSprite = bulletSprite;
