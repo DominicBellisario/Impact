@@ -35,6 +35,9 @@ namespace MainProject
         private bool currentlyJumping;
         private bool canDoubleJump;
 
+        //the current player mode
+        private bool hard;
+
         #region general speeds and accelerations
         //initial y jump speed
         private const int jumpSpeedY = 30;
@@ -45,8 +48,14 @@ namespace MainProject
         //simulates gravity
         private const double gravity = -1.5;
 
+        //higher gravity when hard
+        private const double hardGravity = -2;
+
         //very fast horizontal acceleration when player begins to walk
         private const double walkAccel = 2;
+
+        //slower when hard
+        private const double hardWalkAccel = 1;
 
         //less fast horizonal accelertaion while player is in the air
         private const double airAccel = 1;
@@ -55,6 +64,9 @@ namespace MainProject
         private const int maxXGroundSpeed = 20;
         private const int maxXAirSpeed = 30;
         private const int maxYSpeed = -50;
+        //less x and more y
+        private const int maxHardXGroundSpeed = 10;
+        private const int maxHardYSpeed = -60;
 
         //deceleration when space bar is released during a jump
         private const int jumpDecceleration = 3;
@@ -150,6 +162,7 @@ namespace MainProject
             playerWantsOut = false;
             normalTube = true;
             onIce = false;
+            hard = false;
         }
 
         /// <summary>
@@ -173,6 +186,12 @@ namespace MainProject
                 normalTube = !normalTube;
             }
 
+            //pressing the SHIFT key goes between hard and normal player
+            if (kbState.IsKeyDown(Keys.LeftShift) && prevKBState.IsKeyUp(Keys.LeftShift))
+            {
+                hard = !hard;
+            }
+
             //---------------------- motion in the Y direction -----------------------
 
                 //DOUBLE JUMP
@@ -182,20 +201,20 @@ namespace MainProject
                 //player can not jump again
                 canDoubleJump = false;
                 //player jumps right
-                if (kbState.IsKeyDown(Keys.D) && kbState.IsKeyUp(Keys.A) && !inHTube && !inVTube)
+                if (kbState.IsKeyDown(Keys.D) && kbState.IsKeyUp(Keys.A) && !inHTube && !inVTube && !hard)
                 {
                     xVelocity = -jumpSpeedX;
                     yVelocity = jumpSpeedY;
                 }
                 //player jumps left
-                else if (kbState.IsKeyUp(Keys.D) && kbState.IsKeyDown(Keys.A) && !inHTube && !inVTube)
+                else if (kbState.IsKeyUp(Keys.D) && kbState.IsKeyDown(Keys.A) && !inHTube && !inVTube && !hard)
                 {
                     xVelocity = jumpSpeedX;
                     yVelocity = jumpSpeedY;
                 }
                 //player jumps straight up
                 else if ((kbState.IsKeyDown(Keys.A) && kbState.IsKeyDown(Keys.D)) ||
-                (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D)) && !inVTube)
+                (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D)) && !inVTube && !hard)
                 {
                     //starts the timer to disable the tube
                     if (inHTube)
@@ -208,20 +227,30 @@ namespace MainProject
             }
 
             //player accelerates downward if not touching the ground, not at max speed, and not in a tube
-            if (!isGrounded && yVelocity > maxYSpeed && !inHTube && !inVTube)
+            if (!isGrounded && yVelocity > maxYSpeed && !inHTube && !inVTube && !hard)
             {
                 yVelocity += gravity;
             }
+            //faster if hard
+            else if (!isGrounded && yVelocity > maxYSpeed && !inHTube && !inVTube && hard)
+            {
+                yVelocity += hardGravity;
+            }
             //player reaches terminal velocity, no acceleration
-            else if (!isGrounded && yVelocity <= maxYSpeed && !inHTube && !inVTube)
+            else if (!isGrounded && yVelocity <= maxYSpeed && !inHTube && !inVTube && !hard)
             {
                 yVelocity = maxYSpeed;
+            }
+            //higher terminal velocity if hard
+            else if (!isGrounded && yVelocity <= maxYSpeed && !inHTube && !inVTube && hard)
+            {
+                yVelocity = maxHardYSpeed;
             }
             //player is touching the ground
             else
             {
                 //player jumps up if the space key is pressed
-                if (kbState.IsKeyDown(Keys.Space) && prevKBState.IsKeyUp(Keys.Space) &&!inHTube && !inVTube)
+                if (kbState.IsKeyDown(Keys.Space) && prevKBState.IsKeyUp(Keys.Space) &&!inHTube && !inVTube && !hard)
                 {
                     yVelocity = jumpSpeedY + 5;
                     currentlyJumping = true;
@@ -245,7 +274,7 @@ namespace MainProject
             //player moves left if a is pressed, d is not pressed,
             //the player is not blocked, and they are not at max speed
             if (kbState.IsKeyDown(Keys.A) && kbState.IsKeyUp(Keys.D) && 
-                !touchingLeftWall && xVelocity <= maxXGroundSpeed)
+                !touchingLeftWall && xVelocity <= maxXGroundSpeed && !hard)
             {
                 if (!inHTube)
                 {
@@ -265,10 +294,33 @@ namespace MainProject
                     playerWantsOut = true;
                 }
             }
+            //max speed is less when hard
+            else if (kbState.IsKeyDown(Keys.A) && kbState.IsKeyUp(Keys.D) &&
+                !touchingLeftWall && xVelocity <= maxHardXGroundSpeed && hard)
+            {
+                if (!inHTube)
+                {
+                    //player accelerates slightly faster on the ground than in the air
+                    //slower when hard
+                    if (isGrounded)
+                    {
+                        xVelocity += hardWalkAccel;
+                    }
+                    else
+                    {
+                        xVelocity += airAccel;
+                    }
+                }
+                if (inVTube)
+                {
+                    //turns off beam center pull so player can escape
+                    playerWantsOut = true;
+                }
+            }
             //player moves right if d is pressed, a is not pressed,
             //the player is not blocked, and they are not at max speed
             if (kbState.IsKeyDown(Keys.D) && kbState.IsKeyUp(Keys.A) &&
-                !touchingRightWall && xVelocity >= -maxXGroundSpeed)
+                !touchingRightWall && xVelocity >= -maxXGroundSpeed && !hard)
             {
                 if (!inHTube)
                 {
@@ -282,6 +334,30 @@ namespace MainProject
                         xVelocity -= airAccel;
                     }
                     
+                }
+                if (inVTube)
+                {
+                    //turns off beam center pull so player can escape
+                    playerWantsOut = true;
+                }
+            }
+            //max speed is less when hard
+            else if (kbState.IsKeyDown(Keys.D) && kbState.IsKeyUp(Keys.A) &&
+                !touchingRightWall && xVelocity >= -maxHardXGroundSpeed && hard)
+            {
+                if (!inHTube)
+                {
+                    //player accelerates slightly faster on the ground than in the air
+                    //slower when hard
+                    if (isGrounded)
+                    {
+                        xVelocity -= hardWalkAccel;
+                    }
+                    else
+                    {
+                        xVelocity -= airAccel;
+                    }
+
                 }
                 if (inVTube)
                 {
@@ -648,14 +724,24 @@ namespace MainProject
                 collisionRect = Rectangle.Intersect(rect, e.Hitbox);
                 if (isColliding)
                 {
-                        double launchAngle = Math.Atan2(e.Hitbox.Center.Y - rect.Center.Y,
-                            e.Hitbox.Center.X - rect.Center.X);
-
+                    double launchAngle = Math.Atan2(e.Hitbox.Center.Y - rect.Center.Y,
+                    e.Hitbox.Center.X - rect.Center.X);
+                    if (!hard)
+                    {
                         //update player x and y velocity
                         xVelocity = 30 * Math.Cos(launchAngle);
                         yVelocity = 30 * Math.Sin(launchAngle);
-                        //player loses double jump
-                        canDoubleJump = false;
+                    }
+                    //less knockback if hard
+                    else
+                    {
+                        //update player x and y velocity
+                        xVelocity = 10 * Math.Cos(launchAngle);
+                        yVelocity = 10 * Math.Sin(launchAngle);
+                    }
+                    
+                    //player loses double jump
+                    canDoubleJump = false;
                 }
                 //goes through the list of bullets for each enemy
                 foreach (Bullet b in e.Bullets)
@@ -667,9 +753,13 @@ namespace MainProject
                         double launchAngle = Math.Atan2(b.Hitbox.Center.Y - rect.Center.Y, 
                             b.Hitbox.Center.X - rect.Center.X);
 
-                        //update player x and y velocity
-                        xVelocity = 50 * Math.Cos(launchAngle);
-                        yVelocity = 50 * Math.Sin(launchAngle);
+                        //only moves player if not hard
+                        if (!hard)
+                        {
+                            //update player x and y velocity
+                            xVelocity = 50 * Math.Cos(launchAngle);
+                            yVelocity = 50 * Math.Sin(launchAngle);
+                        }
 
                         //remove the bullet from its list
                         e.Bullets.Remove(b);
