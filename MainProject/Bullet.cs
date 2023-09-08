@@ -23,6 +23,11 @@ namespace MainProject
         //bullet texture
         private Texture2D bulletSprite;
 
+        public Rectangle Hitbox
+        {
+            get { return hitbox; }
+        }
+
         public Bullet (int xPos, int yPos, double angle, Texture2D bulletSprite)
         {
             this.angle = angle;
@@ -43,8 +48,8 @@ namespace MainProject
 
         public void Draw (SpriteBatch sb)
         {
-            sb.Draw(bulletSprite, hitbox, new Rectangle(0, 0, 100, 100), 
-                Color.White, (float)angle, Vector2.Zero, SpriteEffects.None, 0);
+            sb.Draw(bulletSprite, new Rectangle(hitbox.X + 50, hitbox.Y + 50, 100, 100), new Rectangle(0, 0, 100, 100), 
+                Color.White, (float)angle, new Vector2(50, 50), SpriteEffects.None, 0);
         }
     }
 }

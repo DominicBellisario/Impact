@@ -63,6 +63,10 @@ namespace MainProject
         private const int fireRate = 60;
         //angle of the bullet
         private double angle;
+        //used for bullet collisions
+        private Room[,] bgLevel;
+        private int rows;
+        private int columns;
 
         public int AdjustmentX
         {
@@ -96,13 +100,18 @@ namespace MainProject
         /// <param name="rightY"></param>
         public Enemy(int speed, int aggroRadius, int xPos, int yPos, int leftX, int leftY,
             int rightX, int rightY,
-            Texture2D walkingSpriteSheet, Texture2D shootingSpriteSheet, Texture2D bulletSprite, SpriteFont test)
+            Texture2D walkingSpriteSheet, Texture2D shootingSpriteSheet, 
+            Texture2D bulletSprite, SpriteFont test, Room[,] bgLevel, int rows, int columns)
         {
             this.speed = speed;
             this.aggroRadius = aggroRadius;
             this.walkingSpriteSheet = walkingSpriteSheet;
             this.shootingSpriteSheet = shootingSpriteSheet;
             this.bulletSprite = bulletSprite;
+            this.bgLevel = bgLevel;
+            this.rows = rows;
+            this.columns = columns;
+            this.bgLevel = bgLevel;
 
             //enemy begins by walking
             isWalking = true;
@@ -125,6 +134,7 @@ namespace MainProject
             bulletTimer = 0;
 
             testFont = test;
+            
         }
 
         /// <summary>
@@ -200,7 +210,7 @@ namespace MainProject
                 int yDistance = playerYPos - hitbox.Center.Y;
                 //finds the angle in radians
                 angle = Math.Atan2(yDistance, xDistance);
-                
+
                 //create a new bullet object and add it to the list of bullets
                 bullets.Add(new Bullet(hitbox.Center.X, hitbox.Center.Y, angle, bulletSprite));
 
@@ -213,8 +223,27 @@ namespace MainProject
             {
                 b.Update(xVelocity, yVelocity);
             }
-        }
 
+            //bullet collisions
+            foreach (Bullet b in bullets)
+            {
+                for (int i = 0; i < rows; i++)
+                {
+                    for (int j = 0; j < columns; j++)
+                    {
+                        if(bgLevel[i, j].CanCollide)
+                        {
+                            if (b.Hitbox.Intersects(bgLevel[i, j].Rect))
+                            {
+                                bullets.Remove(b);
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
         private void UpdateAnimation(GameTime gameTime)
         {
             // Handle animation timing
