@@ -43,7 +43,8 @@ namespace MainProject
 
         public void Draw (SpriteBatch sb)
         {
-            sb.Draw(bulletSprite, hitbox, Color.White);
+            sb.Draw(bulletSprite, hitbox, new Rectangle(0, 0, 100, 100), 
+                Color.White, (float)angle, Vector2.Zero, SpriteEffects.None, 0);
         }
     }
 }
