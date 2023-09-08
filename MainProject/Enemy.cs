@@ -60,7 +60,7 @@ namespace MainProject
         //timer that controls bullet firing
         private int bulletTimer;
         //firing rate for bullets
-        private const int fireRate = 60;
+        private const int fireRate = 80;
         //angle of the bullet
         private double angle;
         //used for bullet collisions
@@ -166,7 +166,7 @@ namespace MainProject
                 hitbox.X += speed;
 
                 //reset bullet fire time
-                bulletTimer = 30;
+                bulletTimer = 50;
 
                 //switch to shooting mode if player is in radius
                 if (PlayerInAggroRange())

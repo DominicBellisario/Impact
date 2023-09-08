@@ -12,7 +12,7 @@ namespace MainProject
     internal class Bullet
     {
         //speed of the bullet
-        private const int speed = 10;
+        private const int speed = 15;
 
         //bullet hitbox
         private Rectangle hitbox;
