@@ -641,7 +641,6 @@ namespace MainProject
             inVTube = hitVTube;
             
             //------ enemy collisions -------
-            /*
             foreach (Enemy e in enemies)
             {
                 isColliding = rect.Intersects(e.Hitbox);
@@ -665,7 +664,6 @@ namespace MainProject
                 }
                 
             }
-            */
         }
         
         /// <summary>

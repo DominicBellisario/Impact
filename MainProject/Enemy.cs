@@ -12,7 +12,7 @@ namespace MainProject
     internal class Enemy
     {
         private SpriteFont testFont;
-        private double angle;
+
 
         //how fast the enemy moves
         private int speed;
@@ -61,6 +61,8 @@ namespace MainProject
         private int bulletTimer;
         //firing rate for bullets
         private const int fireRate = 60;
+        //angle of the bullet
+        private double angle;
 
         public int AdjustmentX
         {
@@ -154,7 +156,7 @@ namespace MainProject
                 hitbox.X += speed;
 
                 //reset bullet fire time
-                bulletTimer = 0;
+                bulletTimer = 30;
 
                 //switch to shooting mode if player is in radius
                 if (PlayerInAggroRange())
