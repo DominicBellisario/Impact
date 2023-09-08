@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -61,6 +62,8 @@ namespace MainProject
         private int bulletTimer;
         //firing rate for bullets
         private const int fireRate = 80;
+        //time it takes for the first shot to be fired
+        private const int firstShotTime = 60;
         //angle of the bullet
         private double angle;
         //used for bullet collisions
@@ -171,7 +174,7 @@ namespace MainProject
                 hitbox.X += speed;
 
                 //reset bullet fire time
-                bulletTimer = 50;
+                bulletTimer = firstShotTime;
 
                 //switch to shooting mode if player is in radius
                 if (PlayerInAggroRange())

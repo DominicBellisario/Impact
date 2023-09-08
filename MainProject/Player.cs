@@ -648,20 +648,14 @@ namespace MainProject
                 collisionRect = Rectangle.Intersect(rect, e.Hitbox);
                 if (isColliding)
                 {
-                    //player is to the right of the enemy
-                    if (rect.Center.X - e.Hitbox.Center.X >= 0)
-                    {
-                        xVelocity = -20;
-                        yVelocity = 20;
-                        canDoubleJump = true;
-                    }
-                    //player is to the left of the enemy
-                    else
-                    {
-                        xVelocity = 20;
-                        yVelocity = 20;
-                        canDoubleJump = true;
-                    }
+                        double launchAngle = Math.Atan2(e.Hitbox.Center.Y - rect.Center.Y,
+                            e.Hitbox.Center.X - rect.Center.X);
+
+                        //update player x and y velocity
+                        xVelocity = 30 * Math.Cos(launchAngle);
+                        yVelocity = 30 * Math.Sin(launchAngle);
+                        //player loses double jump
+                        canDoubleJump = false;
                 }
                 //goes through the list of bullets for each enemy
                 foreach (Bullet b in e.Bullets)
