@@ -88,6 +88,11 @@ namespace MainProject
             get { return hitbox; }
         }
 
+        public List<Bullet> Bullets
+        {
+            get { return bullets; }
+        }
+
         /// <summary>
         /// 
         /// </summary>

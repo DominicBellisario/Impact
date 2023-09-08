@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.ExceptionServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -640,7 +641,7 @@ namespace MainProject
             inHTube = hitHTube;
             inVTube = hitVTube;
             
-            //------ enemy collisions -------
+            //------ enemy / bullet collisions -------
             foreach (Enemy e in enemies)
             {
                 isColliding = rect.Intersects(e.Hitbox);
@@ -662,7 +663,25 @@ namespace MainProject
                         canDoubleJump = true;
                     }
                 }
-                
+                //goes through the list of bullets for each enemy
+                foreach (Bullet b in e.Bullets)
+                {
+                    //collision
+                    if (b.Hitbox.Intersects(rect))
+                    {
+                        //use the width and height in arctan to find the angle
+                        double launchAngle = Math.Atan2(b.Hitbox.Center.Y - rect.Center.Y, 
+                            b.Hitbox.Center.X - rect.Center.X);
+
+                        //update player x and y velocity
+                        xVelocity = 50 * Math.Cos(launchAngle);
+                        yVelocity = 50 * Math.Sin(launchAngle);
+
+                        //remove the bullet from its list
+                        e.Bullets.Remove(b);
+                        return;
+                    }
+                }
             }
         }
         
