@@ -499,7 +499,8 @@ namespace MainProject
             {
                 case AnimationState.Idle:
                     //switch to walking if on the ground and moving
-                    if (xVelocity != 0 && isGrounded)
+                    if ((kbState.IsKeyDown(Keys.A) && kbState.IsKeyUp(Keys.D)) ||
+                        (kbState.IsKeyUp(Keys.A) && kbState.IsKeyDown(Keys.D)) && isGrounded)
                     {
                         animState = AnimationState.Walking;
                         frame = 0;
@@ -522,7 +523,8 @@ namespace MainProject
 
                 case AnimationState.Walking:
                     //switch to idle if on the ground and not moving
-                    if (xVelocity == 0 && isGrounded)
+                    if ((kbState.IsKeyDown(Keys.A) && kbState.IsKeyDown(Keys.D)) ||
+                        (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D)) && isGrounded)
                     {
                         animState = AnimationState.Idle;
                         frame = 0;
@@ -545,12 +547,19 @@ namespace MainProject
 
                 case AnimationState.Jumping:
                     //switch to idle if on the ground and not moving
-                    if (xVelocity == 0 && isGrounded)
+                    if ((kbState.IsKeyDown(Keys.A) && kbState.IsKeyDown(Keys.D)) ||
+                        (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D)) && isGrounded)
                     {
                         animState = AnimationState.Idle;
                         frame = 0;
                     }
                     //switch to walking if on the ground and moving
+                    if ((kbState.IsKeyDown(Keys.A) && kbState.IsKeyUp(Keys.D)) ||
+                        (kbState.IsKeyUp(Keys.A) && kbState.IsKeyDown(Keys.D)) && isGrounded)
+                    {
+                        animState = AnimationState.Walking;
+                        frame = 0;
+                    }
                     //switch to hard if key is pressed
                     if (hard)
                     {
@@ -561,13 +570,15 @@ namespace MainProject
 
                 case AnimationState.Hurt:
                     //switch to idle if on the ground and not moving
-                    if (xVelocity == 0 && isGrounded)
+                    if ((kbState.IsKeyDown(Keys.A) && kbState.IsKeyDown(Keys.D)) ||
+                        (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D)) && isGrounded)
                     {
                         animState = AnimationState.Idle;
                         frame = 0;
                     }
                     //switch to walking if on the ground and moving
-                    if (xVelocity != 0 && isGrounded)
+                    if ((kbState.IsKeyDown(Keys.A) && kbState.IsKeyUp(Keys.D)) ||
+                        (kbState.IsKeyUp(Keys.A) && kbState.IsKeyDown(Keys.D)) && isGrounded)
                     {
                         animState = AnimationState.Walking;
                         frame = 0;
@@ -576,7 +587,8 @@ namespace MainProject
 
                 case AnimationState.Floating:
                     //switch to idle if on the ground and not moving
-                    if (xVelocity == 0 && isGrounded)
+                    if ((kbState.IsKeyDown(Keys.A) && kbState.IsKeyDown(Keys.D)) ||
+                        (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D)) && isGrounded)
                     {
                         animState = AnimationState.Idle;
                         frame = 0;
@@ -588,7 +600,8 @@ namespace MainProject
                         frame = 0;
                     }
                     //switch to walking if on the ground and moving
-                    if (xVelocity != 0 && isGrounded)
+                    if ((kbState.IsKeyDown(Keys.A) && kbState.IsKeyUp(Keys.D)) ||
+                        (kbState.IsKeyUp(Keys.A) && kbState.IsKeyDown(Keys.D)) && isGrounded)
                     {
                         animState = AnimationState.Walking;
                         frame = 0;
@@ -603,13 +616,15 @@ namespace MainProject
 
                 case AnimationState.Hard:
                     //switch to idle if on the ground and not moving
-                    if (xVelocity == 0 && isGrounded && !hard)
+                    if ((kbState.IsKeyDown(Keys.A) && kbState.IsKeyDown(Keys.D)) ||
+                        (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D)) && isGrounded && !hard)
                     {
                         animState = AnimationState.Idle;
                         frame = 0;
                     }
                     //switch to walking if on the ground and moving
-                    if (xVelocity != 0 && isGrounded && !hard)
+                    if ((kbState.IsKeyDown(Keys.A) && kbState.IsKeyUp(Keys.D)) ||
+                        (kbState.IsKeyUp(Keys.A) && kbState.IsKeyDown(Keys.D)) && isGrounded && !hard)
                     {
                         animState = AnimationState.Walking;
                         frame = 0;
