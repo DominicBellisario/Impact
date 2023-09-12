@@ -361,7 +361,7 @@ namespace MainProject
             {
                 b.Draw(sb);
             }
-            sb.DrawString(testFont, "" + angle, new Vector2(30, 30), Color.Red);
+            //sb.DrawString(testFont, "" + angle, new Vector2(30, 30), Color.Red);
         }
 
         /// <summary>
