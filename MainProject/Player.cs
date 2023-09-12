@@ -513,6 +513,12 @@ namespace MainProject
                     }
                     //switch to hurt if colliding with enemy or bullet
 
+                    //switch to floating if touching a tube
+                    if (inHTube || inVTube)
+                    {
+                        animState = AnimationState.Floating;
+                    }
+
                     //switch to hard if key is pressed
                     if (hard)
                     {
@@ -536,7 +542,11 @@ namespace MainProject
                         frame = 0;
                     }
                     //switch to hurt if colliding with enemy or bullet
-                    //switch to floating if colliding with a beam
+                    //switch to floating if colliding with a tube
+                    if (inHTube || inVTube)
+                    {
+                        animState = AnimationState.Floating;
+                    }
                     //switch to hard if key is pressed
                     if (hard)
                     {
@@ -559,6 +569,11 @@ namespace MainProject
                     {
                         animState = AnimationState.Walking;
                         frame = 0;
+                    }
+                    //switch to floating if colliding with a tube
+                    if (inHTube || inVTube)
+                    {
+                        animState = AnimationState.Floating;
                     }
                     //switch to hard if key is pressed
                     if (hard)
@@ -583,25 +598,30 @@ namespace MainProject
                         animState = AnimationState.Walking;
                         frame = 0;
                     }
+                    //switch to floating if colliding with a tube
+                    if (inHTube || inVTube)
+                    {
+                        animState = AnimationState.Floating;
+                    }
                     break;
 
                 case AnimationState.Floating:
                     //switch to idle if on the ground and not moving
                     if (((kbState.IsKeyDown(Keys.A) && kbState.IsKeyDown(Keys.D)) ||
-                        (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D))) && isGrounded)
+                        (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D))) && isGrounded && !inHTube && !inVTube)
                     {
                         animState = AnimationState.Idle;
                         frame = 0;
                     }
                     //switch to jumping if jump key is pressed and can jump
-                    if (!isGrounded)
+                    if (!isGrounded && !inHTube && !inVTube)
                     {
                         animState = AnimationState.Jumping;
                         frame = 0;
                     }
                     //switch to walking if on the ground and moving
                     if (((kbState.IsKeyDown(Keys.A) && kbState.IsKeyUp(Keys.D)) ||
-                        (kbState.IsKeyUp(Keys.A) && kbState.IsKeyDown(Keys.D))) && isGrounded)
+                        (kbState.IsKeyUp(Keys.A) && kbState.IsKeyDown(Keys.D))) && isGrounded && !inHTube && !inVTube)
                     {
                         animState = AnimationState.Walking;
                         frame = 0;
@@ -628,6 +648,11 @@ namespace MainProject
                     {
                         animState = AnimationState.Walking;
                         frame = 0;
+                    }
+                    //switch to floating if colliding with a tube
+                    if ((inHTube || inVTube) && !hard)
+                    {
+                        animState = AnimationState.Floating;
                     }
                     //switch to jumping if off the ground
                     if (!isGrounded && !hard)
