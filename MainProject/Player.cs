@@ -134,14 +134,26 @@ namespace MainProject
         //animation stuff
         AnimationState animState;
         private int frame;
-        private double timeCounter;     // The amount of time that has passed
-        private const double fpsIdle = 1;             // The speed of the animation
+        // The amount of time that has passed
+        private double timeCounter;
+        // The speed of the animation
+        private const double fpsIdle = 1;
         private const double fpsWalk = 8;
-        private const double fpsJump = 2;
+        private const double fpsJump = 4;
         private const double fpsHurt = 8;
-        private const double fps = 8;
-        private double timePerFrame;    // The amount of time (in fractional seconds) per frame
-        private const int WalkFrameCount = 4;       // The number of frames in the animation
+        private const double fpsFloat = 3;
+        // The amount of time (in fractional seconds) per frame
+        private double timePerIdleFrame;
+        private double timePerWalkFrame;
+        private double timePerJumpFrame;
+        private double timePerHurtFrame;
+        private double timePerFloatFrame;
+        // The number of frames in the animation
+        private const int IdleFrameCount = 2;
+        private const int WalkFrameCount = 4;
+        private const int JumpFrameCount = 5;
+        private const int HurtFrameCount = 2;
+        private const int FloatFrameCount = 3;
 
         //keyboard stuff
         private KeyboardState prevKBState;
@@ -200,8 +212,14 @@ namespace MainProject
             normalTube = true;
             onIce = false;
             hard = false;
+            //starts at idle on the first frame
             animState = AnimationState.Idle;
             frame = 0;
+            timePerIdleFrame = 1 / fpsIdle;
+            timePerWalkFrame = 1 / fpsWalk;
+            timePerJumpFrame = 1 / fpsJump;
+            timePerHurtFrame = 1 / fpsHurt;
+            timePerFloatFrame = 1 / fpsFloat;
         }
 
         /// <summary>
@@ -244,12 +262,15 @@ namespace MainProject
                 {
                     xVelocity = -jumpSpeedX;
                     yVelocity = jumpSpeedY;
+                    frame = 0;
                 }
                 //player jumps left
                 else if (kbState.IsKeyUp(Keys.D) && kbState.IsKeyDown(Keys.A) && !inHTube && !inVTube && !hard)
                 {
                     xVelocity = jumpSpeedX;
                     yVelocity = jumpSpeedY;
+                    frame = 0;
+
                 }
                 //player jumps straight up
                 else if ((kbState.IsKeyDown(Keys.A) && kbState.IsKeyDown(Keys.D)) ||
@@ -261,6 +282,8 @@ namespace MainProject
                         tubeDisableTimer = 0;
                     }
                     yVelocity = jumpSpeedY;
+                    frame = 0;
+
                 }
 
             }
@@ -470,7 +493,138 @@ namespace MainProject
             prevKBState = kbState;
             //resets ice trigger
             onIce = false;
-            
+
+            //updates animation state
+            switch (animState)
+            {
+                case AnimationState.Idle:
+                    //switch to walking if on the ground and moving
+                    if (xVelocity != 0 && isGrounded)
+                    {
+                        animState = AnimationState.Walking;
+                        frame = 0;
+                    }
+                    //switch to jumping if off the ground
+                    if (!isGrounded)
+                    {
+                        animState = AnimationState.Jumping;
+                        frame = 0;
+                    }
+                    //switch to hurt if colliding with enemy or bullet
+
+                    //switch to hard if key is pressed
+                    if (hard)
+                    {
+                        animState = AnimationState.Hard;
+                        frame = 0;
+                    }
+                    break;
+
+                case AnimationState.Walking:
+                    //switch to idle if on the ground and not moving
+                    if (xVelocity == 0 && isGrounded)
+                    {
+                        animState = AnimationState.Idle;
+                        frame = 0;
+                    }
+                    //switch to jumping if off the ground
+                    if (!isGrounded)
+                    {
+                        animState = AnimationState.Jumping;
+                        frame = 0;
+                    }
+                    //switch to hurt if colliding with enemy or bullet
+                    //switch to floating if colliding with a beam
+                    //switch to hard if key is pressed
+                    if (hard)
+                    {
+                        animState = AnimationState.Hard;
+                        frame = 0;
+                    }
+                    break;
+
+                case AnimationState.Jumping:
+                    //switch to idle if on the ground and not moving
+                    if (xVelocity == 0 && isGrounded)
+                    {
+                        animState = AnimationState.Idle;
+                        frame = 0;
+                    }
+                    //switch to walking if on the ground and moving
+                    //switch to hard if key is pressed
+                    if (hard)
+                    {
+                        animState = AnimationState.Hard;
+                        frame = 0;
+                    }
+                    break;
+
+                case AnimationState.Hurt:
+                    //switch to idle if on the ground and not moving
+                    if (xVelocity == 0 && isGrounded)
+                    {
+                        animState = AnimationState.Idle;
+                        frame = 0;
+                    }
+                    //switch to walking if on the ground and moving
+                    if (xVelocity != 0 && isGrounded)
+                    {
+                        animState = AnimationState.Walking;
+                        frame = 0;
+                    }
+                    break;
+
+                case AnimationState.Floating:
+                    //switch to idle if on the ground and not moving
+                    if (xVelocity == 0 && isGrounded)
+                    {
+                        animState = AnimationState.Idle;
+                        frame = 0;
+                    }
+                    //switch to jumping if jump key is pressed and can jump
+                    if (!isGrounded)
+                    {
+                        animState = AnimationState.Jumping;
+                        frame = 0;
+                    }
+                    //switch to walking if on the ground and moving
+                    if (xVelocity != 0 && isGrounded)
+                    {
+                        animState = AnimationState.Walking;
+                        frame = 0;
+                    }
+                    //switch to hard if key is pressed
+                    if (hard)
+                    {
+                        animState = AnimationState.Hard;
+                        frame = 0;
+                    }
+                    break;
+
+                case AnimationState.Hard:
+                    //switch to idle if on the ground and not moving
+                    if (xVelocity == 0 && isGrounded && !hard)
+                    {
+                        animState = AnimationState.Idle;
+                        frame = 0;
+                    }
+                    //switch to walking if on the ground and moving
+                    if (xVelocity != 0 && isGrounded && !hard)
+                    {
+                        animState = AnimationState.Walking;
+                        frame = 0;
+                    }
+                    //switch to jumping if off the ground
+                    if (!isGrounded && !hard)
+                    {
+                        animState = AnimationState.Jumping;
+                        frame = 0;
+                    }
+                    //switch to floating if colliding with a beam
+                    break;
+            }
+            //updates animation
+            UpdateAnimation(gameTime);
         }
 
         /// <summary>
@@ -917,16 +1071,41 @@ namespace MainProject
             // How much time has passed?  
             timeCounter += gameTime.ElapsedGameTime.TotalSeconds;
 
+            switch (animState)
+            {
+                case AnimationState.Idle:
+                    Anim(timePerIdleFrame, IdleFrameCount);
+                    break;
+                case AnimationState.Walking:
+                    Anim(timePerWalkFrame, WalkFrameCount);
+                    break;
+                case AnimationState.Jumping:
+                    Anim(timePerJumpFrame, JumpFrameCount);
+                    break;
+                case AnimationState.Hurt:
+                    Anim(timePerHurtFrame, HurtFrameCount);
+                    break;
+                case AnimationState.Floating:
+                    Anim(timePerFloatFrame, FloatFrameCount);
+                    break;
+                case AnimationState.Hard:
+                    timeCounter = 0;
+                    break;
+            }
+        }
+
+        private void Anim(double timePerFrame, int frameCount)
+        {
             // If enough time has passed:
             if (timeCounter >= timePerFrame)
             {
                 frame += 1;                     // Adjust the frame to the next image
 
-                if (frame >= WalkFrameCount)     // Check the bounds - have we reached the end of walk cycle?
+                if (frame >= frameCount)     // Check the bounds - have we reached the end of walk cycle?
                     frame = 0;                  // Back to 1 (since 0 is the "standing" frame)
 
                 timeCounter -= timePerFrame;    // Remove the time we "used" - don't reset to 0
-                                                // This keeps the time passed 
+                                                    // This keeps the time passed 
             }
         }
 
@@ -935,41 +1114,51 @@ namespace MainProject
             switch (animState)
             {
                 case AnimationState.Idle:
-                    sb.Draw(
-                        idle,
-                        new Vector2(rect.X, rect.Y),
-                        new Rectangle(
-                            frame * rect.Width,
-                            0,
-                            rect.Width,
-                            rect.Height),
-                        Color.White,
-                        0,
-                        Vector2.Zero,
-                        1.0f,
-                        SpriteEffects.None,
-                        0);
+                    DrawPlayer(idle, sb);
                     break;
                 case AnimationState.Walking:
+                    DrawPlayer(walking, sb);
                     break;
                 case AnimationState.Jumping:
+                    DrawPlayer(jumping, sb);
                     break;
                 case AnimationState.Hurt:
+                    DrawPlayer(hurt, sb);
                     break;
                 case AnimationState.Floating:
+                    DrawPlayer(floating, sb);
                     break;
                 case AnimationState.Hard:
+                    sb.Draw(Asset, rect, Color.White);
                     break;
 
             }
 
 
-            sb.Draw(Asset, rect, Color.White);
+            //sb.Draw(Asset, rect, Color.White);
             /*
             sb.DrawString(debugFont, isGrounded + ", " + touchingLeftWall + ", " + touchingRightWall + 
                 ", "  + debugText + ", " + xVelocity + ", " + normalTube, 
                 new Vector2(100, 100), Color.Red);
             */
+        }
+
+        private void DrawPlayer(Texture2D spriteSheet, SpriteBatch sb)
+        {
+            sb.Draw(
+                    spriteSheet,
+                    new Vector2(rect.X, rect.Y),
+                    new Rectangle(
+                        frame * rect.Width,
+                        0,
+                        rect.Width,
+                        rect.Height),
+                    Color.White,
+                    0,
+                    Vector2.Zero,
+                    1.0f,
+                    SpriteEffects.None,
+                    0);
         }
 
     }
