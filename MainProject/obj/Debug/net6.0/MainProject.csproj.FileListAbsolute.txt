@@ -97,3 +97,8 @@ D:\Profiles\dlb5102\Source\Repos\Impact\MainProject\obj\Debug\net6.0\ref\MainPro
 C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\EnemyShooting.xnb
 C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\EnemyWalking.xnb
 C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\Bullet.xnb
+C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\PlayerFloat.xnb
+C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\PlayerHurt.xnb
+C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\PlayerIdle.xnb
+C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\PlayerJump.xnb
+C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\PlayerWalk.xnb

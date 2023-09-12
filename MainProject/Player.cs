@@ -12,6 +12,15 @@ using System.Threading.Tasks;
 
 namespace MainProject
 {
+    enum AnimationState
+    {
+        Idle,
+        Walking,
+        Jumping,
+        Hurt,
+        Floating,
+        Hard
+    }
     internal class Player
     {
         //counts to 1000, then repeats
@@ -109,8 +118,30 @@ namespace MainProject
 
         private bool onIce;
 
-        //player asset
+        //player assets
         private Texture2D asset;
+        //idle
+        private Texture2D idle;
+        //walking
+        private Texture2D walking;
+        //jumping
+        private Texture2D jumping;
+        //hurt
+        private Texture2D hurt;
+        //floating
+        private Texture2D floating;
+
+        //animation stuff
+        AnimationState animState;
+        private int frame;
+        private double timeCounter;     // The amount of time that has passed
+        private const double fpsIdle = 1;             // The speed of the animation
+        private const double fpsWalk = 8;
+        private const double fpsJump = 2;
+        private const double fpsHurt = 8;
+        private const double fps = 8;
+        private double timePerFrame;    // The amount of time (in fractional seconds) per frame
+        private const int WalkFrameCount = 4;       // The number of frames in the animation
 
         //keyboard stuff
         private KeyboardState prevKBState;
@@ -139,13 +170,19 @@ namespace MainProject
             get { return normalTube; }
         }
 
-        public Player(double xPos, double yPos, Texture2D asset, SpriteFont debugFont)
+        public Player(double xPos, double yPos, Texture2D asset, Texture2D idle, Texture2D walking,
+            Texture2D jumping, Texture2D hurt, Texture2D floating, SpriteFont debugFont)
         {
             timer = 0;
             this.xPos = xPos;
             this.yPos = yPos;
             this.asset = asset;
             this.debugFont = debugFont;
+            this.idle = idle;
+            this.walking = walking;
+            this.jumping = jumping;
+            this.hurt = hurt;
+            this.floating = floating;
             xVelocity = 0;
             yVelocity = 0;
             isGrounded = false;
@@ -163,6 +200,8 @@ namespace MainProject
             normalTube = true;
             onIce = false;
             hard = false;
+            animState = AnimationState.Idle;
+            frame = 0;
         }
 
         /// <summary>
@@ -869,8 +908,62 @@ namespace MainProject
             return velocityUpdate;
         }
 
+        private void UpdateAnimation(GameTime gameTime)
+        {
+            // Handle animation timing
+            // - Add to the time counter
+            // - Check if we have enough "time" to advance the frame
+
+            // How much time has passed?  
+            timeCounter += gameTime.ElapsedGameTime.TotalSeconds;
+
+            // If enough time has passed:
+            if (timeCounter >= timePerFrame)
+            {
+                frame += 1;                     // Adjust the frame to the next image
+
+                if (frame >= WalkFrameCount)     // Check the bounds - have we reached the end of walk cycle?
+                    frame = 0;                  // Back to 1 (since 0 is the "standing" frame)
+
+                timeCounter -= timePerFrame;    // Remove the time we "used" - don't reset to 0
+                                                // This keeps the time passed 
+            }
+        }
+
         public void Draw(SpriteBatch sb)
         {
+            switch (animState)
+            {
+                case AnimationState.Idle:
+                    sb.Draw(
+                        idle,
+                        new Vector2(rect.X, rect.Y),
+                        new Rectangle(
+                            frame * rect.Width,
+                            0,
+                            rect.Width,
+                            rect.Height),
+                        Color.White,
+                        0,
+                        Vector2.Zero,
+                        1.0f,
+                        SpriteEffects.None,
+                        0);
+                    break;
+                case AnimationState.Walking:
+                    break;
+                case AnimationState.Jumping:
+                    break;
+                case AnimationState.Hurt:
+                    break;
+                case AnimationState.Floating:
+                    break;
+                case AnimationState.Hard:
+                    break;
+
+            }
+
+
             sb.Draw(Asset, rect, Color.White);
             /*
             sb.DrawString(debugFont, isGrounded + ", " + touchingLeftWall + ", " + touchingRightWall + 

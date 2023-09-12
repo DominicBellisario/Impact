@@ -39,6 +39,11 @@ namespace MainProject
 
         //player
         private Texture2D playerSprite;
+        private Texture2D playerIdle;
+        private Texture2D playerWalk;
+        private Texture2D playerJump;
+        private Texture2D playerHurt;
+        private Texture2D playerFloat;
 
         //enemies
         private Texture2D enemyWalking;
@@ -150,8 +155,13 @@ namespace MainProject
             rightTube = Content.Load<Texture2D>("RightTube");
             intLevelSprites.Add("rightTube", rightTube);
 
-            //player sprite
+            //player sprites
             playerSprite = Content.Load<Texture2D>("Player");
+            playerIdle = Content.Load<Texture2D>("PlayerIdle");
+            playerWalk = Content.Load<Texture2D>("PlayerWalk");
+            playerJump = Content.Load<Texture2D>("PlayerJump");
+            playerHurt = Content.Load<Texture2D>("PlayerHurt");
+            playerFloat = Content.Load<Texture2D>("PlayerFloat");
             #endregion
 
             //enemy sprites
@@ -169,7 +179,8 @@ namespace MainProject
                 width, height, "TestLevel.txt", "TestLevelInteractables.txt");
 
             //player loading
-            player = new Player(width/2, height/2, playerSprite, debugFont);
+            player = new Player(width/2, height/2, playerSprite, playerIdle, playerWalk, playerJump, 
+                playerHurt, playerFloat, debugFont);
 
             //test level enemies
             enemies.Add(new Enemy(5, 1000, 4000, -400, 3500, -400, 4300, -400,

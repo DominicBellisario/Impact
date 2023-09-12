@@ -21,6 +21,11 @@
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/LeftTube.png</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Null.png</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Player.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/PlayerFloat.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/PlayerHurt.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/PlayerIdle.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/PlayerJump.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/PlayerWalk.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/RightPlat.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/RightSpring.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/RightTube.png</File>
@@ -32,6 +37,11 @@
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Wall.jpg</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
