@@ -46,7 +46,7 @@ namespace MainProject
         private bool canDoubleJump;
 
         //frames that the player is stunned after getting hit
-        private const int framesStunned = 30;
+        private const int framesStunned = 35;
         private int currentStunFrame;
         private bool isStunned;
 
@@ -622,6 +622,12 @@ namespace MainProject
                         (kbState.IsKeyUp(Keys.A) && kbState.IsKeyDown(Keys.D))) && isGrounded && !isStunned)
                     {
                         animState = AnimationState.Walking;
+                        frame = 0;
+                    }
+                    //switch to jumping if off the ground
+                    if (!isGrounded && !isStunned)
+                    {
+                        animState = AnimationState.Jumping;
                         frame = 0;
                     }
                     //switch to floating if colliding with a tube
@@ -1244,7 +1250,7 @@ namespace MainProject
             }
             
             sb.DrawString(debugFont, isGrounded + ", " + touchingLeftWall + ", " + touchingRightWall + 
-                ", "  + debugText + ", " + xVelocity + ", " + normalTube + ", " + currentStunFrame, 
+                ", "  + debugText + ", " + xVelocity + ", " + normalTube + ", " + currentStunFrame + ", " + isStunned,
                 new Vector2(100, 100), Color.Red);
             
         }
