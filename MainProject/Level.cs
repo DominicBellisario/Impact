@@ -137,49 +137,49 @@ namespace MainProject
                         if (data[j] == "W")
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["wall"], bgAssets["wall"], true, "surface", 0, 0);
+                                bgAssets["wall"], bgAssets["wall"], true, "surface", 0, 0, "none");
                         }
                         //floor
                         else if (data[j] == "F")
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["floor"], bgAssets["floor"], true,"surface", 0, 0);
+                                bgAssets["floor"], bgAssets["floor"], true,"surface", 0, 0, "none");
                         }
                         //left platform
                         else if (data[j] == "L")
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["leftPlat"], bgAssets["leftPlat"], true, "surface", 0, 0);
+                                bgAssets["leftPlat"], bgAssets["leftPlat"], true, "surface", 0, 0, "none");
                         }
                         //center platform
                         else if (data[j] == "C")
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["centerPlat"], bgAssets["centerPlat"], true, "surface", 0, 0);
+                                bgAssets["centerPlat"], bgAssets["centerPlat"], true, "surface", 0, 0, "none");
                         }
                         //right platform
                         else if (data[j] == "R")
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["rightPlat"], bgAssets["rightPlat"], true, "surface", 0, 0);
+                                bgAssets["rightPlat"], bgAssets["rightPlat"], true, "surface", 0, 0, "none");
                         }
                         //ice
                         else if (data[j] == "I")
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["ice"], bgAssets["ice"], true, "ice", 0, 0);
+                                bgAssets["ice"], bgAssets["ice"], true, "ice", 0, 0, "none");
                         }
                         //background
                         else if (data[j] == "B")
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["background"], bgAssets["background"], false, "none", 0, 0);
+                                bgAssets["background"], bgAssets["background"], false, "none", 0, 0, "none");
                         }
                         //spawn
                         else if (data[j] == "S")
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["spawn"], bgAssets["spawn"], false, "none", 0, 0);
+                                bgAssets["spawn"], bgAssets["spawn"], false, "none", 0, 0, "none");
                             playerPosX = j * 100;
                             playerPosY = i * 100;
                         }
@@ -248,49 +248,73 @@ namespace MainProject
                         if (data[j] == "N")
                         {
                             intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                intAssets["null"], intAssets["null"], false, "none", 0, 0);
+                                intAssets["null"], intAssets["null"], false, "none", 0, 0, "none");
                         }
                         //left spring
                         else if (data[j] == "LS")
                         {
                             intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                intAssets["leftSpring"], intAssets["leftSpring"], true, "leftSpring", 5, 4);
+                                intAssets["leftSpring"], intAssets["leftSpring"], true, "leftSpring", 5, 4, "none");
                         }
                         //right spring
                         else if (data[j] == "RS")
                         {
                             intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                intAssets["rightSpring"], intAssets["rightSpring"], true, "rightSpring", 5, 4);
+                                intAssets["rightSpring"], intAssets["rightSpring"], true, "rightSpring", 5, 4, "none");
                         }
                         //up spring
                         else if (data[j] == "US")
                         {
                             intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                intAssets["upSpring"], intAssets["upSpring"], true, "upSpring", 5, 4);
+                                intAssets["upSpring"], intAssets["upSpring"], true, "upSpring", 5, 4, "none");
                         }
                         //left tube
                         else if (data[j] == "LT")
                         {
                             intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100 - 100, 100, 300),
-                                intAssets["leftTube"], intAssets["rightTube"], true, "leftTube", 5, 3);
+                                intAssets["leftTube"], intAssets["rightTube"], true, "leftTube", 5, 3, "none");
                         }
                         //right tube
                         else if (data[j] == "RT")
                         {
                             intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100 - 100, 100, 300),
-                                intAssets["rightTube"], intAssets["leftTube"], true, "rightTube", 5, 3);
+                                intAssets["rightTube"], intAssets["leftTube"], true, "rightTube", 5, 3, "none");
                         }
                         //up tube
                         else if (data[j] == "UT")
                         {
                             intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100 - 100, i * 100, 300, 100),
-                                intAssets["upTube"], intAssets["downTube"], true, "upTube", 5, 3);
+                                intAssets["upTube"], intAssets["downTube"], true, "upTube", 5, 3, "none");
                         }
                         //down tube
                         else if (data[j] == "DT")
                         {
                             intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100 - 100, i * 100, 300, 100),
-                                intAssets["downTube"], intAssets["upTube"], true, "downTube", 5, 3);
+                                intAssets["downTube"], intAssets["upTube"], true, "downTube", 5, 3, "none");
+                        }
+                        //down spike
+                        else if (data[j] == "DH")
+                        {
+                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100 + 50, 100, 50),
+                                intAssets["spikes"], intAssets["spikes"], true, "spikes", 5, 3, "down");
+                        }
+                        //up spike
+                        else if (data[j] == "UH")
+                        {
+                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 50),
+                                intAssets["spikes"], intAssets["spikes"], true, "spikes", 5, 3, "up");
+                        }
+                        //left spike
+                        else if (data[j] == "LH")
+                        {
+                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 50, 100),
+                                intAssets["spikes"], intAssets["spikes"], true, "spikes", 5, 3, "left");
+                        }
+                        //right spike
+                        else if (data[j] == "RH")
+                        {
+                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100 + 50, i * 100, 50, 100),
+                                intAssets["spikes"], intAssets["spikes"], true, "spikes", 5, 3, "right");
                         }
                         #endregion
                     }

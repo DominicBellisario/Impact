@@ -37,6 +37,9 @@ namespace MainProject
         private Texture2D upTube;
         private Texture2D downTube;
 
+        //spike
+        private Texture2D spikes;
+
         //player
         private Texture2D playerSprite;
         private Texture2D playerIdle;
@@ -154,6 +157,9 @@ namespace MainProject
 
             rightTube = Content.Load<Texture2D>("RightTube");
             intLevelSprites.Add("rightTube", rightTube);
+
+            spikes = Content.Load<Texture2D>("Spikes");
+            intLevelSprites.Add("spikes", spikes);
 
             //player sprites
             playerSprite = Content.Load<Texture2D>("Player");

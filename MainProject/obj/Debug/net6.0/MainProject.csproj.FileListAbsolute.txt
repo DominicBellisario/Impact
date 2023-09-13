@@ -102,3 +102,4 @@ C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\PlayerHu
 C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\PlayerIdle.xnb
 C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\PlayerJump.xnb
 C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\PlayerWalk.xnb
+C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\Spikes.xnb

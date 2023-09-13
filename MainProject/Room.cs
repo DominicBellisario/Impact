@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,8 @@ namespace MainProject
         private int numberOfFrames;
         //the current frame of the animation
         private int currentFrame;
+        //the direction of the spike
+        private string spikeDirection;
 
         /// <summary>
         /// returns the room object's Rectangle
@@ -106,6 +109,11 @@ namespace MainProject
             set { currentFrame = value; }
         }
 
+        public string SpikeDirection
+        {
+            get { return spikeDirection; }
+        }
+
         /// <summary>
         /// room constructor
         /// </summary>
@@ -113,7 +121,7 @@ namespace MainProject
         /// <param name="asset"></param>
         /// <param name="canCollide"></param>
         public Room(Rectangle rect, Texture2D asset, Texture2D asset2, bool canCollide, 
-            string typeOfCollision, int animationSpeed, int numberOfFrames)
+            string typeOfCollision, int animationSpeed, int numberOfFrames, string spikeDirection)
         {
             this.rect = rect;
             this.asset = asset;
@@ -122,6 +130,7 @@ namespace MainProject
             this.typeOfCollision = typeOfCollision;
             this.animationSpeed = animationSpeed;
             this.numberOfFrames = numberOfFrames;
+            this.spikeDirection = spikeDirection;
             currentFrame = 1;
         }
 
@@ -131,20 +140,76 @@ namespace MainProject
         /// <param name="sb"></param>
         public virtual void Draw(SpriteBatch sb, bool normalTube)
         {
-            if (normalTube)
+            if (spikeDirection == "none")
             {
-                sb.Draw(Asset, 
-                new Vector2((float)RectX, (float) RectY), 
-                null,
-                Color.White);
+                if (normalTube)
+                {
+                    sb.Draw(Asset, 
+                    new Vector2((float)RectX, (float) RectY), 
+                    null,
+                    Color.White);
+                }
+                else
+                {
+                    sb.Draw(Asset2,
+                    new Vector2((float)RectX, (float)RectY),
+                    null,
+                    Color.White);
+                } 
             }
-            else
+            else if (spikeDirection == "down")
             {
-                sb.Draw(Asset2,
-                new Vector2((float)RectX, (float)RectY),
-                null,
-                Color.White);
-            } 
+                
+                sb.Draw(
+                    asset, 
+                    new Rectangle((int)RectX, (int)RectY, rect.Width, rect.Height),
+                    null,
+                    Color.White, 
+                    0, 
+                    Vector2.Zero, 
+                    SpriteEffects.None, 
+                    0
+                    );
+            }
+            else if (spikeDirection == "up")
+            {
+                sb.Draw(
+                    asset,
+                    new Rectangle((int)RectX, (int)RectY, rect.Width, rect.Height),
+                    null,
+                    Color.White,
+                    0,
+                    Vector2.Zero,
+                    SpriteEffects.FlipVertically,
+                    0
+                    );
+            }
+            else if (spikeDirection == "left")
+            {
+                sb.Draw(
+                    asset,
+                    new Rectangle((int)RectX, (int)RectY + 25, rect.Height, rect.Width),
+                    null,
+                    Color.White,
+                    (float)Math.PI/2,
+                    new Vector2(rect.Width / 2, rect.Height / 2),
+                    SpriteEffects.None,
+                    0
+                    );
+            }
+            else if (spikeDirection == "right")
+            {
+                sb.Draw(
+                    asset,
+                    new Rectangle((int)RectX, (int)RectY + 25, rect.Height, rect.Width),
+                    null,
+                    Color.White,
+                    (float)Math.PI / 2,
+                    new Vector2(rect.Width / 2, rect.Height / 2),
+                    SpriteEffects.FlipHorizontally,
+                    0
+                    );
+            }
         }
     }
 }

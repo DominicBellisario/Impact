@@ -30,6 +30,7 @@
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/RightSpring.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/RightTube.png</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Spawn.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Spikes.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/UpLeftSpring.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/UpRightSpring.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/UpSpring.jpg</File>
@@ -37,6 +38,7 @@
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Wall.jpg</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
