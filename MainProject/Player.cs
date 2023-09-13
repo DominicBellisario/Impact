@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.ExceptionServices;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
@@ -43,6 +44,11 @@ namespace MainProject
         private bool touchingRightWall;
         private bool currentlyJumping;
         private bool canDoubleJump;
+
+        //frames that the player is stunned after getting hit
+        private const int framesStunned = 30;
+        private int currentStunFrame;
+        private bool isStunned;
 
         //the current player mode
         private bool hard;
@@ -118,6 +124,7 @@ namespace MainProject
 
         private bool onIce;
 
+        #region animation stuff
         //player assets
         private Texture2D asset;
         //idle
@@ -154,6 +161,8 @@ namespace MainProject
         private const int JumpFrameCount = 3;
         private const int HurtFrameCount = 2;
         private const int FloatFrameCount = 3;
+
+        #endregion
 
         //keyboard stuff
         private KeyboardState prevKBState;
@@ -220,6 +229,8 @@ namespace MainProject
             timePerJumpFrame = 1 / fpsJump;
             timePerHurtFrame = 1 / fpsHurt;
             timePerFloatFrame = 1 / fpsFloat;
+            currentStunFrame = -1;
+            isStunned = false;
         }
 
         /// <summary>
@@ -244,7 +255,7 @@ namespace MainProject
             }
 
             //pressing the SHIFT key goes between hard and normal player
-            if (kbState.IsKeyDown(Keys.LeftShift) && prevKBState.IsKeyUp(Keys.LeftShift))
+            if (kbState.IsKeyDown(Keys.LeftShift) && prevKBState.IsKeyUp(Keys.LeftShift) && !isStunned)
             {
                 hard = !hard;
             }
@@ -311,6 +322,9 @@ namespace MainProject
             //player is touching the ground
             else
             {
+                //remove any possible stun from player
+                isStunned = false;
+
                 //player jumps up if the space key is pressed
                 if (kbState.IsKeyDown(Keys.Space) && prevKBState.IsKeyUp(Keys.Space) &&!inHTube && !inVTube && !hard)
                 {
@@ -512,7 +526,10 @@ namespace MainProject
                         frame = 0;
                     }
                     //switch to hurt if colliding with enemy or bullet
-
+                    if (isStunned)
+                    {
+                        animState = AnimationState.Hurt;
+                    }
                     //switch to floating if touching a tube
                     if (inHTube || inVTube)
                     {
@@ -542,6 +559,10 @@ namespace MainProject
                         frame = 0;
                     }
                     //switch to hurt if colliding with enemy or bullet
+                    if (isStunned)
+                    {
+                        animState = AnimationState.Hurt;
+                    }
                     //switch to floating if colliding with a tube
                     if (inHTube || inVTube)
                     {
@@ -575,6 +596,11 @@ namespace MainProject
                     {
                         animState = AnimationState.Floating;
                     }
+                    //switch to hurt if colliding with enemy or bullet
+                    if (isStunned)
+                    {
+                        animState = AnimationState.Hurt;
+                    }
                     //switch to hard if key is pressed
                     if (hard)
                     {
@@ -586,14 +612,14 @@ namespace MainProject
                 case AnimationState.Hurt:
                     //switch to idle if on the ground and not moving
                     if (((kbState.IsKeyDown(Keys.A) && kbState.IsKeyDown(Keys.D)) ||
-                        (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D))) && isGrounded)
+                        (kbState.IsKeyUp(Keys.A) && kbState.IsKeyUp(Keys.D))) && isGrounded && !isStunned)
                     {
                         animState = AnimationState.Idle;
                         frame = 0;
                     }
                     //switch to walking if on the ground and moving
                     if (((kbState.IsKeyDown(Keys.A) && kbState.IsKeyUp(Keys.D)) ||
-                        (kbState.IsKeyUp(Keys.A) && kbState.IsKeyDown(Keys.D))) && isGrounded)
+                        (kbState.IsKeyUp(Keys.A) && kbState.IsKeyDown(Keys.D))) && isGrounded && !isStunned)
                     {
                         animState = AnimationState.Walking;
                         frame = 0;
@@ -784,6 +810,9 @@ namespace MainProject
                         //player is hiting a left spring
                         if (intLevel[i, j].TypeOfCollision == "leftSpring" && isColliding)
                         {
+                            //remove any possible stun from player
+                            isStunned = false;
+
                             //launches player left and a bit up
                             xVelocity = xSpringXVelocity;
                             yVelocity = xSpringYVelocity;
@@ -794,6 +823,9 @@ namespace MainProject
                         //player is hiting a right spring
                         else if (intLevel[i, j].TypeOfCollision == "rightSpring" && isColliding)
                         {
+                            //remove any possible stun from player
+                            isStunned = false;
+
                             //launches player right and a bit up
                             xVelocity = -xSpringXVelocity;
                             yVelocity = xSpringYVelocity;
@@ -804,6 +836,9 @@ namespace MainProject
                         //player is hiting an up spring
                         else if (intLevel[i, j].TypeOfCollision == "upSpring" && isColliding)
                         {
+                            //remove any possible stun from player
+                            isStunned = false;
+
                             //lauches player upwards and resets x momentum
                             yVelocity = ySpringYVelocity;
                             xVelocity = 0;
@@ -814,6 +849,9 @@ namespace MainProject
                         //player is hiting an up tube
                         else if (intLevel[i, j].TypeOfCollision == "upTube" && isColliding)
                         {
+                            //remove any possible stun from player
+                            isStunned = false;
+
                             //centers x momentum if player is not attempting to leave beam 
                             if (!playerWantsOut)
                             {
@@ -846,6 +884,9 @@ namespace MainProject
                         //player is hiting a down tube
                         else if (intLevel[i, j].TypeOfCollision == "downTube" && isColliding)
                         {
+                            //remove any possible stun from player
+                            isStunned = false;
+
                             //centers x momentum if player is not attempting to leave beam 
                             if (!playerWantsOut)
                             {
@@ -877,6 +918,9 @@ namespace MainProject
                         else if (intLevel[i, j].TypeOfCollision == "leftTube" && isColliding
                             && tubeDisableTimer == 60)
                         {
+                            //remove any possible stun from player
+                            isStunned = false;
+
                             //centers y momentum if player is not attempting to leave beam 
                             if (!playerWantsOut)
                             {
@@ -909,6 +953,9 @@ namespace MainProject
                         else if (intLevel[i, j].TypeOfCollision == "rightTube" && isColliding
                             && tubeDisableTimer == 60)
                         {
+                            //remove any possible stun from player
+                            isStunned = false;
+
                             //centers y momentum if player is not attempting to leave beam 
                             if (!playerWantsOut)
                             {
@@ -975,6 +1022,9 @@ namespace MainProject
                     
                     //player loses double jump
                     canDoubleJump = false;
+                    //player is stunned
+                    isStunned = true;
+                    currentStunFrame = 0;
                 }
                 //goes through the list of bullets for each enemy
                 foreach (Bullet b in e.Bullets)
@@ -996,9 +1046,28 @@ namespace MainProject
 
                         //remove the bullet from its list
                         e.Bullets.Remove(b);
+                        isStunned = true;
+                        currentStunFrame = 0;
                         return;
                     }
                 }
+            }
+
+            //actions while player is stunned
+            if (currentStunFrame >= 0 && currentStunFrame < framesStunned)
+            {
+                //increment timer
+                currentStunFrame++;
+            }
+            else if (currentStunFrame >= framesStunned)
+            {
+                isStunned = false;
+            }
+            //stop timer and when not stunned
+            if (!isStunned && currentStunFrame != -1) //wrong
+            {
+                currentStunFrame = -1;
+                canDoubleJump = true;
             }
         }
         
@@ -1175,7 +1244,7 @@ namespace MainProject
             }
             
             sb.DrawString(debugFont, isGrounded + ", " + touchingLeftWall + ", " + touchingRightWall + 
-                ", "  + debugText + ", " + xVelocity + ", " + normalTube, 
+                ", "  + debugText + ", " + xVelocity + ", " + normalTube + ", " + currentStunFrame, 
                 new Vector2(100, 100), Color.Red);
             
         }
