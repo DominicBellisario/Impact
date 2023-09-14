@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Security.Cryptography;
@@ -52,6 +53,11 @@ namespace MainProject
 
         //the current player mode
         private bool hard;
+
+        //spawn point for the player if they die
+        private Vector2 spawnPoint;
+        private bool spawning;
+        private bool done;
 
         #region general speeds and accelerations
         //initial y jump speed
@@ -231,19 +237,43 @@ namespace MainProject
             timePerFloatFrame = 1 / fpsFloat;
             currentStunFrame = -1;
             isStunned = false;
+            spawning = false;
+            done = false;
         }
 
         /// <summary>
         /// controls player physics
         /// </summary>
         /// <param name="gameTime"></param>
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, List<Enemy> enemies)
         {
             //timer counting
             timer++;
             if (timer == 1000)
             {
                 timer = 0;
+            }
+
+            if (done)
+            {
+                //stops player movement
+                xVelocity = 0;
+                yVelocity = 0;
+                done = false;
+            }
+            //reset everything if spawning
+            if (spawning)
+            {
+                spawning = false;
+                done = true;
+                //move player to spawnpoint
+                xVelocity = rect.X - spawnPoint.X;
+                yVelocity = rect.Y - spawnPoint.Y;
+                //remove all bullets from screen
+                foreach (Enemy e in enemies)
+                {
+                    e.Bullets.Clear();
+                }
             }
 
             KeyboardState kbState = Keyboard.GetState();
@@ -728,6 +758,11 @@ namespace MainProject
             {
                 for (int j = 0; j < columns; j++)
                 {
+                    if (bgLevel[i, j].Asset.Name == "Spawn")
+                    {
+                        spawnPoint.X = (float)bgLevel[i, j].RectX;
+                        spawnPoint.Y = (float)bgLevel[i, j].RectY;
+                    }
                     //makes sure only near blocks that have collision are taken into account
                     if (Math.Abs(bgLevel[i, j].Rect.X - rect.X) < 400 &&
                         Math.Abs(bgLevel[i, j].Rect.Y - rect.Y) < 400 && bgLevel[i, j].CanCollide)
@@ -798,7 +833,7 @@ namespace MainProject
                     }
                 }
             }
-
+            
             //----------interactbale collisions----------
 
             for (int i = 0; i < rows; i++)
@@ -988,6 +1023,12 @@ namespace MainProject
                             }
                             tubeAccelerationChance += 1;
                             hitHTube = true;
+                        }
+
+                        //player is hitting a spike
+                        else if (intLevel[i, j].TypeOfCollision == "spikes" && isColliding)
+                        {
+                            spawning = true;
                         }
 
                         //count up if the timer is not at its final value

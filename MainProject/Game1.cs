@@ -206,7 +206,7 @@ namespace MainProject
             player.Collisions(testLevel.BgLevelBlueprint, testLevel.IntLevelBlueprint, 
                 testLevel.Rows, testLevel.Columns, enemies);
             //determines the new player x and y velocity
-            player.Update(gameTime);
+            player.Update(gameTime, enemies);
 
             //updates the level position each frame
             testLevel.Update(gameTime, player.XVelocity, player.YVelocity);
