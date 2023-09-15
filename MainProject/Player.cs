@@ -261,7 +261,7 @@ namespace MainProject
                 yVelocity = 0;
                 done = false;
             }
-            //reset everything if spawning
+            //reset everything if spawningd 
             if (spawning)
             {
                 spawning = false;
@@ -274,6 +274,8 @@ namespace MainProject
                 {
                     e.Bullets.Clear();
                 }
+                //normal player
+                hard = false;
             }
 
             KeyboardState kbState = Keyboard.GetState();
