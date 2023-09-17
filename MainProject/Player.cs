@@ -143,6 +143,8 @@ namespace MainProject
         private Texture2D hurt;
         //floating
         private Texture2D floating;
+        //explosion
+        private Texture2D explosion;
 
         //animation stuff
         AnimationState animState;
@@ -198,7 +200,7 @@ namespace MainProject
         }
 
         public Player(double xPos, double yPos, Texture2D asset, Texture2D idle, Texture2D walking,
-            Texture2D jumping, Texture2D hurt, Texture2D floating, SpriteFont debugFont)
+            Texture2D jumping, Texture2D hurt, Texture2D floating, Texture2D explosion, SpriteFont debugFont)
         {
             timer = 0;
             this.xPos = xPos;
@@ -210,6 +212,7 @@ namespace MainProject
             this.jumping = jumping;
             this.hurt = hurt;
             this.floating = floating;
+            this.explosion = explosion;
             xVelocity = 0;
             yVelocity = 0;
             isGrounded = false;
@@ -1093,7 +1096,8 @@ namespace MainProject
                             yVelocity = 50 * Math.Sin(launchAngle);
                         }
 
-                        //remove the bullet from its list
+                        //add an explosions and remove the bullet from its list
+                        e.Explosions.Add(new Explosion(explosion, new Rectangle(b.Hitbox.X - 50, b.Hitbox.Y - 50, 200, 200)));
                         e.Bullets.Remove(b);
                         isStunned = true;
                         currentStunFrame = 0;

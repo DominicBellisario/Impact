@@ -54,9 +54,12 @@ namespace MainProject
 
         //bullet sprite
         private Texture2D bulletSprite;
+        private Texture2D explosion;
 
         //list of bullets
         private List<Bullet> bullets;
+        //list of explosions
+        private List<Explosion> explosions;
 
         //timer that controls bullet firing
         private int bulletTimer;
@@ -96,6 +99,11 @@ namespace MainProject
             get { return bullets; }
         }
 
+        public List<Explosion> Explosions
+        {
+            get { return explosions; }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -109,7 +117,7 @@ namespace MainProject
         public Enemy(int speed, int aggroRadius, int xPos, int yPos, int leftX, int leftY,
             int rightX, int rightY,
             Texture2D walkingSpriteSheet, Texture2D shootingSpriteSheet, 
-            Texture2D bulletSprite, SpriteFont test, Room[,] bgLevel, int rows, int columns)
+            Texture2D bulletSprite, Texture2D explosion, SpriteFont test, Room[,] bgLevel, int rows, int columns)
         {
             this.speed = speed;
             this.aggroRadius = aggroRadius;
@@ -120,6 +128,7 @@ namespace MainProject
             this.rows = rows;
             this.columns = columns;
             this.bgLevel = bgLevel;
+            this.explosion = explosion;
 
             //enemy begins by walking
             isWalking = true;
@@ -140,6 +149,8 @@ namespace MainProject
 
             bullets = new List<Bullet>();
             bulletTimer = 0;
+
+            explosions = new List<Explosion>();
 
             testFont = test;
             
@@ -243,11 +254,22 @@ namespace MainProject
                         {
                             if (b.Hitbox.Intersects(bgLevel[i, j].Rect))
                             {
+                                explosions.Add(new Explosion(explosion, new Rectangle(b.Hitbox.X - 50, b.Hitbox.Y - 50, 200, 200)));
                                 bullets.Remove(b);
                                 return;
                             }
                         }
                     }
+                }
+            }
+
+            //explosion despawn
+            foreach (Explosion e in explosions)
+            {
+                if (e.Update(gameTime, xVelocity, yVelocity))
+                {
+                    explosions.Remove(e);
+                    return;
                 }
             }
             
@@ -361,6 +383,13 @@ namespace MainProject
             {
                 b.Draw(sb);
             }
+
+            //draw each explosion in the list
+            foreach (Explosion e in explosions)
+            {
+                e.Draw(sb);
+            }
+
             //sb.DrawString(testFont, "" + angle, new Vector2(30, 30), Color.Red);
         }
 

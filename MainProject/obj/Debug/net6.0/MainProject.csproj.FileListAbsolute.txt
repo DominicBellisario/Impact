@@ -103,3 +103,4 @@ C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\PlayerId
 C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\PlayerJump.xnb
 C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\PlayerWalk.xnb
 C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\Spikes.xnb
+C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\Explosion.xnb
