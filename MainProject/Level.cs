@@ -179,7 +179,15 @@ namespace MainProject
                         else if (data[j] == "S")
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["spawn"], bgAssets["spawn"], false, "none", 0, 0, "none");
+                                bgAssets["background"], bgAssets["background"], false, "none", 0, 0, "none");
+                            playerPosX = j * 100;
+                            playerPosY = i * 100;
+                        }
+                        //spawn
+                        else if (data[j] == "E")
+                        {
+                            bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
+                                bgAssets["spawn"], bgAssets["spawn"], true, "end", 0, 0, "none");
                             playerPosX = j * 100;
                             playerPosY = i * 100;
                         }

@@ -74,8 +74,8 @@ namespace MainProject
         private Dictionary<string, Texture2D> bgLevelSprites;
         private Dictionary<string, Texture2D> intLevelSprites;
 
-        private Dictionary<string, Texture2D> bgLevelSprites1;
-        private Dictionary<string, Texture2D> intLevelSprites1;
+        //private Dictionary<string, Texture2D> bgLevelSprites1;
+        //private Dictionary<string, Texture2D> intLevelSprites1;
 
         //width and height of screen
         private int width;
@@ -83,15 +83,15 @@ namespace MainProject
 
         //levels
         private Level testLevel;
-        private Level level1;
+        //private Level level1;
 
         //player
         private Player player;
-        private Player player1;
+        //private Player player1;
 
         //list of enemies
         private List<Enemy> enemies;
-        private List<Enemy> enemies1;
+        //private List<Enemy> enemies1;
 
         //fonts
         private SpriteFont debugFont;
@@ -124,9 +124,9 @@ namespace MainProject
             enemies = new List<Enemy>();
 
             //level 1
-            bgLevelSprites1 = new Dictionary<string, Texture2D>();
-            intLevelSprites1 = new Dictionary<string, Texture2D>();
-            enemies1 = new List<Enemy>();
+            //bgLevelSprites1 = new Dictionary<string, Texture2D>();
+            //intLevelSprites1 = new Dictionary<string, Texture2D>();
+            //enemies1 = new List<Enemy>();
             base.Initialize();
         }
 
@@ -213,14 +213,14 @@ namespace MainProject
             //level loading
             testLevel = new Level(bgLevelSprites, intLevelSprites, 
                 width, height, "TestLevel.txt", "TestLevelInteractables.txt");
-            level1 = new Level(bgLevelSprites1, intLevelSprites1,
-                width, height, "Level1Bg.txt", "Level1Int.txt");
+            //level1 = new Level(bgLevelSprites1, intLevelSprites1,
+                //width, height, "Level1Bg.txt", "Level1Int.txt");
 
             //player loading
             player = new Player(width/2, height/2, playerSprite, playerIdle, playerWalk, playerJump, 
                 playerHurt, playerFloat, explosion, debugFont);
-            player1 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
-                playerHurt, playerFloat, explosion, debugFont);
+            //player1 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
+                //playerHurt, playerFloat, explosion, debugFont);
 
             //test level enemies
             enemies.Add(new Enemy(5, 1000, 4000, -400, 3500, -400, 4300, -400,
@@ -241,9 +241,12 @@ namespace MainProject
             {
                 //while player is in the test level
                 case CurrentLevel.Test:
-                    //checks for player collison
-                    player.Collisions(testLevel.BgLevelBlueprint, testLevel.IntLevelBlueprint,
-                        testLevel.Rows, testLevel.Columns, enemies);
+                    //checks for player collison and for if the next level should be loaded
+                    if (player.Collisions(testLevel.BgLevelBlueprint, testLevel.IntLevelBlueprint,
+                        testLevel.Rows, testLevel.Columns, enemies))
+                    {
+                        currentLevel = CurrentLevel.L1;
+                    }
                     //determines the new player x and y velocity
                     player.Update(gameTime, enemies);
 
@@ -288,14 +291,14 @@ namespace MainProject
                 //while player is in level 1
                 case CurrentLevel.L1:
                     //draws level first
-                    level1.Draw(_spriteBatch);
+                    //level1.Draw(_spriteBatch);
                     //then player
-                    player1.Draw(_spriteBatch);
+                    //player1.Draw(_spriteBatch);
                     //then enemies
-                    foreach (Enemy enemy in enemies1)
-                    {
-                        enemy.Draw(_spriteBatch);
-                    }
+                    //foreach (Enemy enemy in enemies1)
+                    //{
+                    //    enemy.Draw(_spriteBatch);
+                    //}
                     break;
             }
             _spriteBatch.End();

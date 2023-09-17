@@ -738,7 +738,7 @@ namespace MainProject
         /// checks tiles to see if they collide with the player
         /// </summary>
         /// <param name="level"></param>
-        public void Collisions(Room[,] bgLevel, Room[,] intLevel, int rows, int columns, 
+        public bool Collisions(Room[,] bgLevel, Room[,] intLevel, int rows, int columns, 
             List<Enemy> enemies)
         {
             bool isColliding;
@@ -834,6 +834,12 @@ namespace MainProject
                                 AdjustPosition(intLevel, -collisionRect.Width, true, rows, columns);
                                 
                             }
+                        }
+
+                        //if player hits the end, signal the transition to the next level
+                        if (bgLevel[i, j].TypeOfCollision == "end")
+                        {
+                            return true;
                         }
                     }
                 }
@@ -1122,6 +1128,9 @@ namespace MainProject
                 currentStunFrame = -1;
                 canDoubleJump = true;
             }
+
+            //end condition not met, game continues
+            return false;
         }
         
         /// <summary>
