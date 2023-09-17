@@ -5,10 +5,24 @@ using System.Collections.Generic;
 
 namespace MainProject
 {
+    //keeps track of the current level
+    enum CurrentLevel
+    {
+        Test,
+        L1,
+        L2,
+        L3,
+        L4,
+        L5,
+        L6,
+        L7,
+    }
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+
+        CurrentLevel currentLevel;
 
         //sprites
         //non collidables
@@ -60,18 +74,24 @@ namespace MainProject
         private Dictionary<string, Texture2D> bgLevelSprites;
         private Dictionary<string, Texture2D> intLevelSprites;
 
+        private Dictionary<string, Texture2D> bgLevelSprites1;
+        private Dictionary<string, Texture2D> intLevelSprites1;
+
         //width and height of screen
         private int width;
         private int height;
 
         //levels
         private Level testLevel;
+        private Level level1;
 
         //player
         private Player player;
+        private Player player1;
 
         //list of enemies
         private List<Enemy> enemies;
+        private List<Enemy> enemies1;
 
         //fonts
         private SpriteFont debugFont;
@@ -87,6 +107,8 @@ namespace MainProject
         {
             // TODO: Add your initialization logic here
 
+            currentLevel = CurrentLevel.Test;
+
             //set screen size to the size of the monitor (3840 x 2160)
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
@@ -96,9 +118,15 @@ namespace MainProject
             width = _graphics.GraphicsDevice.Viewport.Width;
             height = _graphics.GraphicsDevice.Viewport.Height;
 
+            //test level
             bgLevelSprites = new Dictionary<string, Texture2D>();
             intLevelSprites = new Dictionary<string, Texture2D>();
             enemies = new List<Enemy>();
+
+            //level 1
+            bgLevelSprites1 = new Dictionary<string, Texture2D>();
+            intLevelSprites1 = new Dictionary<string, Texture2D>();
+            enemies1 = new List<Enemy>();
             base.Initialize();
         }
 
@@ -169,8 +197,7 @@ namespace MainProject
             playerJump = Content.Load<Texture2D>("PlayerJump");
             playerHurt = Content.Load<Texture2D>("PlayerHurt");
             playerFloat = Content.Load<Texture2D>("PlayerFloat");
-            #endregion
-
+            
             //enemy sprites
             enemyWalking = Content.Load<Texture2D>("EnemyWalking");
             enemyShooting = Content.Load<Texture2D>("EnemyShooting");
@@ -178,6 +205,7 @@ namespace MainProject
             //bullet sprite
             bullet = Content.Load<Texture2D>("Bullet");
             explosion = Content.Load<Texture2D>("Explosion");
+            #endregion
 
             //fonts
             debugFont = Content.Load<SpriteFont>("DebugFont");
@@ -185,9 +213,13 @@ namespace MainProject
             //level loading
             testLevel = new Level(bgLevelSprites, intLevelSprites, 
                 width, height, "TestLevel.txt", "TestLevelInteractables.txt");
+            level1 = new Level(bgLevelSprites1, intLevelSprites1,
+                width, height, "Level1Bg.txt", "Level1Int.txt");
 
             //player loading
             player = new Player(width/2, height/2, playerSprite, playerIdle, playerWalk, playerJump, 
+                playerHurt, playerFloat, explosion, debugFont);
+            player1 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
                 playerHurt, playerFloat, explosion, debugFont);
 
             //test level enemies
@@ -195,6 +227,8 @@ namespace MainProject
                 enemyWalking, enemyShooting, bullet, explosion, debugFont, testLevel.BgLevelBlueprint, 50, 50));
             enemies.Add(new Enemy(3, 1000, 4900, -900, 4600, -900, 5200, -900,
                 enemyWalking, enemyShooting, bullet, explosion, debugFont, testLevel.BgLevelBlueprint, 50, 50));
+
+            //level 1 enemies
         }
 
         protected override void Update(GameTime gameTime)
@@ -203,20 +237,29 @@ namespace MainProject
                 Exit();
 
             // TODO: Add your update logic here
-
-            //checks for player collison
-            player.Collisions(testLevel.BgLevelBlueprint, testLevel.IntLevelBlueprint, 
-                testLevel.Rows, testLevel.Columns, enemies);
-            //determines the new player x and y velocity
-            player.Update(gameTime, enemies);
-
-            //updates the level position each frame
-            testLevel.Update(gameTime, player.XVelocity, player.YVelocity);
-
-            //updates every enemy each frame
-            foreach (Enemy enemy in enemies)
+            switch (currentLevel)
             {
-                enemy.Update(gameTime, (int)player.XVelocity, (int)player.YVelocity);
+                //while player is in the test level
+                case CurrentLevel.Test:
+                    //checks for player collison
+                    player.Collisions(testLevel.BgLevelBlueprint, testLevel.IntLevelBlueprint,
+                        testLevel.Rows, testLevel.Columns, enemies);
+                    //determines the new player x and y velocity
+                    player.Update(gameTime, enemies);
+
+                    //updates the level position each frame
+                    testLevel.Update(gameTime, player.XVelocity, player.YVelocity);
+
+                    //updates every enemy each frame
+                    foreach (Enemy enemy in enemies)
+                    {
+                        enemy.Update(gameTime, (int)player.XVelocity, (int)player.YVelocity);
+                    }
+                    break;
+
+                //while player is in level 1
+                case CurrentLevel.L1:
+                    break;
             }
 
             base.Update(gameTime);
@@ -225,17 +268,35 @@ namespace MainProject
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            //draws level first
-            testLevel.Draw(_spriteBatch);
-            //then player
-            player.Draw(_spriteBatch);
-            //then enemies
-            foreach (Enemy enemy in enemies)
+            switch (currentLevel)
             {
-                enemy.Draw(_spriteBatch);
+                //while player is in test level
+                case CurrentLevel.Test:
+                    //draws level first
+                    testLevel.Draw(_spriteBatch);
+                    //then player
+                    player.Draw(_spriteBatch);
+                    //then enemies
+                    foreach (Enemy enemy in enemies)
+                    {
+                        enemy.Draw(_spriteBatch);
+                    }
+                    break;
+
+                //while player is in level 1
+                case CurrentLevel.L1:
+                    //draws level first
+                    level1.Draw(_spriteBatch);
+                    //then player
+                    player1.Draw(_spriteBatch);
+                    //then enemies
+                    foreach (Enemy enemy in enemies1)
+                    {
+                        enemy.Draw(_spriteBatch);
+                    }
+                    break;
             }
             _spriteBatch.End();
             base.Draw(gameTime);
