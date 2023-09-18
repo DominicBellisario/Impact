@@ -837,7 +837,7 @@ namespace MainProject
                         }
 
                         //if player hits the end, signal the transition to the next level
-                        if (bgLevel[i, j].TypeOfCollision == "end")
+                        if (bgLevel[i, j].TypeOfCollision == "end" && bgLevel[i, j].Rect.Intersects(rect))
                         {
                             return true;
                         }
@@ -1107,7 +1107,7 @@ namespace MainProject
                         e.Bullets.Remove(b);
                         isStunned = true;
                         currentStunFrame = 0;
-                        return;
+                        return false;
                     }
                 }
             }

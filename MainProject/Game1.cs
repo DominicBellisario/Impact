@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 
 namespace MainProject
@@ -74,24 +75,21 @@ namespace MainProject
         private Dictionary<string, Texture2D> bgLevelSprites;
         private Dictionary<string, Texture2D> intLevelSprites;
 
-        //private Dictionary<string, Texture2D> bgLevelSprites1;
-        //private Dictionary<string, Texture2D> intLevelSprites1;
-
         //width and height of screen
         private int width;
         private int height;
 
         //levels
         private Level testLevel;
-        //private Level level1;
+        private Level level1;
 
         //player
         private Player player;
-        //private Player player1;
+        private Player player1;
 
         //list of enemies
         private List<Enemy> enemies;
-        //private List<Enemy> enemies1;
+        private List<Enemy> enemies1;
 
         //fonts
         private SpriteFont debugFont;
@@ -121,12 +119,11 @@ namespace MainProject
             //test level
             bgLevelSprites = new Dictionary<string, Texture2D>();
             intLevelSprites = new Dictionary<string, Texture2D>();
+            
+            //test level enemies
             enemies = new List<Enemy>();
+            enemies1 = new List<Enemy>();
 
-            //level 1
-            //bgLevelSprites1 = new Dictionary<string, Texture2D>();
-            //intLevelSprites1 = new Dictionary<string, Texture2D>();
-            //enemies1 = new List<Enemy>();
             base.Initialize();
         }
 
@@ -213,14 +210,14 @@ namespace MainProject
             //level loading
             testLevel = new Level(bgLevelSprites, intLevelSprites, 
                 width, height, "TestLevel.txt", "TestLevelInteractables.txt");
-            //level1 = new Level(bgLevelSprites1, intLevelSprites1,
-                //width, height, "Level1Bg.txt", "Level1Int.txt");
+            level1 = new Level(bgLevelSprites, intLevelSprites,
+                width, height, "Level1Bg.txt", "Level1Int.txt");
 
             //player loading
             player = new Player(width/2, height/2, playerSprite, playerIdle, playerWalk, playerJump, 
                 playerHurt, playerFloat, explosion, debugFont);
-            //player1 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
-                //playerHurt, playerFloat, explosion, debugFont);
+            player1 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
+                playerHurt, playerFloat, explosion, debugFont);
 
             //test level enemies
             enemies.Add(new Enemy(5, 1000, 4000, -400, 3500, -400, 4300, -400,
@@ -229,6 +226,7 @@ namespace MainProject
                 enemyWalking, enemyShooting, bullet, explosion, debugFont, testLevel.BgLevelBlueprint, 50, 50));
 
             //level 1 enemies
+            //(none)
         }
 
         protected override void Update(GameTime gameTime)
@@ -241,27 +239,12 @@ namespace MainProject
             {
                 //while player is in the test level
                 case CurrentLevel.Test:
-                    //checks for player collison and for if the next level should be loaded
-                    if (player.Collisions(testLevel.BgLevelBlueprint, testLevel.IntLevelBlueprint,
-                        testLevel.Rows, testLevel.Columns, enemies))
-                    {
-                        currentLevel = CurrentLevel.L1;
-                    }
-                    //determines the new player x and y velocity
-                    player.Update(gameTime, enemies);
-
-                    //updates the level position each frame
-                    testLevel.Update(gameTime, player.XVelocity, player.YVelocity);
-
-                    //updates every enemy each frame
-                    foreach (Enemy enemy in enemies)
-                    {
-                        enemy.Update(gameTime, (int)player.XVelocity, (int)player.YVelocity);
-                    }
+                    LevelUpdate(testLevel, enemies, player, CurrentLevel.L1, gameTime);
                     break;
 
                 //while player is in level 1
                 case CurrentLevel.L1:
+                    LevelUpdate(level1, enemies1, player1, CurrentLevel.L1, gameTime);
                     break;
             }
 
@@ -291,18 +274,44 @@ namespace MainProject
                 //while player is in level 1
                 case CurrentLevel.L1:
                     //draws level first
-                    //level1.Draw(_spriteBatch);
+                    level1.Draw(_spriteBatch);
                     //then player
-                    //player1.Draw(_spriteBatch);
-                    //then enemies
-                    //foreach (Enemy enemy in enemies1)
-                    //{
-                    //    enemy.Draw(_spriteBatch);
-                    //}
+                    player1.Draw(_spriteBatch);
+                    //then enemies (none)
                     break;
             }
             _spriteBatch.End();
             base.Draw(gameTime);
+        }
+
+        /// <summary>
+        /// template for level update
+        /// </summary>
+        /// <param name="level"></param>
+        /// <param name="enemies"></param>
+        /// <param name="player"></param>
+        /// <param name="nextLevel"></param>
+        /// <param name="gameTime"></param>
+        private void LevelUpdate(Level level, List<Enemy> enemies, 
+            Player player, CurrentLevel nextLevel, GameTime gameTime)
+        {
+            //checks for player collison and for if the next level should be loaded
+            if (player.Collisions(level.BgLevelBlueprint, level.IntLevelBlueprint,
+                level.Rows, level.Columns, enemies))
+            {
+                currentLevel = nextLevel;
+            }
+            //determines the new player x and y velocity
+            player.Update(gameTime, enemies);
+
+            //updates the level position each frame
+            level.Update(gameTime, player.XVelocity, player.YVelocity);
+
+            //updates every enemy each frame
+            foreach (Enemy enemy in enemies)
+            {
+                enemy.Update(gameTime, (int)player.XVelocity, (int)player.YVelocity);
+            }
         }
     }
 }
