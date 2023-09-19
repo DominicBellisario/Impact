@@ -188,8 +188,6 @@ namespace MainProject
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
                                 bgAssets["background"], bgAssets["background"], true, "end", 0, 0, "none");
-                            playerPosX = j * 100;
-                            playerPosY = i * 100;
                         }
                         #endregion
                     }

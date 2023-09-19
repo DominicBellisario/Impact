@@ -362,6 +362,7 @@ namespace MainProject
                 level.Rows, level.Columns, enemies))
             {
                 currentLevel = nextLevel;
+                return;
             }
         }
     }
