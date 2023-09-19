@@ -800,7 +800,7 @@ namespace MainProject
                                 //player is on the ground
                                 isGrounded = true;
                                 //player is not stuck in the tile
-                                AdjustEnemyPosition(-collisionRect.Height, false, enemies);
+                                AdjustEnemyPosition(-collisionRect.Height, false, enemies, keys);
                                 AdjustPosition(bgLevel, -collisionRect.Height, false, rows, columns);
                                 AdjustPosition(intLevel, -collisionRect.Height, false, rows, columns);
                                 
@@ -811,7 +811,7 @@ namespace MainProject
                                 //player has a light bounce off of the tile
                                 yVelocity = -1;
                                 //player is not stuck in the tile
-                                AdjustEnemyPosition(collisionRect.Height, false, enemies);
+                                AdjustEnemyPosition(collisionRect.Height, false, enemies, keys);
                                 AdjustPosition(bgLevel, collisionRect.Height, false, rows, columns);
                                 AdjustPosition(intLevel, collisionRect.Height, false, rows, columns);
                                 
@@ -834,7 +834,7 @@ namespace MainProject
                             {
                                 touchingLeftWall = true;
                                 //player is not stuck in the tile
-                                AdjustEnemyPosition(collisionRect.Width, true, enemies);
+                                AdjustEnemyPosition(collisionRect.Width, true, enemies, keys);
                                 AdjustPosition(bgLevel, collisionRect.Width, true, rows, columns);
                                 AdjustPosition(intLevel, collisionRect.Width, true, rows, columns);
                                 
@@ -844,7 +844,7 @@ namespace MainProject
                             {
                                 touchingRightWall = true;
                                 //player is not stuck in the tile
-                                AdjustEnemyPosition(-collisionRect.Width, true, enemies);
+                                AdjustEnemyPosition(-collisionRect.Width, true, enemies, keys);
                                 AdjustPosition(bgLevel, -collisionRect.Width, true, rows, columns);
                                 AdjustPosition(intLevel, -collisionRect.Width, true, rows, columns);
                                 
@@ -1073,15 +1073,17 @@ namespace MainProject
             //------ key collisions -------
             foreach (Key k in keys)
             {
-
+                if (rect.Intersects(k.Hitbox))
+                {
+                    keys.Remove(k);
+                    return false;
+                }
             }
 
             //------ enemy / bullet collisions -------
             foreach (Enemy e in enemies)
             {
-                isColliding = rect.Intersects(e.Hitbox);
-                collisionRect = Rectangle.Intersect(rect, e.Hitbox);
-                if (isColliding)
+                if (rect.Intersects(e.Hitbox))
                 {
                     double launchAngle = Math.Atan2(e.Hitbox.Center.Y - rect.Center.Y,
                     e.Hitbox.Center.X - rect.Center.X);
@@ -1189,7 +1191,7 @@ namespace MainProject
             }
         }
 
-        private void AdjustEnemyPosition(int distance, bool isHorizontal, List<Enemy> enemies)
+        private void AdjustEnemyPosition(int distance, bool isHorizontal, List<Enemy> enemies, List<Key> keys)
         {
             foreach (Enemy e in enemies)
             {
@@ -1204,6 +1206,22 @@ namespace MainProject
                 else
                 {
                     e.AdjustmentY += distance + 1;
+                }
+            }
+
+            foreach (Key k in keys)
+            {
+                if (isHorizontal && xVelocity > 0)
+                {
+                    k.AdjustmentX += distance + 1;
+                }
+                else if (isHorizontal && xVelocity <= 0)
+                {
+                    k.AdjustmentX += distance - 1;
+                }
+                else
+                {
+                    k.AdjustmentY += distance + 1;
                 }
             }
         }
@@ -1329,7 +1347,13 @@ namespace MainProject
             sb.DrawString(debugFont, isGrounded + ", " + touchingLeftWall + ", " + touchingRightWall + 
                 ", "  + debugText + ", " + xVelocity + ", " + normalTube + ", " + currentStunFrame + ", " + isStunned,
                 new Vector2(100, 100), Color.Red);
-            
+
+            //draw keys
+            foreach (Key k in keys)
+            {
+                k.Draw(sb);
+            }
+
         }
 
         private void DrawPlayer(Texture2D spriteSheet, SpriteBatch sb)

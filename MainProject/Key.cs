@@ -10,10 +10,6 @@ namespace MainProject
 {
     internal class Key
     {
-        //coords
-        private int xPos;
-        private int yPos;
-
         //hitbox
         private Rectangle hitbox;
 
@@ -27,6 +23,21 @@ namespace MainProject
         private double timePerFrame;    // The amount of time (in fractional seconds) per frame
         private const int WalkFrameCount = 3;       // The number of frames in the animation
 
+        private int adjustmentX;
+        private int adjustmentY;
+
+        public int AdjustmentX
+        {
+            get { return adjustmentX; }
+            set { adjustmentX = value; }
+        }
+
+        public int AdjustmentY
+        {
+            get { return adjustmentY; }
+            set { adjustmentY = value; }
+        }
+
         /// <summary>
         /// used by player to calculate collisions
         /// </summary>
@@ -37,16 +48,20 @@ namespace MainProject
 
         public Key(int xPos, int yPos, Texture2D spriteSheet)
         {
-            this.xPos = xPos;
-            this.yPos = yPos;
             this.spriteSheet = spriteSheet;
             hitbox = new Rectangle(xPos, yPos, 100, 100);
             frame = 0;
             timePerFrame = 1 / fps;
         }
 
-        public void UpdateAnimation(GameTime gameTime)
+        public void UpdateAnimation(GameTime gameTime, int xVelocity, int yVelocity)
         {
+            hitbox.X += xVelocity - adjustmentX;
+            hitbox.Y += yVelocity - adjustmentY;
+            adjustmentX = 0;
+            adjustmentY = 0;
+
+
             // Handle animation timing
             // - Add to the time counter
             // - Check if we have enough "time" to advance the frame

@@ -117,7 +117,7 @@ namespace MainProject
         {
             // TODO: Add your initialization logic here
             //game starts at level 1
-            currentLevel = CurrentLevel.L3;
+            currentLevel = CurrentLevel.L1;
 
             //set screen size to the size of the monitor (3840 x 2160)
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -227,6 +227,7 @@ namespace MainProject
             //fonts
             debugFont = Content.Load<SpriteFont>("DebugFont");
 
+            #region levels
             //level loading
             testLevel = new Level(bgLevelSprites, intLevelSprites, 
                 width, height, "TestLevel.txt", "TestLevelInteractables.txt");
@@ -236,7 +237,9 @@ namespace MainProject
                 width, height, "Level2Bg.txt", "Level2Int.txt");
             level3 = new Level(bgLevelSprites, intLevelSprites,
                 width, height, "Level3Bg.txt", "Level3Int.txt");
+            #endregion
 
+            #region players
             //player loading
             player = new Player(width/2, height/2, playerSprite, playerIdle, playerWalk, playerJump, 
                 playerHurt, playerFloat, explosion, keys, debugFont);
@@ -246,7 +249,9 @@ namespace MainProject
                 playerHurt, playerFloat, explosion, keys2, debugFont);
             player3 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
                 playerHurt, playerFloat, explosion, keys3, debugFont);
+            #endregion
 
+            #region enemies
             //test level enemies
             enemies.Add(new Enemy(5, 1000, 4000, -400, 3500, -400, 4300, -400,
                 enemyWalking, enemyShooting, bullet, explosion, debugFont, testLevel.BgLevelBlueprint, 50, 50));
@@ -264,6 +269,35 @@ namespace MainProject
                 enemyWalking, enemyShooting, bullet, explosion, debugFont, level3.BgLevelBlueprint, level3.Rows, level3.Columns));
             enemies3.Add(new Enemy(4, 1000, 6800, 1500, 6500, 1500, 7100, 1500,
                enemyWalking, enemyShooting, bullet, explosion, debugFont, level3.BgLevelBlueprint, level3.Rows, level3.Columns));
+            #endregion
+
+            #region keys
+            //test keys
+            //(none)
+
+            //level 1 keys
+            //(none)
+            keys1.Add(new Key(5000, 500, playerHurt));
+            keys1.Add(new Key(7000, 100, playerHurt));
+
+            //level 2 keys
+            //(none)
+
+            //level 3 keys
+            //(none)
+
+            //level 4 keys
+            //(none)
+
+            //level 5 keys
+            //(none)
+
+            //level 6 keys
+            //(none)
+
+            //level 7 keys
+            //(none)
+            #endregion
         }
 
         protected override void Update(GameTime gameTime)
@@ -276,22 +310,22 @@ namespace MainProject
             {
                 //while player is in the test level
                 case CurrentLevel.Test:
-                    LevelUpdate(testLevel, enemies, player, CurrentLevel.L1, gameTime);
+                    LevelUpdate(testLevel, enemies, player, keys, CurrentLevel.L1, gameTime);
                     break;
 
                 //while player is in level 1
                 case CurrentLevel.L1:
-                    LevelUpdate(level1, enemies1, player1, CurrentLevel.L2, gameTime);
+                    LevelUpdate(level1, enemies1, player1, keys1, CurrentLevel.L2, gameTime);
                     break;
 
                 //while player is in level 2
                 case CurrentLevel.L2:
-                    LevelUpdate(level2, enemies2, player2, CurrentLevel.L3, gameTime);
+                    LevelUpdate(level2, enemies2, player2, keys2, CurrentLevel.L3, gameTime);
                     break;
 
                 //while player is in level 3
                 case CurrentLevel.L3:
-                    LevelUpdate(level3, enemies3, player3, CurrentLevel.L4, gameTime);
+                    LevelUpdate(level3, enemies3, player3, keys3, CurrentLevel.L4, gameTime);
                     break;
             }
 
@@ -362,7 +396,7 @@ namespace MainProject
         /// <param name="nextLevel"></param>
         /// <param name="gameTime"></param>
         private void LevelUpdate(Level level, List<Enemy> enemies, 
-            Player player, CurrentLevel nextLevel, GameTime gameTime)
+            Player player, List<Key> keys, CurrentLevel nextLevel, GameTime gameTime)
         {
             //determines the new player x and y velocity
             player.Update(gameTime, enemies);
@@ -374,6 +408,12 @@ namespace MainProject
             foreach (Enemy enemy in enemies)
             {
                 enemy.Update(gameTime, (int)player.XVelocity, (int)player.YVelocity);
+            }
+
+            //update keys
+            foreach (Key k in keys)
+            {
+                k.UpdateAnimation(gameTime, (int)player.XVelocity, (int)player.YVelocity);
             }
 
             //checks for player collison and for if the next level should be loaded
