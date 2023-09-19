@@ -82,14 +82,20 @@ namespace MainProject
         //levels
         private Level testLevel;
         private Level level1;
+        private Level level2;
+        private Level level3;
 
         //player
         private Player player;
         private Player player1;
+        private Player player2;
+        private Player player3;
 
         //list of enemies
         private List<Enemy> enemies;
         private List<Enemy> enemies1;
+        private List<Enemy> enemies2;
+        private List<Enemy> enemies3;
 
         //fonts
         private SpriteFont debugFont;
@@ -104,7 +110,7 @@ namespace MainProject
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            //game starts at level 1
             currentLevel = CurrentLevel.Test;
 
             //set screen size to the size of the monitor (3840 x 2160)
@@ -116,13 +122,15 @@ namespace MainProject
             width = _graphics.GraphicsDevice.Viewport.Width;
             height = _graphics.GraphicsDevice.Viewport.Height;
 
-            //test level
+            //level template
             bgLevelSprites = new Dictionary<string, Texture2D>();
             intLevelSprites = new Dictionary<string, Texture2D>();
             
-            //test level enemies
+            //enemies
             enemies = new List<Enemy>();
             enemies1 = new List<Enemy>();
+            enemies2 = new List<Enemy>();
+            enemies3 = new List<Enemy>();
 
             base.Initialize();
         }
@@ -212,11 +220,19 @@ namespace MainProject
                 width, height, "TestLevel.txt", "TestLevelInteractables.txt");
             level1 = new Level(bgLevelSprites, intLevelSprites,
                 width, height, "Level1Bg.txt", "Level1Int.txt");
+            level2 = new Level(bgLevelSprites, intLevelSprites,
+                width, height, "Level2Bg.txt", "Level2Int.txt");
+            level3 = new Level(bgLevelSprites, intLevelSprites,
+                width, height, "Level3Bg.txt", "Level3Int.txt");
 
             //player loading
             player = new Player(width/2, height/2, playerSprite, playerIdle, playerWalk, playerJump, 
                 playerHurt, playerFloat, explosion, debugFont);
             player1 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
+                playerHurt, playerFloat, explosion, debugFont);
+            player2 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
+                playerHurt, playerFloat, explosion, debugFont);
+            player3 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
                 playerHurt, playerFloat, explosion, debugFont);
 
             //test level enemies
@@ -227,6 +243,12 @@ namespace MainProject
 
             //level 1 enemies
             //(none)
+
+            //level 2 enemies
+            //(none)
+
+            //level 3 enemies
+            
         }
 
         protected override void Update(GameTime gameTime)
@@ -244,7 +266,17 @@ namespace MainProject
 
                 //while player is in level 1
                 case CurrentLevel.L1:
-                    LevelUpdate(level1, enemies1, player1, CurrentLevel.L1, gameTime);
+                    LevelUpdate(level1, enemies1, player1, CurrentLevel.L2, gameTime);
+                    break;
+
+                //while player is in level 2
+                case CurrentLevel.L2:
+                    LevelUpdate(level2, enemies2, player2, CurrentLevel.L3, gameTime);
+                    break;
+
+                //while player is in level 3
+                case CurrentLevel.L3:
+                    LevelUpdate(level3, enemies3, player3, CurrentLevel.L4, gameTime);
                     break;
             }
 
@@ -279,6 +311,24 @@ namespace MainProject
                     player1.Draw(_spriteBatch);
                     //then enemies (none)
                     break;
+
+                //while player is in level 2
+                case CurrentLevel.L2:
+                    //draws level first
+                    level2.Draw(_spriteBatch);
+                    //then player
+                    player2.Draw(_spriteBatch);
+                    //then enemies (none)
+                    break;
+
+                //while player is in level 3
+                case CurrentLevel.L3:
+                    //draws level first
+                    level3.Draw(_spriteBatch);
+                    //then player
+                    player3.Draw(_spriteBatch);
+                    //then enemies
+                    break;
             }
             _spriteBatch.End();
             base.Draw(gameTime);
@@ -295,12 +345,6 @@ namespace MainProject
         private void LevelUpdate(Level level, List<Enemy> enemies, 
             Player player, CurrentLevel nextLevel, GameTime gameTime)
         {
-            //checks for player collison and for if the next level should be loaded
-            if (player.Collisions(level.BgLevelBlueprint, level.IntLevelBlueprint,
-                level.Rows, level.Columns, enemies))
-            {
-                currentLevel = nextLevel;
-            }
             //determines the new player x and y velocity
             player.Update(gameTime, enemies);
 
@@ -311,6 +355,13 @@ namespace MainProject
             foreach (Enemy enemy in enemies)
             {
                 enemy.Update(gameTime, (int)player.XVelocity, (int)player.YVelocity);
+            }
+
+            //checks for player collison and for if the next level should be loaded
+            if (player.Collisions(level.BgLevelBlueprint, level.IntLevelBlueprint,
+                level.Rows, level.Columns, enemies))
+            {
+                currentLevel = nextLevel;
             }
         }
     }
