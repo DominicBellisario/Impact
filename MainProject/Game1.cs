@@ -91,11 +91,17 @@ namespace MainProject
         private Player player2;
         private Player player3;
 
-        //list of enemies
+        //lists of enemies
         private List<Enemy> enemies;
         private List<Enemy> enemies1;
         private List<Enemy> enemies2;
         private List<Enemy> enemies3;
+
+        //lists of keys
+        private List<Key> keys;
+        private List<Key> keys1;
+        private List<Key> keys2;
+        private List<Key> keys3;
 
         //fonts
         private SpriteFont debugFont;
@@ -131,6 +137,12 @@ namespace MainProject
             enemies1 = new List<Enemy>();
             enemies2 = new List<Enemy>();
             enemies3 = new List<Enemy>();
+
+            //keys
+            keys = new List<Key>();
+            keys1 = new List<Key>();
+            keys2 = new List<Key>();
+            keys3 = new List<Key>();
 
             base.Initialize();
         }
@@ -227,13 +239,13 @@ namespace MainProject
 
             //player loading
             player = new Player(width/2, height/2, playerSprite, playerIdle, playerWalk, playerJump, 
-                playerHurt, playerFloat, explosion, debugFont);
+                playerHurt, playerFloat, explosion, keys, debugFont);
             player1 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
-                playerHurt, playerFloat, explosion, debugFont);
+                playerHurt, playerFloat, explosion, keys1, debugFont);
             player2 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
-                playerHurt, playerFloat, explosion, debugFont);
+                playerHurt, playerFloat, explosion, keys2, debugFont);
             player3 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
-                playerHurt, playerFloat, explosion, debugFont);
+                playerHurt, playerFloat, explosion, keys3, debugFont);
 
             //test level enemies
             enemies.Add(new Enemy(5, 1000, 4000, -400, 3500, -400, 4300, -400,

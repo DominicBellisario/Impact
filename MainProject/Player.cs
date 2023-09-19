@@ -59,6 +59,12 @@ namespace MainProject
         private bool spawning;
         private bool done;
 
+        //list of keys in the level
+        private List<Key> keys;
+
+        //when all keys in the list are gone, player can exit
+        private bool exitOpen;
+
         #region general speeds and accelerations
         //initial y jump speed
         private const int jumpSpeedY = 30;
@@ -200,7 +206,7 @@ namespace MainProject
         }
 
         public Player(double xPos, double yPos, Texture2D asset, Texture2D idle, Texture2D walking,
-            Texture2D jumping, Texture2D hurt, Texture2D floating, Texture2D explosion, SpriteFont debugFont)
+            Texture2D jumping, Texture2D hurt, Texture2D floating, Texture2D explosion, List<Key> keys, SpriteFont debugFont)
         {
             timer = 0;
             this.xPos = xPos;
@@ -213,6 +219,7 @@ namespace MainProject
             this.hurt = hurt;
             this.floating = floating;
             this.explosion = explosion;
+            this.keys = keys;
             xVelocity = 0;
             yVelocity = 0;
             isGrounded = false;
@@ -242,6 +249,8 @@ namespace MainProject
             isStunned = false;
             spawning = false;
             done = false;
+            //exit is closed at first
+            exitOpen = false;
         }
 
         /// <summary>
@@ -264,7 +273,7 @@ namespace MainProject
                 yVelocity = 0;
                 done = false;
             }
-            //reset everything if spawningd 
+            //reset everything if spawning
             if (spawning)
             {
                 spawning = false;
@@ -279,6 +288,12 @@ namespace MainProject
                 }
                 //normal player
                 hard = false;
+            }
+
+            //if there are no more keys in the level, the exit opens
+            if (keys.Count == 0)
+            {
+                exitOpen = true;
             }
 
             KeyboardState kbState = Keyboard.GetState();
@@ -836,8 +851,8 @@ namespace MainProject
                             }
                         }
 
-                        //if player hits the end, signal the transition to the next level
-                        if (bgLevel[i, j].TypeOfCollision == "end" && bgLevel[i, j].Rect.Intersects(rect))
+                        //if player hits the end after collecting all keys, signal the transition to the next level
+                        if (bgLevel[i, j].TypeOfCollision == "end" && bgLevel[i, j].Rect.Intersects(rect) && exitOpen)
                         {
                             return true;
                         }
@@ -1054,7 +1069,13 @@ namespace MainProject
             //if the player touched a tube at all, inTube = true;
             inHTube = hitHTube;
             inVTube = hitVTube;
-            
+
+            //------ key collisions -------
+            foreach (Key k in keys)
+            {
+
+            }
+
             //------ enemy / bullet collisions -------
             foreach (Enemy e in enemies)
             {
