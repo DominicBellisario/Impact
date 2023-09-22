@@ -302,6 +302,7 @@ namespace MainProject
                 }
                 //no collected keys
                 collectedKeys.Clear();
+                exitOpen = false;
             }
 
             //if there are no more keys in the level, the exit opens
@@ -804,7 +805,7 @@ namespace MainProject
                         //creates a rectangle of the overlaping area
                         collisionRect = Rectangle.Intersect(bgLevel[i, j].Rect, rect);
                         
-                        //player is hitting the top or bottom of a tile while not hitting a spring
+                        //player is hitting the top or bottom of a tile
                         if (collisionRect.Width > collisionRect.Height && (bgLevel[i, j].TypeOfCollision == "surface" 
                             || bgLevel[i, j].TypeOfCollision == "ice"))
                         {
@@ -823,7 +824,6 @@ namespace MainProject
                             else
                             {
                                 //player has a light bounce off of the tile
-                                yVelocity = -1;
                                 //player is not stuck in the tile
                                 AdjustEnemyPosition(collisionRect.Height, false, enemies, keys);
                                 AdjustPosition(bgLevel, collisionRect.Height, false, rows, columns);
@@ -1069,6 +1069,10 @@ namespace MainProject
                         else if (intLevel[i, j].TypeOfCollision == "spikes" && isColliding)
                         {
                             spawning = true;
+                            xVelocity = 0;
+                            yVelocity = 0;
+
+                            return false;
                         }
 
                         //count up if the timer is not at its final value
@@ -1239,6 +1243,22 @@ namespace MainProject
                     k.AdjustmentY += distance + 1;
                 }
             }
+
+            foreach (Key k in collectedKeys)
+            {
+                if (isHorizontal && xVelocity > 0)
+                {
+                    k.AdjustmentX += distance + 1;
+                }
+                else if (isHorizontal && xVelocity <= 0)
+                {
+                    k.AdjustmentX += distance - 1;
+                }
+                else
+                {
+                    k.AdjustmentY += distance + 1;
+                }
+            }
         }
 
         /// <summary>
@@ -1358,9 +1378,11 @@ namespace MainProject
                     break;
 
             }
-            
+            int test1 = (int)spawnPoint.X - rect.X;
+            int test2 = (int)spawnPoint.Y - rect.Y;
+
             sb.DrawString(debugFont, isGrounded + ", " + touchingLeftWall + ", " + touchingRightWall + 
-                ", "  + debugText + ", " + xVelocity + ", " + normalTube + ", " + currentStunFrame + ", " + isStunned,
+                ", "  + debugText + ", " + xVelocity + ", " + test1 + ", " + test2,
                 new Vector2(100, 100), Color.Red);
 
             //draw keys
