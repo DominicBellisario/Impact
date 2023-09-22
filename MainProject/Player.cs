@@ -61,6 +61,7 @@ namespace MainProject
 
         //list of keys in the level
         private List<Key> keys;
+        private List<Key> collectedKeys;
 
         //when all keys in the list are gone, player can exit
         private bool exitOpen;
@@ -205,6 +206,11 @@ namespace MainProject
             get { return normalTube; }
         }
 
+        public List<Key> CollectedKeys
+        {
+            get { return collectedKeys; }
+        }
+
         public Player(double xPos, double yPos, Texture2D asset, Texture2D idle, Texture2D walking,
             Texture2D jumping, Texture2D hurt, Texture2D floating, Texture2D explosion, List<Key> keys, SpriteFont debugFont)
         {
@@ -220,6 +226,7 @@ namespace MainProject
             this.floating = floating;
             this.explosion = explosion;
             this.keys = keys;
+            collectedKeys = new List<Key>();
             xVelocity = 0;
             yVelocity = 0;
             isGrounded = false;
@@ -288,6 +295,13 @@ namespace MainProject
                 }
                 //normal player
                 hard = false;
+                //respawn all keys
+                foreach (Key k in collectedKeys)
+                {
+                    keys.Add(k);
+                }
+                //no collected keys
+                collectedKeys.Clear();
             }
 
             //if there are no more keys in the level, the exit opens
@@ -1075,6 +1089,7 @@ namespace MainProject
             {
                 if (rect.Intersects(k.Hitbox))
                 {
+                    collectedKeys.Add(k);
                     keys.Remove(k);
                     return false;
                 }

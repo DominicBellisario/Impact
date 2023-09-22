@@ -442,8 +442,12 @@ namespace MainProject
                 enemy.Update(gameTime, (int)player.XVelocity, (int)player.YVelocity);
             }
 
-            //update keys
+            //update keys and collected keys
             foreach (Key k in keys)
+            {
+                k.UpdateAnimation(gameTime, (int)player.XVelocity, (int)player.YVelocity);
+            }
+            foreach (Key k in player.CollectedKeys)
             {
                 k.UpdateAnimation(gameTime, (int)player.XVelocity, (int)player.YVelocity);
             }
