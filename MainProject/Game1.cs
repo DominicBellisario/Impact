@@ -163,7 +163,7 @@ namespace MainProject
         {
             // TODO: Add your initialization logic here
             //game starts at level 1
-            currentLevel = CurrentLevel.L1;
+            currentLevel = CurrentLevel.L8;
 
             //set screen size to the size of the monitor (3840 x 2160)
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -305,6 +305,8 @@ namespace MainProject
                 width, height, "Level6Bg.txt", "Level6Int.txt");
             level7 = new Level(bgLevelSprites, intLevelSprites,
                 width, height, "Level7Bg.txt", "Level7Int.txt");
+            level8 = new Level(bgLevelSprites, intLevelSprites,
+                width, height, "Level8Bg.txt", "Level8Int.txt");
             #endregion
 
             #region players
@@ -486,7 +488,7 @@ namespace MainProject
 
                 //while player is in level 8 
                 case CurrentLevel.L8:
-                    //LevelUpdate(level8, enemies8, player8, keys8, CurrentLevel.L9, gameTime);
+                    LevelUpdate(level8, enemies8, player8, keys8, CurrentLevel.L9, gameTime);
                     break;
 
                 //while player is in level 9
@@ -512,94 +514,47 @@ namespace MainProject
             {
                 //while player is in test level
                 case CurrentLevel.Test:
-                    //draws level first
-                    testLevel.Draw(_spriteBatch);
-                    //then player
-                    player.Draw(_spriteBatch);
-                    //then enemies
-                    foreach (Enemy enemy in enemies)
-                    {
-                        enemy.Draw(_spriteBatch);
-                    }
+                    DrawUpdate(testLevel, player, enemies);
                     break;
 
                 //while player is in level 1
                 case CurrentLevel.L1:
-                    //draws level first
-                    level1.Draw(_spriteBatch);
-                    //then player
-                    player1.Draw(_spriteBatch);
-                    //then enemies (none)
+                    DrawUpdate(level1, player1, enemies1);
                     break;
 
                 //while player is in level 2
                 case CurrentLevel.L2:
-                    //draws level first
-                    level2.Draw(_spriteBatch);
-                    //then player
-                    player2.Draw(_spriteBatch);
-                    //then enemies (none)
+                    DrawUpdate(level2, player2, enemies2);
                     break;
 
                 //while player is in level 3
                 case CurrentLevel.L3:
-                    //draws level first
-                    level3.Draw(_spriteBatch);
-                    //then player
-                    player3.Draw(_spriteBatch);
-                    //then enemies
-                    foreach (Enemy enemy in enemies3)
-                    {
-                        enemy.Draw(_spriteBatch);
-                    }
+                    DrawUpdate(level3, player3, enemies3);
                     break;
 
                 //while player is in level 4
                 case CurrentLevel.L4:
-                    //draws level first
-                    level4.Draw(_spriteBatch);
-                    //then player
-                    player4.Draw(_spriteBatch);
-                    //then enemies
-                    foreach (Enemy enemy in enemies4)
-                    {
-                        enemy.Draw(_spriteBatch);
-                    }
+                    DrawUpdate(level4, player4, enemies4);
                     break;
 
                 //while player is in level 5
                 case CurrentLevel.L5:
-                    //draws level first
-                    level5.Draw(_spriteBatch);
-                    //then player
-                    player5.Draw(_spriteBatch);
-                    //then enemies (none)
+                    DrawUpdate(level5, player5, enemies5);
                     break;
 
                 //while player is in level 6
                 case CurrentLevel.L6:
-                    //draws level first
-                    level6.Draw(_spriteBatch);
-                    //then player
-                    player6.Draw(_spriteBatch);
-                    //then enemies
-                    foreach (Enemy enemy in enemies6)
-                    {
-                        enemy.Draw(_spriteBatch);
-                    }
+                    DrawUpdate(level6, player6, enemies6);
                     break;
 
                 //while player is in level 7
                 case CurrentLevel.L7:
-                    //draws level first
-                    level7.Draw(_spriteBatch);
-                    //then player
-                    player7.Draw(_spriteBatch);
-                    //then enemies
-                    foreach (Enemy enemy in enemies7)
-                    {
-                        enemy.Draw(_spriteBatch);
-                    }
+                    DrawUpdate(level7, player7, enemies7);
+                    break;
+
+                //while player is in level 8
+                case CurrentLevel.L8:
+                    DrawUpdate(level8, player8, enemies8);
                     break;
             }
             _spriteBatch.End();
@@ -645,6 +600,19 @@ namespace MainProject
             {
                 currentLevel = nextLevel;
                 return;
+            }
+        }
+
+        private void DrawUpdate(Level level, Player player, List<Enemy> enemies)
+        {
+            //draws level first
+            level.Draw(_spriteBatch);
+            //then player
+            player.Draw(_spriteBatch);
+            //then enemies
+            foreach (Enemy enemy in enemies)
+            {
+                enemy.Draw(_spriteBatch);
             }
         }
     }
