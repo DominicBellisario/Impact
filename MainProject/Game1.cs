@@ -163,7 +163,7 @@ namespace MainProject
         {
             // TODO: Add your initialization logic here
             //game starts at level 1
-            currentLevel = CurrentLevel.L6;
+            currentLevel = CurrentLevel.L1;
 
             //set screen size to the size of the monitor (3840 x 2160)
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -303,6 +303,8 @@ namespace MainProject
                 width, height, "Level5Bg.txt", "Level5Int.txt");
             level6 = new Level(bgLevelSprites, intLevelSprites,
                 width, height, "Level6Bg.txt", "Level6Int.txt");
+            level7 = new Level(bgLevelSprites, intLevelSprites,
+                width, height, "Level7Bg.txt", "Level7Int.txt");
             #endregion
 
             #region players
@@ -364,7 +366,27 @@ namespace MainProject
                 enemyWalking, enemyShooting, bullet, explosion, debugFont, level6.BgLevelBlueprint, level6.Rows, level6.Columns));
 
             //level 7 enemies
-            //(none)
+            enemies7.Add(new Enemy(10, 1300, 3000, 1900, 2100, 1900, 6900, 1900,
+                enemyWalking, enemyShooting, bullet, explosion, debugFont, level7.BgLevelBlueprint, level7.Rows, level7.Columns));
+            enemies7.Add(new Enemy(12, 1300, 3500, 1900, 2100, 1900, 6900, 1900,
+                enemyWalking, enemyShooting, bullet, explosion, debugFont, level7.BgLevelBlueprint, level7.Rows, level7.Columns));
+            enemies7.Add(new Enemy(7, 1300, 4200, 1900, 2100, 1900, 6900, 1900,
+                enemyWalking, enemyShooting, bullet, explosion, debugFont, level7.BgLevelBlueprint, level7.Rows, level7.Columns));
+            enemies7.Add(new Enemy(-8, 1300, 4600, 1900, 2100, 1900, 6900, 1900,
+                enemyWalking, enemyShooting, bullet, explosion, debugFont, level7.BgLevelBlueprint, level7.Rows, level7.Columns));
+            enemies7.Add(new Enemy(15, 1300, 5600, 1900, 2100, 1900, 6900, 1900,
+                enemyWalking, enemyShooting, bullet, explosion, debugFont, level7.BgLevelBlueprint, level7.Rows, level7.Columns));
+            enemies7.Add(new Enemy(-12, 1300, 6000, 1900, 2100, 1900, 6900, 1900,
+                enemyWalking, enemyShooting, bullet, explosion, debugFont, level7.BgLevelBlueprint, level7.Rows, level7.Columns));
+            enemies7.Add(new Enemy(20, 1300, 6500, 1900, 2100, 1900, 6900, 1900,
+                enemyWalking, enemyShooting, bullet, explosion, debugFont, level7.BgLevelBlueprint, level7.Rows, level7.Columns));
+            enemies7.Add(new Enemy(-11, 1300, 4600, 1900, 2100, 1900, 6900, 1900,
+                enemyWalking, enemyShooting, bullet, explosion, debugFont, level7.BgLevelBlueprint, level7.Rows, level7.Columns));
+            enemies7.Add(new Enemy(-18, 1300, 5000, 1900, 2100, 1900, 6900, 1900,
+                enemyWalking, enemyShooting, bullet, explosion, debugFont, level7.BgLevelBlueprint, level7.Rows, level7.Columns));
+            enemies7.Add(new Enemy(5, 1000, 4600, 1200, 4100, 1200, 5400, 1200,
+                enemyWalking, enemyShooting, bullet, explosion, debugFont, level7.BgLevelBlueprint, level7.Rows, level7.Columns));
+
 
             //level 8 enemies
             //(none)
@@ -459,7 +481,7 @@ namespace MainProject
 
                 //while player is in level 7
                 case CurrentLevel.L7:
-                    //LevelUpdate(level7, enemies7, player7, keys7, CurrentLevel.L8, gameTime);
+                    LevelUpdate(level7, enemies7, player7, keys7, CurrentLevel.L8, gameTime);
                     break;
 
                 //while player is in level 8 
@@ -562,6 +584,19 @@ namespace MainProject
                     player6.Draw(_spriteBatch);
                     //then enemies
                     foreach (Enemy enemy in enemies6)
+                    {
+                        enemy.Draw(_spriteBatch);
+                    }
+                    break;
+
+                //while player is in level 7
+                case CurrentLevel.L7:
+                    //draws level first
+                    level7.Draw(_spriteBatch);
+                    //then player
+                    player7.Draw(_spriteBatch);
+                    //then enemies
+                    foreach (Enemy enemy in enemies7)
                     {
                         enemy.Draw(_spriteBatch);
                     }
