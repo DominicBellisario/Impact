@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Reflection.Emit;
 
 namespace MainProject
 {
@@ -17,6 +18,15 @@ namespace MainProject
         L5,
         L6,
         L7,
+        L8,
+        L9,
+        L10,
+        L11,
+        L12,
+        L13,
+        L14,
+        L15,
+        L16
     }
     public class Game1 : Game
     {
@@ -79,33 +89,65 @@ namespace MainProject
         private int width;
         private int height;
 
+        #region levels
         //levels
         private Level testLevel;
         private Level level1;
         private Level level2;
         private Level level3;
         private Level level4;
+        private Level level5;
+        private Level level6;
+        private Level level7;
+        private Level level8;
+        private Level level9;
+        private Level level10;
+        #endregion
 
+        #region player
         //player
         private Player player;
         private Player player1;
         private Player player2;
         private Player player3;
         private Player player4;
+        private Player player5;
+        private Player player6;
+        private Player player7;
+        private Player player8;
+        private Player player9;
+        private Player player10;
+        #endregion
 
+        #region enemies
         //lists of enemies
         private List<Enemy> enemies;
         private List<Enemy> enemies1;
         private List<Enemy> enemies2;
         private List<Enemy> enemies3;
         private List<Enemy> enemies4;
+        private List<Enemy> enemies5;
+        private List<Enemy> enemies6;
+        private List<Enemy> enemies7;
+        private List<Enemy> enemies8;
+        private List<Enemy> enemies9;
+        private List<Enemy> enemies10;
+        #endregion
 
+        #region keys
         //lists of keys
         private List<Key> keys;
         private List<Key> keys1;
         private List<Key> keys2;
         private List<Key> keys3;
         private List<Key> keys4;
+        private List<Key> keys5;
+        private List<Key> keys6;
+        private List<Key> keys7;
+        private List<Key> keys8;
+        private List<Key> keys9;
+        private List<Key> keys10;
+        #endregion
 
         //fonts
         private SpriteFont debugFont;
@@ -121,7 +163,7 @@ namespace MainProject
         {
             // TODO: Add your initialization logic here
             //game starts at level 1
-            currentLevel = CurrentLevel.L4;
+            currentLevel = CurrentLevel.L5;
 
             //set screen size to the size of the monitor (3840 x 2160)
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -142,6 +184,12 @@ namespace MainProject
             enemies2 = new List<Enemy>();
             enemies3 = new List<Enemy>();
             enemies4 = new List<Enemy>();
+            enemies5 = new List<Enemy>();
+            enemies6 = new List<Enemy>();
+            enemies7 = new List<Enemy>();
+            enemies8 = new List<Enemy>();
+            enemies9 = new List<Enemy>();
+            enemies10 = new List<Enemy>();
 
             //keys
             keys = new List<Key>();
@@ -149,6 +197,12 @@ namespace MainProject
             keys2 = new List<Key>();
             keys3 = new List<Key>();
             keys4 = new List<Key>();
+            keys5 = new List<Key>();
+            keys6 = new List<Key>();
+            keys7 = new List<Key>();
+            keys8 = new List<Key>();
+            keys9 = new List<Key>();
+            keys10 = new List<Key>();
 
             base.Initialize();
         }
@@ -245,6 +299,8 @@ namespace MainProject
                 width, height, "Level3Bg.txt", "Level3Int.txt");
             level4 = new Level(bgLevelSprites, intLevelSprites,
                 width, height, "Level4Bg.txt", "Level4Int.txt");
+            level5 = new Level(bgLevelSprites, intLevelSprites,
+                width, height, "Level5Bg.txt", "Level5Int.txt");
             #endregion
 
             #region players
@@ -259,6 +315,18 @@ namespace MainProject
                 playerHurt, playerFloat, explosion, keys3, debugFont);
             player4 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
                 playerHurt, playerFloat, explosion, keys4, debugFont);
+            player5 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
+                playerHurt, playerFloat, explosion, keys5, debugFont);
+            player6 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
+                playerHurt, playerFloat, explosion, keys6, debugFont);
+            player7 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
+                playerHurt, playerFloat, explosion, keys7, debugFont);
+            player8 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
+                playerHurt, playerFloat, explosion, keys8, debugFont);
+            player9 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
+                playerHurt, playerFloat, explosion, keys9, debugFont);
+            player10 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
+                playerHurt, playerFloat, explosion, keys10, debugFont);
             #endregion
 
             #region enemies
@@ -283,6 +351,24 @@ namespace MainProject
             //level 4 enemies
             enemies4.Add(new Enemy(5, 1000, 4400, -800, 3800, -800, 4900, -800,
                 enemyWalking, enemyShooting, bullet, explosion, debugFont, level4.BgLevelBlueprint, level4.Rows, level4.Columns));
+
+            //level 5 enemies
+            //(none)
+
+            //level 6 enemies
+            //(none)
+
+            //level 7 enemies
+            //(none)
+
+            //level 8 enemies
+            //(none)
+
+            //level 9 enemies
+            //(none)
+
+            //level 10 enemies
+            //(none)
             #endregion
 
             #region keys
@@ -310,6 +396,15 @@ namespace MainProject
             //(none)
 
             //level 7 keys
+            //(none)
+
+            //level 8 keys
+            //(none)
+
+            //level 9 keys
+            //(none)
+
+            //level 10 keys
             //(none)
             #endregion
         }
@@ -345,6 +440,36 @@ namespace MainProject
                 //while player is in level 4
                 case CurrentLevel.L4:
                     LevelUpdate(level4, enemies4, player4, keys4, CurrentLevel.L5, gameTime);
+                    break;
+
+                //while player is in level 5
+                case CurrentLevel.L5:
+                    LevelUpdate(level5, enemies5, player5, keys5, CurrentLevel.L6, gameTime);
+                    break;
+
+                //while player is in level 6
+                case CurrentLevel.L6:
+                    //LevelUpdate(level6, enemies6, player6, keys6, CurrentLevel.L7, gameTime);
+                    break;
+
+                //while player is in level 7
+                case CurrentLevel.L7:
+                    //LevelUpdate(level7, enemies7, player7, keys7, CurrentLevel.L8, gameTime);
+                    break;
+
+                //while player is in level 8 
+                case CurrentLevel.L8:
+                    //LevelUpdate(level8, enemies8, player8, keys8, CurrentLevel.L9, gameTime);
+                    break;
+
+                //while player is in level 9
+                case CurrentLevel.L9:
+                    //LevelUpdate(level9, enemies9, player9, keys9, CurrentLevel.L10, gameTime);
+                    break;
+
+                //while player is in level 10
+                case CurrentLevel.L10:
+                    //LevelUpdate(level10, enemies10, player10, keys10, CurrentLevel.L11, gameTime);
                     break;
             }
 
@@ -413,6 +538,15 @@ namespace MainProject
                     {
                         enemy.Draw(_spriteBatch);
                     }
+                    break;
+
+                //while player is in level 5
+                case CurrentLevel.L5:
+                    //draws level first
+                    level5.Draw(_spriteBatch);
+                    //then player
+                    player5.Draw(_spriteBatch);
+                    //then enemies (none)
                     break;
             }
             _spriteBatch.End();

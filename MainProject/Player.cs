@@ -303,6 +303,7 @@ namespace MainProject
                 //no collected keys
                 collectedKeys.Clear();
                 exitOpen = false;
+                return;
             }
 
             //if there are no more keys in the level, the exit opens
@@ -800,7 +801,7 @@ namespace MainProject
                     }
                     //makes sure only near blocks that have collision are taken into account
                     if (Math.Abs(bgLevel[i, j].Rect.X - rect.X) < 400 &&
-                        Math.Abs(bgLevel[i, j].Rect.Y - rect.Y) < 400 && bgLevel[i, j].CanCollide)
+                        Math.Abs(bgLevel[i, j].Rect.Y - rect.Y) < 400 && bgLevel[i, j].CanCollide && !spawning && !done)
                     {
                         //creates a rectangle of the overlaping area
                         collisionRect = Rectangle.Intersect(bgLevel[i, j].Rect, rect);
@@ -1066,11 +1067,9 @@ namespace MainProject
                         }
 
                         //player is hitting a spike
-                        else if (intLevel[i, j].TypeOfCollision == "spikes" && isColliding)
+                        if (intLevel[i, j].TypeOfCollision == "spikes" && isColliding)
                         {
                             spawning = true;
-                            xVelocity = 0;
-                            yVelocity = 0;
 
                             return false;
                         }
