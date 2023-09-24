@@ -360,6 +360,8 @@ namespace MainProject
             //level 6 enemies
             enemies6.Add(new Enemy(1, 1000, 2900, 300, 2800, 300, 3250, 300,
                 enemyWalking, enemyShooting, bullet, explosion, debugFont, level6.BgLevelBlueprint, level6.Rows, level6.Columns));
+            enemies6.Add(new Enemy(2, 1000, 3750, 200, 3600, 200, 4200, 200,
+                enemyWalking, enemyShooting, bullet, explosion, debugFont, level6.BgLevelBlueprint, level6.Rows, level6.Columns));
 
             //level 7 enemies
             //(none)
