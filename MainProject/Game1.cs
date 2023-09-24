@@ -163,7 +163,7 @@ namespace MainProject
         {
             // TODO: Add your initialization logic here
             //game starts at level 1
-            currentLevel = CurrentLevel.L5;
+            currentLevel = CurrentLevel.L6;
 
             //set screen size to the size of the monitor (3840 x 2160)
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -301,6 +301,8 @@ namespace MainProject
                 width, height, "Level4Bg.txt", "Level4Int.txt");
             level5 = new Level(bgLevelSprites, intLevelSprites,
                 width, height, "Level5Bg.txt", "Level5Int.txt");
+            level6 = new Level(bgLevelSprites, intLevelSprites,
+                width, height, "Level6Bg.txt", "Level6Int.txt");
             #endregion
 
             #region players
@@ -356,7 +358,8 @@ namespace MainProject
             //(none)
 
             //level 6 enemies
-            //(none)
+            enemies6.Add(new Enemy(1, 1000, 2900, 300, 2800, 300, 3250, 300,
+                enemyWalking, enemyShooting, bullet, explosion, debugFont, level6.BgLevelBlueprint, level6.Rows, level6.Columns));
 
             //level 7 enemies
             //(none)
@@ -449,7 +452,7 @@ namespace MainProject
 
                 //while player is in level 6
                 case CurrentLevel.L6:
-                    //LevelUpdate(level6, enemies6, player6, keys6, CurrentLevel.L7, gameTime);
+                    LevelUpdate(level6, enemies6, player6, keys6, CurrentLevel.L7, gameTime);
                     break;
 
                 //while player is in level 7
@@ -547,6 +550,19 @@ namespace MainProject
                     //then player
                     player5.Draw(_spriteBatch);
                     //then enemies (none)
+                    break;
+
+                //while player is in level 6
+                case CurrentLevel.L6:
+                    //draws level first
+                    level6.Draw(_spriteBatch);
+                    //then player
+                    player6.Draw(_spriteBatch);
+                    //then enemies
+                    foreach (Enemy enemy in enemies6)
+                    {
+                        enemy.Draw(_spriteBatch);
+                    }
                     break;
             }
             _spriteBatch.End();
