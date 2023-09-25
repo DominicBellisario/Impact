@@ -163,7 +163,7 @@ namespace MainProject
         {
             // TODO: Add your initialization logic here
             //game starts at level 1
-            currentLevel = CurrentLevel.L1;
+            currentLevel = CurrentLevel.L9;
 
             //set screen size to the size of the monitor (3840 x 2160)
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -396,7 +396,8 @@ namespace MainProject
             //(none)
 
             //level 9 enemies
-            //(none)
+            enemies9.Add(new Enemy(8, 1000, 4600, 1100, 4200, 1100, 6400, 1100,
+                enemyWalking, enemyShooting, bullet, explosion, debugFont, level9.BgLevelBlueprint, level9.Rows, level9.Columns));
 
             //level 10 enemies
             //(none)

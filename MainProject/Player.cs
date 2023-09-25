@@ -1135,12 +1135,17 @@ namespace MainProject
                         double launchAngle = Math.Atan2(b.Hitbox.Center.Y - rect.Center.Y, 
                             b.Hitbox.Center.X - rect.Center.X);
 
-                        //only moves player if not hard
+                        //moves player less if hard
                         if (!hard)
                         {
                             //update player x and y velocity
                             xVelocity = 50 * Math.Cos(launchAngle);
                             yVelocity = 50 * Math.Sin(launchAngle);
+                        }
+                        else
+                        {
+                            xVelocity = 20 * Math.Cos(launchAngle);
+                            yVelocity = 20 * Math.Sin(launchAngle);
                         }
 
                         //add an explosions and remove the bullet from its list
