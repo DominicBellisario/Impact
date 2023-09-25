@@ -211,6 +211,11 @@ namespace MainProject
             get { return collectedKeys; }
         }
 
+        public bool ExitOpen
+        {
+            get { return exitOpen; }
+        }
+
         public Player(double xPos, double yPos, Texture2D asset, Texture2D idle, Texture2D walking,
             Texture2D jumping, Texture2D hurt, Texture2D floating, Texture2D explosion, List<Key> keys, SpriteFont debugFont)
         {

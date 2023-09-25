@@ -104,3 +104,5 @@ C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\PlayerJu
 C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\PlayerWalk.xnb
 C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\Spikes.xnb
 C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\Explosion.xnb
+C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\ExitClosed.xnb
+C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\ExitOpen.xnb

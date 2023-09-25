@@ -187,7 +187,7 @@ namespace MainProject
                         else if (data[j] == "E")
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["background"], bgAssets["background"], true, "end", 0, 0, "none");
+                                bgAssets["exitClosed"], bgAssets["exitOpen"], true, "end", 0, 0, "none");
                         }
                         #endregion
                     }
@@ -400,21 +400,14 @@ namespace MainProject
         /// draws the level using the 2d array
         /// </summary>
         /// <param name="sb"></param>
-        public void Draw(SpriteBatch sb)
+        public void Draw(SpriteBatch sb, bool exitOpen)
         {
             //draws background
             for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < columns; j++)
                 {
-                    if (normalTube)
-                    {
-                        bgLevelBlueprint[i,j].Draw(sb, true);
-                    }
-                    else
-                    {
-                        bgLevelBlueprint[i, j].Draw(sb, false);
-                    }
+                    bgLevelBlueprint[i, j].Draw(sb, normalTube, exitOpen);
                 }
             }
             //draws interactables
@@ -422,14 +415,7 @@ namespace MainProject
             {
                 for (int j = 0; j < columns; j++)
                 {
-                    if (normalTube)
-                    {
-                        intLevelBlueprint[i, j].Draw(sb, true);
-                    }
-                    else
-                    {
-                        intLevelBlueprint[i, j].Draw(sb, false);
-                    }
+                    intLevelBlueprint[i, j].Draw(sb, normalTube, exitOpen);
                 }
             }
         }

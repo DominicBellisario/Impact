@@ -47,6 +47,8 @@ namespace MainProject
         private Texture2D rightPlat;
         private Texture2D wall;
         private Texture2D ice;
+        private Texture2D exitClosed;
+        private Texture2D exitOpen;
 
         //transparent tile
         private Texture2D nullTile;
@@ -237,6 +239,12 @@ namespace MainProject
 
             ice = Content.Load<Texture2D>("Ice");
             bgLevelSprites.Add("ice", ice);
+
+            exitClosed = Content.Load<Texture2D>("ExitCLosed");
+            bgLevelSprites.Add("exitClosed", exitClosed);
+
+            exitOpen = Content.Load<Texture2D>("ExitOpen");
+            bgLevelSprites.Add("exitOpen", exitOpen);
 
             //interactable sprites
 
@@ -618,7 +626,7 @@ namespace MainProject
         private void DrawUpdate(Level level, Player player, List<Enemy> enemies)
         {
             //draws level first
-            level.Draw(_spriteBatch);
+            level.Draw(_spriteBatch, player.ExitOpen);
             //then player
             player.Draw(_spriteBatch);
             //then enemies

@@ -138,24 +138,46 @@ namespace MainProject
         /// Draws the room object
         /// </summary>
         /// <param name="sb"></param>
-        public virtual void Draw(SpriteBatch sb, bool normalTube)
+        public virtual void Draw(SpriteBatch sb, bool normalTube, bool exitOpen)
         {
             if (spikeDirection == "none")
             {
-                if (normalTube)
+                if(asset.Name != "exitClosed")
                 {
-                    sb.Draw(Asset, 
-                    new Vector2((float)RectX, (float) RectY), 
-                    null,
-                    Color.White);
+                    if (normalTube)
+                    {
+                        sb.Draw(Asset,
+                        new Vector2((float)RectX, (float)RectY),
+                        null,
+                        Color.White);
+                    }
+                    else
+                    {
+                        sb.Draw(Asset2,
+                        new Vector2((float)RectX, (float)RectY),
+                        null,
+                        Color.White);
+                    }
                 }
                 else
                 {
-                    sb.Draw(Asset2,
-                    new Vector2((float)RectX, (float)RectY),
-                    null,
-                    Color.White);
-                } 
+                    if (!exitOpen)
+                    {
+                        sb.Draw(Asset,
+                        new Vector2((float)RectX, (float)RectY),
+                        null,
+                        Color.White);
+                    }
+                    else
+                    {
+                        sb.Draw(Asset2,
+                        new Vector2((float)RectX, (float)RectY),
+                        null,
+                        Color.White);
+                    }
+
+                }
+
             }
             else if (spikeDirection == "down")
             {
@@ -210,6 +232,7 @@ namespace MainProject
                     0
                     );
             }
+            
         }
     }
 }
