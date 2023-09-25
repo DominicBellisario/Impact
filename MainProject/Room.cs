@@ -142,7 +142,7 @@ namespace MainProject
         {
             if (spikeDirection == "none")
             {
-                if(asset.Name != "exitClosed")
+                if(asset.Name != "ExitClosed")
                 {
                     if (normalTube)
                     {

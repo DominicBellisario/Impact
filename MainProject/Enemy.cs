@@ -64,7 +64,7 @@ namespace MainProject
         //timer that controls bullet firing
         private int bulletTimer;
         //firing rate for bullets
-        private const int fireRate = 80;
+        private const int fireRate = 70;
         //time it takes for the first shot to be fired
         private const int firstShotTime = 60;
         //angle of the bullet

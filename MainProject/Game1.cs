@@ -165,7 +165,7 @@ namespace MainProject
         {
             // TODO: Add your initialization logic here
             //game starts at level 1
-            currentLevel = CurrentLevel.L9;
+            currentLevel = CurrentLevel.L4;
 
             //set screen size to the size of the monitor (3840 x 2160)
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -240,7 +240,7 @@ namespace MainProject
             ice = Content.Load<Texture2D>("Ice");
             bgLevelSprites.Add("ice", ice);
 
-            exitClosed = Content.Load<Texture2D>("ExitCLosed");
+            exitClosed = Content.Load<Texture2D>("ExitClosed");
             bgLevelSprites.Add("exitClosed", exitClosed);
 
             exitOpen = Content.Load<Texture2D>("ExitOpen");
