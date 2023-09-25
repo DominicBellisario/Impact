@@ -434,7 +434,11 @@ namespace MainProject
             //(none)
 
             //level 9 keys
-            //(none)
+            keys9.Add(new Key(1500, 1900, playerHurt));
+            keys9.Add(new Key(1800, -600, playerHurt));
+            keys9.Add(new Key(1800, -1100, playerHurt));
+            keys9.Add(new Key(6800, -1300, playerHurt));
+            keys9.Add(new Key(6700, 2100, playerHurt));
 
             //level 10 keys
             //(none)

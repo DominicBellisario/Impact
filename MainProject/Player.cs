@@ -1389,7 +1389,7 @@ namespace MainProject
                 ", "  + debugText + ", " + xVelocity + ", " + test1 + ", " + test2,
                 new Vector2(100, 100), Color.Red);
 
-            sb.DrawString(debugFont, "Keys Left: " + keys.Count(), new Vector2(3400, 100), Color.Red);
+            sb.DrawString(debugFont, "Keys Left: " + keys.Count, new Vector2(3400, 100), Color.Red);
 
             //draw keys
             foreach (Key k in keys)
