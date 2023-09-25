@@ -163,7 +163,7 @@ namespace MainProject
         {
             // TODO: Add your initialization logic here
             //game starts at level 1
-            currentLevel = CurrentLevel.L8;
+            currentLevel = CurrentLevel.L1;
 
             //set screen size to the size of the monitor (3840 x 2160)
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -307,6 +307,8 @@ namespace MainProject
                 width, height, "Level7Bg.txt", "Level7Int.txt");
             level8 = new Level(bgLevelSprites, intLevelSprites,
                 width, height, "Level8Bg.txt", "Level8Int.txt");
+            level9 = new Level(bgLevelSprites, intLevelSprites,
+                width, height, "Level9Bg.txt", "Level9Int.txt");
             #endregion
 
             #region players
@@ -493,7 +495,7 @@ namespace MainProject
 
                 //while player is in level 9
                 case CurrentLevel.L9:
-                    //LevelUpdate(level9, enemies9, player9, keys9, CurrentLevel.L10, gameTime);
+                    LevelUpdate(level9, enemies9, player9, keys9, CurrentLevel.L10, gameTime);
                     break;
 
                 //while player is in level 10
@@ -555,6 +557,11 @@ namespace MainProject
                 //while player is in level 8
                 case CurrentLevel.L8:
                     DrawUpdate(level8, player8, enemies8);
+                    break;
+
+                //while player is in level 9
+                case CurrentLevel.L9:
+                    DrawUpdate(level9, player9, enemies9);
                     break;
             }
             _spriteBatch.End();
