@@ -6,7 +6,7 @@
   <SourceFiles>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Background.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Bullet.jpg</File>
-    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/CenterPlat.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/CenterPlat.png</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/DebugFont.spritefont</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/DownLeftSpring.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/DownRightSpring.jpg</File>
@@ -19,7 +19,7 @@
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Explosion.png</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Floor.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Ice.jpg</File>
-    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/LeftPlat.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/LeftPlat.png</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/LeftSpring.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/LeftTube.png</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Null.png</File>
@@ -29,7 +29,7 @@
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/PlayerIdle.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/PlayerJump.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/PlayerWalk.jpg</File>
-    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/RightPlat.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/RightPlat.png</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/RightSpring.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/RightTube.png</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Spawn.jpg</File>

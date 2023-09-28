@@ -165,7 +165,7 @@ namespace MainProject
         {
             // TODO: Add your initialization logic here
             //game starts at level 1
-            currentLevel = CurrentLevel.L3;
+            currentLevel = CurrentLevel.L1;
 
             //set screen size to the size of the monitor (3840 x 2160)
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;

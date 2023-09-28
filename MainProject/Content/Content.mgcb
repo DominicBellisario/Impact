@@ -37,7 +37,7 @@
 /processorParam:TextureFormat=Color
 /build:Bullet.jpg
 
-#begin CenterPlat.jpg
+#begin CenterPlat.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -47,7 +47,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:CenterPlat.jpg
+/build:CenterPlat.png
 
 #begin DebugFont.spritefont
 /importer:FontDescriptionImporter
@@ -188,7 +188,7 @@
 /processorParam:TextureFormat=Color
 /build:Ice.jpg
 
-#begin LeftPlat.jpg
+#begin LeftPlat.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -198,7 +198,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:LeftPlat.jpg
+/build:LeftPlat.png
 
 #begin LeftSpring.jpg
 /importer:TextureImporter
@@ -308,7 +308,7 @@
 /processorParam:TextureFormat=Color
 /build:PlayerWalk.jpg
 
-#begin RightPlat.jpg
+#begin RightPlat.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -318,7 +318,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:RightPlat.jpg
+/build:RightPlat.png
 
 #begin RightSpring.jpg
 /importer:TextureImporter
