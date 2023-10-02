@@ -10,6 +10,7 @@ namespace MainProject
     //keeps track of the current level
     enum CurrentLevel
     {
+        LevelSelect,
         Test,
         L1,
         L2,
@@ -461,6 +462,9 @@ namespace MainProject
             // TODO: Add your update logic here
             switch (currentLevel)
             {
+                case CurrentLevel.LevelSelect:
+
+                    break;
                 //while player is in the test level
                 case CurrentLevel.Test:
                     LevelUpdate(testLevel, enemies, player, keys, CurrentLevel.L1, gameTime);
