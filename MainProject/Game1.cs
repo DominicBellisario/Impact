@@ -313,8 +313,8 @@ namespace MainProject
             levelFont = Content.Load<SpriteFont>("LevelFont");
 
             //instructions
-            instructions = "Type the level you want to play! Ex: type L1 to play level 1";
-            finalInput = "";
+            instructions = "Type the level you want to play! Ex: type 1 to play level 1";
+            finalInput = "Level: ";
             instructions2 = "Press \"Enter\" to begin!";
 
             #region levels
@@ -489,21 +489,124 @@ namespace MainProject
                     //get input from player
                     KeyboardState kbState = Keyboard.GetState();
 
-                    //if a key has just been clicked, add it to their input
-                    if (kbState != prevKB && !kbState.IsKeyDown(Keys.Enter))
+                    //if a valid key has just been clicked, add it to their input
+                    //valid keys are 0-9 and enter
+                    if (kbState.IsKeyDown(Keys.D0) && prevKB.IsKeyUp(Keys.D0))
                     {
-                        finalInput += kbState;
+                        finalInput += "0";
                     }
-
-                    //when player is done typing, they press enter to begin
-                    if (kbState.IsKeyDown(Keys.Enter) && kbState != prevKB)
+                    else if (kbState.IsKeyDown(Keys.D1) && prevKB.IsKeyUp(Keys.D1))
                     {
-                        //if the typed level is not valid, reset their answer and prompt them to try again
-                        //if valid, play that level
-                        if (!Enum.TryParse<CurrentLevel>("L" + finalInput, true, out currentLevel))
+                        finalInput += "1";
+                    }
+                    else if (kbState.IsKeyDown(Keys.D2) && prevKB.IsKeyUp(Keys.D2))
+                    {
+                        finalInput += "2";
+                    }
+                    else if (kbState.IsKeyDown(Keys.D3) && prevKB.IsKeyUp(Keys.D3))
+                    {
+                        finalInput += "3";
+                    }
+                    else if (kbState.IsKeyDown(Keys.D4) && prevKB.IsKeyUp(Keys.D4))
+                    {
+                        finalInput += "4";
+                    }
+                    else if (kbState.IsKeyDown(Keys.D5) && prevKB.IsKeyUp(Keys.D5))
+                    {
+                        finalInput += "5";
+                    }
+                    else if (kbState.IsKeyDown(Keys.D6) && prevKB.IsKeyUp(Keys.D6))
+                    {
+                        finalInput += "6";
+                    }
+                    else if (kbState.IsKeyDown(Keys.D7) && prevKB.IsKeyUp(Keys.D7))
+                    {
+                        finalInput += "7";
+                    }
+                    else if (kbState.IsKeyDown(Keys.D8) && prevKB.IsKeyUp(Keys.D8))
+                    {
+                        finalInput += "8";
+                    }
+                    else if (kbState.IsKeyDown(Keys.D9) && prevKB.IsKeyUp(Keys.D9))
+                    {
+                        finalInput += "9";
+                    }
+                    //player presses enter
+                    else if (kbState.IsKeyDown(Keys.Enter) && prevKB.IsKeyUp(Keys.Enter))
+                    {
+                        if (finalInput == "Level: 0")
                         {
-                            finalInput = "";
-                            instructions = "Level not found, try again! Ex: type L1 to play level 1";
+                            currentLevel = CurrentLevel.Test;
+                        }
+                        else if (finalInput == "Level: 1")
+                        {
+                            currentLevel = CurrentLevel.L1;
+                        }
+                        else if (finalInput == "Level: 2")
+                        {
+                            currentLevel = CurrentLevel.L2;
+                        }
+                        else if (finalInput == "Level: 3")
+                        {
+                            currentLevel = CurrentLevel.L3;
+                        }
+                        else if (finalInput == "Level: 4")
+                        {
+                            currentLevel = CurrentLevel.L4;
+                        }
+                        else if (finalInput == "Level: 5")
+                        {
+                            currentLevel = CurrentLevel.L5;
+                        }
+                        else if (finalInput == "Level: 6")
+                        {
+                            currentLevel = CurrentLevel.L6;
+                        }
+                        else if (finalInput == "Level: 7")
+                        {
+                            currentLevel = CurrentLevel.L7;
+                        }
+                        else if (finalInput == "Level: 8")
+                        {
+                            currentLevel = CurrentLevel.L8;
+                        }
+                        else if (finalInput == "Level: 9")
+                        {
+                            currentLevel = CurrentLevel.L9;
+                        }
+                        else if (finalInput == "Level: 10")
+                        {
+                            currentLevel = CurrentLevel.L10;
+                        }
+                        else if (finalInput == "Level: 11")
+                        {
+                            currentLevel = CurrentLevel.L11;
+                        }
+                        else if (finalInput == "Level: 12")
+                        {
+                            currentLevel = CurrentLevel.L12;
+                        }
+                        else if (finalInput == "Level: 13")
+                        {
+                            currentLevel = CurrentLevel.L13;
+                        }
+                        else if (finalInput == "Level: 14")
+                        {
+                            currentLevel = CurrentLevel.L14;
+                        }
+                        else if (finalInput == "Level: 15")
+                        {
+                            currentLevel = CurrentLevel.L15;
+                        }
+                        else if (finalInput == "Level: 16")
+                        {
+                            currentLevel = CurrentLevel.L16;
+                        }
+                        //any other value
+                        else
+                        {
+                            instructions = "Can not find level, try again! Ex: type 1 for level 1";
+                            finalInput = "Level: ";
                         }
                     }
 
@@ -579,9 +682,9 @@ namespace MainProject
             {
                 //while player is in level select
                 case CurrentLevel.LevelSelect:
-                    _spriteBatch.DrawString(levelFont, instructions, new Vector2(textX, textY + 100), Color.White);
-                    _spriteBatch.DrawString(levelFont, finalInput, new Vector2(textX, textY), Color.White);
-                    _spriteBatch.DrawString(levelFont, instructions2, new Vector2(textX, textY - 100), Color.White);
+                    _spriteBatch.DrawString(levelFont, instructions, new Vector2(textX - 1000, textY + 100), Color.White);
+                    _spriteBatch.DrawString(levelFont, finalInput, new Vector2(textX - 1000, textY), Color.White);
+                    _spriteBatch.DrawString(levelFont, instructions2, new Vector2(textX - 1000, textY - 100), Color.White);
                     break;
                 //while player is in test level
                 case CurrentLevel.Test:
