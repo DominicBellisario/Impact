@@ -29,7 +29,11 @@ namespace MainProject
         L13,
         L14,
         L15,
-        L16
+        L16,
+        L17,
+        L18,
+        L19,
+        L20
     }
     public class Game1 : Game
     {
@@ -116,6 +120,16 @@ namespace MainProject
         private Level level8;
         private Level level9;
         private Level level10;
+        private Level level11;
+        private Level level12;
+        private Level level13;
+        private Level level14;
+        private Level level15;
+        private Level level16;
+        private Level level17;
+        private Level level18;
+        private Level level19;
+        private Level level20;
         #endregion
 
         #region player
@@ -131,6 +145,16 @@ namespace MainProject
         private Player player8;
         private Player player9;
         private Player player10;
+        private Player player11;
+        private Player player12;
+        private Player player13;
+        private Player player14;
+        private Player player15;
+        private Player player16;
+        private Player player17;
+        private Player player18;
+        private Player player19;
+        private Player player20;
         #endregion
 
         #region enemies
@@ -146,6 +170,16 @@ namespace MainProject
         private List<Enemy> enemies8;
         private List<Enemy> enemies9;
         private List<Enemy> enemies10;
+        private List<Enemy> enemies11;
+        private List<Enemy> enemies12;
+        private List<Enemy> enemies13;
+        private List<Enemy> enemies14;
+        private List<Enemy> enemies15;
+        private List<Enemy> enemies16;
+        private List<Enemy> enemies17;
+        private List<Enemy> enemies18;
+        private List<Enemy> enemies19;
+        private List<Enemy> enemies20;
         #endregion
 
         #region keys
@@ -161,6 +195,16 @@ namespace MainProject
         private List<Key> keys8;
         private List<Key> keys9;
         private List<Key> keys10;
+        private List<Key> keys11;
+        private List<Key> keys12;
+        private List<Key> keys13;
+        private List<Key> keys14;
+        private List<Key> keys15;
+        private List<Key> keys16;
+        private List<Key> keys17;
+        private List<Key> keys18;
+        private List<Key> keys19;
+        private List<Key> keys20;
         #endregion
 
         //fonts
@@ -176,8 +220,8 @@ namespace MainProject
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            //game starts at level 1
-            currentLevel = CurrentLevel.L10;
+            //game starts on the level select screen
+            currentLevel = CurrentLevel.L11;
 
             //set screen size to the size of the monitor (3840 x 2160)
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -208,6 +252,17 @@ namespace MainProject
             enemies8 = new List<Enemy>();
             enemies9 = new List<Enemy>();
             enemies10 = new List<Enemy>();
+            enemies11 = new List<Enemy>();
+            enemies12 = new List<Enemy>();
+            enemies13 = new List<Enemy>();
+            enemies14 = new List<Enemy>();
+            enemies15 = new List<Enemy>();
+            enemies16 = new List<Enemy>();
+            enemies17 = new List<Enemy>();
+            enemies18 = new List<Enemy>();
+            enemies19 = new List<Enemy>();
+            enemies20 = new List<Enemy>();
+
 
             //keys
             keys = new List<Key>();
@@ -221,6 +276,16 @@ namespace MainProject
             keys8 = new List<Key>();
             keys9 = new List<Key>();
             keys10 = new List<Key>();
+            keys11 = new List<Key>();
+            keys12 = new List<Key>();
+            keys13 = new List<Key>();
+            keys14 = new List<Key>();
+            keys15 = new List<Key>();
+            keys16 = new List<Key>();
+            keys17 = new List<Key>();
+            keys18 = new List<Key>();
+            keys19 = new List<Key>();
+            keys20 = new List<Key>();
 
             base.Initialize();
         }
@@ -341,6 +406,8 @@ namespace MainProject
                 width, height, "Level9Bg.txt", "Level9Int.txt");
             level10 = new Level(bgLevelSprites, intLevelSprites,
                 width, height, "Level10Bg.txt", "Level10Int.txt");
+            level11 = new Level(bgLevelSprites, intLevelSprites,
+                width, height, "Level11Bg.txt", "Level11Int.txt");
             #endregion
 
             #region players
@@ -367,6 +434,8 @@ namespace MainProject
                 playerHurt, playerFloat, explosion, keys9, debugFont);
             player10 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
                 playerHurt, playerFloat, explosion, keys10, debugFont);
+            player11 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
+                playerHurt, playerFloat, explosion, keys11, debugFont);
             #endregion
 
             #region enemies
@@ -433,6 +502,37 @@ namespace MainProject
 
             //level 10 enemies
             //(none)
+
+            //level 11 enemies
+            enemies11.Add(new Enemy(3, 1500, 3300, 1500, 3100, 1500, 3700, 1500,
+                enemyWalking, enemyShooting, bullet, explosion, debugFont, level11.BgLevelBlueprint, level11.Rows, level11.Columns));
+
+            //level 12 enemies
+            //(none)
+
+            //level 13 enemies
+            //(none)
+
+            //level 14 enemies
+            //(none)
+
+            //level 15 enemies
+            //(none)
+
+            //level 16 enemies
+            //(none)
+
+            //level 17 enemies
+            //(none)
+
+            //level 18 enemies
+            //(none)
+
+            //level 19 enemies
+            //(none)
+
+            //level 20 enemies
+            //(none)
             #endregion
 
             #region keys
@@ -477,6 +577,36 @@ namespace MainProject
             keys10.Add(new Key(6000, 1500, playerHurt));
             keys10.Add(new Key(6700, 1700, playerHurt));
             keys10.Add(new Key(8000, 2500, playerHurt));
+
+            //level 11 keys
+            keys11.Add(new Key(3400, 0, playerHurt));
+
+            //level 12 keys
+            //(none)
+
+            //level 13 keys
+            //(none)
+
+            //level 14 keys
+            //(none)
+
+            //level 15 keys
+            //(none)
+
+            //level 16 keys
+            //(none)
+
+            //level 17 keys
+            //(none)
+
+            //level 18 keys
+            //(none)
+
+            //level 19 keys
+            //(none)
+
+            //level 20 keys
+            //(none)
             #endregion
         }
 
@@ -673,6 +803,56 @@ namespace MainProject
                 case CurrentLevel.L10:
                     LevelUpdate(level10, enemies10, player10, keys10, CurrentLevel.L11, gameTime);
                     break;
+
+                //while player is in level 11
+                case CurrentLevel.L11:
+                    LevelUpdate(level11, enemies11, player11, keys11, CurrentLevel.L12, gameTime);
+                    break;
+
+                //while player is in level 12
+                case CurrentLevel.L12:
+                    //LevelUpdate(level12, enemies12, player12, keys12, CurrentLevel.L13, gameTime);
+                    break;
+
+                //while player is in level 13
+                case CurrentLevel.L13:
+                    //LevelUpdate(level13, enemies13, player13, keys13, CurrentLevel.L14, gameTime);
+                    break;
+
+                //while player is in level 14
+                case CurrentLevel.L14:
+                    //LevelUpdate(level14, enemies14, player14, keys14, CurrentLevel.L15, gameTime);
+                    break;
+
+                //while player is in level 15
+                case CurrentLevel.L15:
+                    //LevelUpdate(level15, enemies15, player15, keys15, CurrentLevel.L16, gameTime);
+                    break;
+
+                //while player is in level 16
+                case CurrentLevel.L16:
+                    //LevelUpdate(level16, enemies16, player16, keys16, CurrentLevel.L17, gameTime);
+                    break;
+
+                //while player is in level 17
+                case CurrentLevel.L17:
+                    //LevelUpdate(level17, enemies17, player17, keys17, CurrentLevel.L18, gameTime);
+                    break;
+
+                //while player is in level 18
+                case CurrentLevel.L18:
+                    //LevelUpdate(level18, enemies18, player18, keys18, CurrentLevel.L19, gameTime);
+                    break;
+
+                //while player is in level 19
+                case CurrentLevel.L19:
+                    //LevelUpdate(level19, enemies19, player19, keys19, CurrentLevel.L20, gameTime);
+                    break;
+
+                //while player is in level 20
+                case CurrentLevel.L20:
+                    //LevelUpdate(level20, enemies20, player20, keys20, CurrentLevel.L20, gameTime);
+                    break;
             }
 
             base.Update(gameTime);
@@ -744,6 +924,56 @@ namespace MainProject
                 //while player is in level 10
                 case CurrentLevel.L10:
                     DrawUpdate(level10, player10, enemies10);
+                    break;
+
+                //while player is in level 11
+                case CurrentLevel.L11:
+                    DrawUpdate(level11, player11, enemies11);
+                    break;
+
+                //while player is in level 12
+                case CurrentLevel.L12:
+                    //DrawUpdate(level12, player12, enemies12);
+                    break;
+
+                //while player is in level 13
+                case CurrentLevel.L13:
+                    //DrawUpdate(level13, player13, enemies13);
+                    break;
+
+                //while player is in level 14
+                case CurrentLevel.L14:
+                    //DrawUpdate(level14, player14, enemies14);
+                    break;
+
+                //while player is in level 15
+                case CurrentLevel.L15:
+                    //DrawUpdate(level15, player15, enemies15);
+                    break;
+
+                //while player is in level 16
+                case CurrentLevel.L16:
+                    //DrawUpdate(level16, player16, enemies16);
+                    break;
+
+                //while player is in level 17
+                case CurrentLevel.L17:
+                    //DrawUpdate(level17, player17, enemies17);
+                    break;
+
+                //while player is in level 18
+                case CurrentLevel.L18:
+                    //DrawUpdate(level18, player18, enemies18);
+                    break;
+
+                //while player is in level 19
+                case CurrentLevel.L19:
+                    //DrawUpdate(level19, player19, enemies19);
+                    break;
+
+                //while player is in level 20
+                case CurrentLevel.L20:
+                    //DrawUpdate(level20, player20, enemies20);
                     break;
             }
             _spriteBatch.End();
