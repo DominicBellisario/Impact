@@ -177,7 +177,7 @@ namespace MainProject
         {
             // TODO: Add your initialization logic here
             //game starts at level 1
-            currentLevel = CurrentLevel.LevelSelect;
+            currentLevel = CurrentLevel.L10;
 
             //set screen size to the size of the monitor (3840 x 2160)
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -339,6 +339,8 @@ namespace MainProject
                 width, height, "Level8Bg.txt", "Level8Int.txt");
             level9 = new Level(bgLevelSprites, intLevelSprites,
                 width, height, "Level9Bg.txt", "Level9Int.txt");
+            level10 = new Level(bgLevelSprites, intLevelSprites,
+                width, height, "Level10Bg.txt", "Level10Int.txt");
             #endregion
 
             #region players
@@ -471,7 +473,10 @@ namespace MainProject
             keys9.Add(new Key(6700, 2100, playerHurt));
 
             //level 10 keys
-            //(none)
+            keys10.Add(new Key(5600, 500, playerHurt));
+            keys10.Add(new Key(6000, 1500, playerHurt));
+            keys10.Add(new Key(6700, 1700, playerHurt));
+            keys10.Add(new Key(8000, 2500, playerHurt));
             #endregion
         }
 
@@ -666,7 +671,7 @@ namespace MainProject
 
                 //while player is in level 10
                 case CurrentLevel.L10:
-                    //LevelUpdate(level10, enemies10, player10, keys10, CurrentLevel.L11, gameTime);
+                    LevelUpdate(level10, enemies10, player10, keys10, CurrentLevel.L11, gameTime);
                     break;
             }
 
@@ -734,6 +739,11 @@ namespace MainProject
                 //while player is in level 9
                 case CurrentLevel.L9:
                     DrawUpdate(level9, player9, enemies9);
+                    break;
+
+                //while player is in level 10
+                case CurrentLevel.L10:
+                    DrawUpdate(level10, player10, enemies10);
                     break;
             }
             _spriteBatch.End();
