@@ -22,6 +22,7 @@
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/LeftPlat.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/LeftSpring.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/LeftTube.png</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/LevelFont.spritefont</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Null.png</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Player.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/PlayerFloat.jpg</File>
@@ -41,6 +42,7 @@
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Wall.jpg</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

@@ -106,3 +106,4 @@ C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\Spikes.x
 C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\Explosion.xnb
 C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\ExitClosed.xnb
 C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\ExitOpen.xnb
+C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\LevelFont.xnb

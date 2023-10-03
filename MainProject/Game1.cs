@@ -3,7 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using System.Reflection.Emit;
+using System.Runtime.CompilerServices;
 
 namespace MainProject
 {
@@ -92,6 +94,15 @@ namespace MainProject
         private int width;
         private int height;
 
+        //level select
+        private int textX;
+        private int textY;
+        private SpriteFont levelFont;
+        private string finalInput;
+        private KeyboardState prevKB;
+        private string instructions;
+        private string instructions2;
+
         #region levels
         //levels
         private Level testLevel;
@@ -166,7 +177,7 @@ namespace MainProject
         {
             // TODO: Add your initialization logic here
             //game starts at level 1
-            currentLevel = CurrentLevel.L1;
+            currentLevel = CurrentLevel.LevelSelect;
 
             //set screen size to the size of the monitor (3840 x 2160)
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -176,6 +187,10 @@ namespace MainProject
 
             width = _graphics.GraphicsDevice.Viewport.Width;
             height = _graphics.GraphicsDevice.Viewport.Height;
+
+            //level select
+            textX = _graphics.GraphicsDevice.Viewport.Width / 2;
+            textY = _graphics.GraphicsDevice.Viewport.Height / 2;
 
             //level template
             bgLevelSprites = new Dictionary<string, Texture2D>();
@@ -295,6 +310,12 @@ namespace MainProject
 
             //fonts
             debugFont = Content.Load<SpriteFont>("DebugFont");
+            levelFont = Content.Load<SpriteFont>("LevelFont");
+
+            //instructions
+            instructions = "Type the level you want to play! Ex: type L1 to play level 1";
+            finalInput = "";
+            instructions2 = "Press \"Enter\" to begin!";
 
             #region levels
             //level loading
@@ -462,9 +483,34 @@ namespace MainProject
             // TODO: Add your update logic here
             switch (currentLevel)
             {
+                //while player is in level select
                 case CurrentLevel.LevelSelect:
 
+                    //get input from player
+                    KeyboardState kbState = Keyboard.GetState();
+
+                    //if a key has just been clicked, add it to their input
+                    if (kbState != prevKB && !kbState.IsKeyDown(Keys.Enter))
+                    {
+                        finalInput += kbState;
+                    }
+
+                    //when player is done typing, they press enter to begin
+                    if (kbState.IsKeyDown(Keys.Enter) && kbState != prevKB)
+                    {
+                        //if the typed level is not valid, reset their answer and prompt them to try again
+                        //if valid, play that level
+                        if (!Enum.TryParse<CurrentLevel>("L" + finalInput, true, out currentLevel))
+                        {
+                            finalInput = "";
+                            instructions = "Level not found, try again! Ex: type L1 to play level 1";
+                        }
+                    }
+
+                    //update prev kb
+                    prevKB = kbState;
                     break;
+
                 //while player is in the test level
                 case CurrentLevel.Test:
                     LevelUpdate(testLevel, enemies, player, keys, CurrentLevel.L1, gameTime);
@@ -531,6 +577,12 @@ namespace MainProject
             _spriteBatch.Begin();
             switch (currentLevel)
             {
+                //while player is in level select
+                case CurrentLevel.LevelSelect:
+                    _spriteBatch.DrawString(levelFont, instructions, new Vector2(textX, textY + 100), Color.White);
+                    _spriteBatch.DrawString(levelFont, finalInput, new Vector2(textX, textY), Color.White);
+                    _spriteBatch.DrawString(levelFont, instructions2, new Vector2(textX, textY - 100), Color.White);
+                    break;
                 //while player is in test level
                 case CurrentLevel.Test:
                     DrawUpdate(testLevel, player, enemies);
