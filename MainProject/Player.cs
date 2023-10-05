@@ -1280,6 +1280,7 @@ namespace MainProject
         {
             //speed that the player will be corrected
             const int correctionStrength = 5;
+            const int margin = 5;
 
             //value stays at 0 if player is already in center
             int velocityUpdate = 0;
@@ -1288,12 +1289,12 @@ namespace MainProject
             if (!isHorizontal)
             {
                 //moves left if center is to the right of tube
-                if (playerRect.Center.X > tubeRect.Center.X)
+                if (playerRect.Center.X > tubeRect.Center.X + margin)
                 {
                     velocityUpdate = correctionStrength;
                 }
                 //right if center is to the left
-                else if (playerRect.Center.X < tubeRect.Center.X)
+                else if (playerRect.Center.X < tubeRect.Center.X - margin)
                 {
                     velocityUpdate = -correctionStrength;
                 }
@@ -1302,12 +1303,12 @@ namespace MainProject
             else
             {
                 //moves up if center is below the tube
-                if (playerRect.Center.Y > tubeRect.Center.Y)
+                if (playerRect.Center.Y > tubeRect.Center.Y + margin)
                 {
                     velocityUpdate = correctionStrength;
                 }
                 //down if center is above
-                else if (playerRect.Center.Y < tubeRect.Center.Y)
+                else if (playerRect.Center.Y < tubeRect.Center.Y - margin)
                 {
                     velocityUpdate = -correctionStrength;
                 }
