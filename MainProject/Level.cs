@@ -187,7 +187,7 @@ namespace MainProject
                         else if (data[j] == "E")
                         {
                             bgLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 100),
-                                bgAssets["exitClosed"], bgAssets["exitOpen"], true, "surface", 0, 0, "end");
+                                bgAssets["exitClosed"], bgAssets["exitOpen"], true, "end", 0, 0, "none");
                         }
                         #endregion
                     }

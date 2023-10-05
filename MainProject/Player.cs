@@ -819,10 +819,16 @@ namespace MainProject
                     {
                         //creates a rectangle of the overlaping area
                         collisionRect = Rectangle.Intersect(bgLevel[i, j].Rect, rect);
-                        
+
+                        //if player hits the end after collecting all keys, signal the transition to the next level
+                        if (bgLevel[i, j].TypeOfCollision == "end" && bgLevel[i, j].Rect.Intersects(rect) && exitOpen)
+                        {
+                            return true;
+                        }
+
                         //player is hitting the top or bottom of a tile
                         if (collisionRect.Width > collisionRect.Height && (bgLevel[i, j].TypeOfCollision == "surface" 
-                            || bgLevel[i, j].TypeOfCollision == "ice"))
+                            || bgLevel[i, j].TypeOfCollision == "ice" || bgLevel[i, j].TypeOfCollision == "end"))
                         {
                             //player is landing on a tile
                             if (rect.Y <= bgLevel[i, j].Rect.Y)
@@ -855,7 +861,7 @@ namespace MainProject
 
                         //player is hitting the side of a tile
                         else if (Math.Abs(collisionRect.Height) > Math.Abs(collisionRect.Width) 
-                            && (bgLevel[i, j].TypeOfCollision == "surface") 
+                            && (bgLevel[i, j].TypeOfCollision == "surface" || bgLevel[i, j].TypeOfCollision == "end") 
                             && !collidingWithSpring)
                         {
                             //player is on the right side of the tile, cannot move left
@@ -878,12 +884,6 @@ namespace MainProject
                                 AdjustPosition(intLevel, -collisionRect.Width, true, rows, columns);
                                 
                             }
-                        }
-
-                        //if player hits the end after collecting all keys, signal the transition to the next level
-                        if (bgLevel[i, j].TypeOfCollision == "end" && bgLevel[i, j].Rect.Intersects(rect) && exitOpen)
-                        {
-                            return true;
                         }
                     }
                 }
