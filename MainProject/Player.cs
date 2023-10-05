@@ -813,7 +813,7 @@ namespace MainProject
                         
                         //player is hitting the top or bottom of a tile
                         if (collisionRect.Width > collisionRect.Height && (bgLevel[i, j].TypeOfCollision == "surface" 
-                            || bgLevel[i, j].TypeOfCollision == "ice") || )
+                            || bgLevel[i, j].TypeOfCollision == "ice"))
                         {
                             //player is landing on a tile
                             if (rect.Y <= bgLevel[i, j].Rect.Y)
@@ -844,10 +844,10 @@ namespace MainProject
                             }
                         }
 
-                        //player is hitting the side of a tile and not touching a spring
+                        //player is hitting the side of a tile
                         else if (Math.Abs(collisionRect.Height) > Math.Abs(collisionRect.Width) 
-                            && (bgLevel[i, j].TypeOfCollision == "surface"/* || 
-                            bgLevel[i, j].TypeOfCollision == "ice"*/) && !collidingWithSpring)
+                            && (bgLevel[i, j].TypeOfCollision == "surface") 
+                            && !collidingWithSpring)
                         {
                             //player is on the right side of the tile, cannot move left
                             if (rect.X + 100 > bgLevel[i, j].Rect.X)
