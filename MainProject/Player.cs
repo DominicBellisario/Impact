@@ -393,8 +393,12 @@ namespace MainProject
             //player is touching the ground
             else
             {
-                //remove any possible stun from player
-                isStunned = false;
+                //remove any possible stun from player if not in a tube
+                if (!inHTube && !inVTube)
+                {
+                    isStunned = false;
+                }
+                
 
                 //player jumps up if the space key is pressed
                 if (kbState.IsKeyDown(Keys.Space) && prevKBState.IsKeyUp(Keys.Space) &&!inHTube && !inVTube && !hard)
@@ -704,7 +708,7 @@ namespace MainProject
                     //switch to floating if colliding with a tube
                     if (inHTube || inVTube)
                     {
-                        animState = AnimationState.Floating;
+                        //animState = AnimationState.Floating;
                     }
                     break;
 
@@ -734,6 +738,11 @@ namespace MainProject
                     {
                         animState = AnimationState.Hard;
                         frame = 0;
+                    }
+                    //switch to hurt if colliding with enemy or bullet
+                    if (isStunned)
+                    {
+                        animState = AnimationState.Hurt;
                     }
                     break;
 
@@ -934,11 +943,8 @@ namespace MainProject
                         }
 
                         //player is hiting an up tube
-                        else if (intLevel[i, j].TypeOfCollision == "upTube" && isColliding)
+                        else if (intLevel[i, j].TypeOfCollision == "upTube" && isColliding && !isStunned)
                         {
-                            //remove any possible stun from player
-                            isStunned = false;
-
                             //centers x momentum if player is not attempting to leave beam 
                             if (!playerWantsOut)
                             {
@@ -969,11 +975,8 @@ namespace MainProject
                         }
 
                         //player is hiting a down tube
-                        else if (intLevel[i, j].TypeOfCollision == "downTube" && isColliding)
+                        else if (intLevel[i, j].TypeOfCollision == "downTube" && isColliding && !isStunned)
                         {
-                            //remove any possible stun from player
-                            isStunned = false;
-
                             //centers x momentum if player is not attempting to leave beam 
                             if (!playerWantsOut)
                             {
@@ -1003,11 +1006,8 @@ namespace MainProject
 
                         //player is hiting a left tube
                         else if (intLevel[i, j].TypeOfCollision == "leftTube" && isColliding
-                            && tubeDisableTimer == 60)
+                            && tubeDisableTimer == 60 && !isStunned)
                         {
-                            //remove any possible stun from player
-                            isStunned = false;
-
                             //centers y momentum if player is not attempting to leave beam 
                             if (!playerWantsOut)
                             {
@@ -1038,11 +1038,8 @@ namespace MainProject
 
                         //player is hiting a right tube
                         else if (intLevel[i, j].TypeOfCollision == "rightTube" && isColliding
-                            && tubeDisableTimer == 60)
+                            && tubeDisableTimer == 60 && !isStunned)
                         {
-                            //remove any possible stun from player
-                            isStunned = false;
-
                             //centers y momentum if player is not attempting to leave beam 
                             if (!playerWantsOut)
                             {
@@ -1157,6 +1154,7 @@ namespace MainProject
                         e.Explosions.Add(new Explosion(explosion, new Rectangle(b.Hitbox.X - 50, b.Hitbox.Y - 50, 200, 200)));
                         e.Bullets.Remove(b);
                         isStunned = true;
+
                         currentStunFrame = 0;
                         return false;
                     }
@@ -1168,13 +1166,14 @@ namespace MainProject
             {
                 //increment timer
                 currentStunFrame++;
+                
             }
             else if (currentStunFrame >= framesStunned)
             {
                 isStunned = false;
             }
             //stop timer and when not stunned
-            if (!isStunned && currentStunFrame != -1) //wrong
+            if (!isStunned && currentStunFrame != -1)
             {
                 currentStunFrame = -1;
                 canDoubleJump = true;
@@ -1390,7 +1389,7 @@ namespace MainProject
             int test1 = (int)spawnPoint.X - rect.X;
             int test2 = (int)spawnPoint.Y - rect.Y;
 
-            sb.DrawString(debugFont, isGrounded + ", " + touchingLeftWall + ", " + touchingRightWall + 
+            sb.DrawString(debugFont, isStunned + ", " + isGrounded + ", " + touchingLeftWall + ", " + touchingRightWall + 
                 ", "  + debugText + ", " + xVelocity + ", " + test1 + ", " + test2,
                 new Vector2(100, 100), Color.Red);
 
