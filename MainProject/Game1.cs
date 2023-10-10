@@ -221,7 +221,7 @@ namespace MainProject
         {
             // TODO: Add your initialization logic here
             //game starts on the level select screen
-            currentLevel = CurrentLevel.L12;
+            currentLevel = CurrentLevel.L13;
 
             //set screen size to the size of the monitor (3840 x 2160)
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -413,6 +413,8 @@ namespace MainProject
                 width, height, "Level11Bg.txt", "Level11Int.txt");
             level12 = new Level(bgLevelSprites, intLevelSprites,
                 width, height, "Level12Bg.txt", "Level12Int.txt");
+            level13 = new Level(bgLevelSprites, intLevelSprites,
+                width, height, "Level13Bg.txt", "Level13Int.txt");
             #endregion
 
             #region players
@@ -443,6 +445,8 @@ namespace MainProject
                 playerHurt, playerFloat, explosion, keys11, debugFont);
             player12 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
                 playerHurt, playerFloat, explosion, keys12, debugFont);
+            player13 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
+                playerHurt, playerFloat, explosion, keys13, debugFont);
             #endregion
 
             #region enemies
@@ -828,7 +832,7 @@ namespace MainProject
 
                 //while player is in level 13
                 case CurrentLevel.L13:
-                    //LevelUpdate(level13, enemies13, player13, keys13, CurrentLevel.L14, gameTime);
+                    LevelUpdate(level13, enemies13, player13, keys13, CurrentLevel.L14, gameTime);
                     break;
 
                 //while player is in level 14
@@ -950,7 +954,7 @@ namespace MainProject
 
                 //while player is in level 13
                 case CurrentLevel.L13:
-                    //DrawUpdate(level13, player13, enemies13);
+                    DrawUpdate(level13, player13, enemies13);
                     break;
 
                 //while player is in level 14
