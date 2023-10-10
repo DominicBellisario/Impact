@@ -221,7 +221,7 @@ namespace MainProject
         {
             // TODO: Add your initialization logic here
             //game starts on the level select screen
-            currentLevel = CurrentLevel.L11;
+            currentLevel = CurrentLevel.L12;
 
             //set screen size to the size of the monitor (3840 x 2160)
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -239,7 +239,8 @@ namespace MainProject
             //level template
             bgLevelSprites = new Dictionary<string, Texture2D>();
             intLevelSprites = new Dictionary<string, Texture2D>();
-            
+
+            #region initializeEnemies
             //enemies
             enemies = new List<Enemy>();
             enemies1 = new List<Enemy>();
@@ -262,8 +263,9 @@ namespace MainProject
             enemies18 = new List<Enemy>();
             enemies19 = new List<Enemy>();
             enemies20 = new List<Enemy>();
+            #endregion
 
-
+            #region initializeKeys
             //keys
             keys = new List<Key>();
             keys1 = new List<Key>();
@@ -286,6 +288,7 @@ namespace MainProject
             keys18 = new List<Key>();
             keys19 = new List<Key>();
             keys20 = new List<Key>();
+            #endregion
 
             base.Initialize();
         }
@@ -408,6 +411,8 @@ namespace MainProject
                 width, height, "Level10Bg.txt", "Level10Int.txt");
             level11 = new Level(bgLevelSprites, intLevelSprites,
                 width, height, "Level11Bg.txt", "Level11Int.txt");
+            level12 = new Level(bgLevelSprites, intLevelSprites,
+                width, height, "Level12Bg.txt", "Level12Int.txt");
             #endregion
 
             #region players
@@ -436,6 +441,8 @@ namespace MainProject
                 playerHurt, playerFloat, explosion, keys10, debugFont);
             player11 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
                 playerHurt, playerFloat, explosion, keys11, debugFont);
+            player12 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
+                playerHurt, playerFloat, explosion, keys12, debugFont);
             #endregion
 
             #region enemies
@@ -508,7 +515,12 @@ namespace MainProject
                 enemyWalking, enemyShooting, bullet, explosion, debugFont, level11.BgLevelBlueprint, level11.Rows, level11.Columns));
 
             //level 12 enemies
-            //(none)
+            enemies12.Add(new Enemy(1, 1, 2800, 1000, 2675, 1000, 3125, 1000,
+                enemyWalking, enemyShooting, bullet, explosion, debugFont, level12.BgLevelBlueprint, level12.Rows, level12.Columns));
+            enemies12.Add(new Enemy(-1, 1, 3600, 1000, 3475, 1000, 3925, 1000,
+                enemyWalking, enemyShooting, bullet, explosion, debugFont, level12.BgLevelBlueprint, level12.Rows, level12.Columns));
+            enemies12.Add(new Enemy(1, 1, 4400, 1000, 4275, 1000, 4725, 1000,
+                enemyWalking, enemyShooting, bullet, explosion, debugFont, level12.BgLevelBlueprint, level12.Rows, level12.Columns));
 
             //level 13 enemies
             //(none)
@@ -811,7 +823,7 @@ namespace MainProject
 
                 //while player is in level 12
                 case CurrentLevel.L12:
-                    //LevelUpdate(level12, enemies12, player12, keys12, CurrentLevel.L13, gameTime);
+                    LevelUpdate(level12, enemies12, player12, keys12, CurrentLevel.L13, gameTime);
                     break;
 
                 //while player is in level 13
@@ -933,7 +945,7 @@ namespace MainProject
 
                 //while player is in level 12
                 case CurrentLevel.L12:
-                    //DrawUpdate(level12, player12, enemies12);
+                    DrawUpdate(level12, player12, enemies12);
                     break;
 
                 //while player is in level 13
