@@ -1199,10 +1199,15 @@ namespace MainProject
             {
                 for (int j = 0; j < columns; j++)
                 {
-                    if (isHorizontal && xVelocity > 0)
+                    if (isHorizontal && xVelocity > 0 && !inHTube)
                     {
                         level[i, j].RectX -= distance + 1;
                         xVelocity = 0;
+                    }
+                    else if (isHorizontal && xVelocity > 0 && inHTube)
+                    {
+                        level[i, j].RectX -= distance + 1;
+                        xVelocity = 1;
                     }
                     else if (isHorizontal && xVelocity <= 0)
                     {
