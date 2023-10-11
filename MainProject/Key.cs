@@ -19,9 +19,9 @@ namespace MainProject
         //animation
         private int frame;              // The current animation frame
         private double timeCounter;     // The amount of time that has passed
-        private const double fps = 6;             // The speed of the animation
+        private const double fps = 8;             // The speed of the animation
         private double timePerFrame;    // The amount of time (in fractional seconds) per frame
-        private const int WalkFrameCount = 3;       // The number of frames in the animation
+        private const int WalkFrameCount = 4;       // The number of frames in the animation
 
         private int adjustmentX;
         private int adjustmentY;

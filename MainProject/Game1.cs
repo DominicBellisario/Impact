@@ -224,7 +224,7 @@ namespace MainProject
         {
             // TODO: Add your initialization logic here
             //game starts on the level select screen
-            currentLevel = CurrentLevel.L3;
+            currentLevel = CurrentLevel.L4;
 
             //set screen size to the size of the monitor (3840 x 2160)
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -469,7 +469,7 @@ namespace MainProject
             //(none)
 
             //level 3 enemies
-            enemies3.Add(new Enemy(7, 1, 3500, 1300, 2600, 1300, 4400, 1300,
+            enemies3.Add(new Enemy(7, 1000, 3500, 1300, 2600, 1300, 4400, 1300,
                 enemyWalking, enemyShooting, bullet, explosion, debugFont, level3.BgLevelBlueprint, level3.Rows, level3.Columns));
             enemies3.Add(new Enemy(4, 1000, 6800, 1500, 6500, 1500, 7100, 1500,
                enemyWalking, enemyShooting, bullet, explosion, debugFont, level3.BgLevelBlueprint, level3.Rows, level3.Columns));
