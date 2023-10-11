@@ -301,25 +301,25 @@ namespace MainProject
                         //down spike
                         else if (data[j] == "DH")
                         {
-                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100 + 50, 100, 50),
+                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100 - 2, i * 100 + 50, 99, 50),
                                 intAssets["spikes"], intAssets["spikes"], true, "spikes", 5, 3, "down");
                         }
                         //up spike
                         else if (data[j] == "UH")
                         {
-                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 100, 50),
+                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100 - 2, i * 100, 99, 50),
                                 intAssets["spikes"], intAssets["spikes"], true, "spikes", 5, 3, "up");
                         }
                         //left spike
                         else if (data[j] == "LH")
                         {
-                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100, 50, 100),
+                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100, i * 100 - 2, 50, 99),
                                 intAssets["spikes"], intAssets["spikes"], true, "spikes", 5, 3, "left");
                         }
                         //right spike
                         else if (data[j] == "RH")
                         {
-                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100 + 50, i * 100, 50, 100),
+                            intLevelBlueprint[i, j] = new Room(new Rectangle(j * 100 + 50, i * 100 - 2, 50, 99),
                                 intAssets["spikes"], intAssets["spikes"], true, "spikes", 5, 3, "right");
                         }
                         #endregion
