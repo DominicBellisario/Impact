@@ -26,6 +26,7 @@ namespace MainProject
 
         //enemy hitbox
         private Rectangle hitbox;
+        private Rectangle drawBox;
 
         //rectangles that will be made with coords above
         private Rectangle leftRect;
@@ -50,7 +51,7 @@ namespace MainProject
         private double timeCounter;     // The amount of time that has passed
         private double fps;             // The speed of the animation
         private double timePerFrame;    // The amount of time (in fractional seconds) per frame
-        private const int WalkFrameCount = 4;       // The number of frames in the animation
+        private const int WalkFrameCount = 6;       // The number of frames in the animation
 
         //bullet sprite
         private Texture2D bulletSprite;
@@ -138,7 +139,8 @@ namespace MainProject
             rightRect = new Rectangle(rightX, rightY, 100, 100);
 
             //creates hitbox
-            hitbox = new Rectangle(xPos, yPos, 300, 300);
+            hitbox = new Rectangle(xPos + 50, yPos, 200, 300);
+            drawBox = new Rectangle(xPos, yPos, 300, 300);
 
             //3 animation frames/second
             fps = 6.0;
@@ -170,6 +172,8 @@ namespace MainProject
                 //updates enemy position and edge position when player moves
                 hitbox.X += xVelocity - adjustmentX;
                 hitbox.Y += yVelocity - adjustmentY;
+                drawBox.X += xVelocity - adjustmentX;
+                drawBox.Y += yVelocity - adjustmentY;
                 leftRect.X += xVelocity - adjustmentX;
                 leftRect.Y += yVelocity - adjustmentY;
                 rightRect.X += xVelocity - adjustmentX;
@@ -183,6 +187,7 @@ namespace MainProject
 
                 //move the enemy
                 hitbox.X += speed;
+                drawBox.X += speed;
 
                 //reset bullet fire time
                 bulletTimer = firstShotTime;
@@ -203,6 +208,8 @@ namespace MainProject
                 //updates enemy position and edge position when player moves
                 hitbox.X += xVelocity - adjustmentX;
                 hitbox.Y += yVelocity - adjustmentY;
+                drawBox.X += xVelocity - adjustmentX;
+                drawBox.Y += yVelocity - adjustmentY;
                 leftRect.X += xVelocity - adjustmentX;
                 leftRect.Y += yVelocity - adjustmentY;
                 rightRect.X += xVelocity - adjustmentX;
@@ -306,12 +313,12 @@ namespace MainProject
                 {
                     sb.Draw(
                         walkingSpriteSheet,
-                        new Vector2(hitbox.X, hitbox.Y),
+                        new Vector2(drawBox.X, drawBox.Y),
                         new Rectangle(
-                            frame * hitbox.Width,
+                            frame * drawBox.Width,
                             0,
-                            hitbox.Width,
-                            hitbox.Height),
+                            drawBox.Width,
+                            drawBox.Height),
                         Color.White,
                         0,
                         Vector2.Zero,
@@ -324,12 +331,12 @@ namespace MainProject
                 {
                     sb.Draw(
                         walkingSpriteSheet,
-                        new Vector2(hitbox.X, hitbox.Y),
+                        new Vector2(drawBox.X, drawBox.Y),
                         new Rectangle(
-                            frame * hitbox.Width,
+                            frame * drawBox.Width,
                             0,
-                            hitbox.Width,
-                            hitbox.Height),
+                            drawBox.Width,
+                            drawBox.Height),
                         Color.White,
                         0,
                         Vector2.Zero,
@@ -346,12 +353,12 @@ namespace MainProject
                 {
                     sb.Draw(
                         shootingSpriteSheet,
-                        new Vector2(hitbox.X, hitbox.Y),
+                        new Vector2(drawBox.X, drawBox.Y),
                         new Rectangle(
-                            frame * hitbox.Width,
+                            frame * drawBox.Width,
                             0,
-                            hitbox.Width,
-                            hitbox.Height),
+                            drawBox.Width,
+                            drawBox.Height),
                         Color.White,
                         0,
                         Vector2.Zero,
@@ -364,12 +371,12 @@ namespace MainProject
                 {
                     sb.Draw(
                         shootingSpriteSheet,
-                        new Vector2(hitbox.X, hitbox.Y),
+                        new Vector2(drawBox.X, drawBox.Y),
                         new Rectangle(
-                            frame * hitbox.Width,
+                            frame * drawBox.Width,
                             0,
-                            hitbox.Width,
-                            hitbox.Height),
+                            drawBox.Width,
+                            drawBox.Height),
                         Color.White,
                         0,
                         Vector2.Zero,

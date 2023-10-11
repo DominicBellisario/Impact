@@ -102,3 +102,4 @@ C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\Explosio
 C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\ExitClosed.xnb
 C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\ExitOpen.xnb
 C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\LevelFont.xnb
+C:\Users\lbell\Source\Repos\Impact\MainProject\bin\Debug\net6.0\Content\TokenSpin.xnb

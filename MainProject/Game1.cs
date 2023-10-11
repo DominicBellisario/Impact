@@ -90,6 +90,9 @@ namespace MainProject
         private Texture2D bullet;
         private Texture2D explosion;
 
+        //keys
+        private Texture2D key;
+
         //list of sprites needed for level loading
         private Dictionary<string, Texture2D> bgLevelSprites;
         private Dictionary<string, Texture2D> intLevelSprites;
@@ -221,7 +224,7 @@ namespace MainProject
         {
             // TODO: Add your initialization logic here
             //game starts on the level select screen
-            currentLevel = CurrentLevel.L13;
+            currentLevel = CurrentLevel.L3;
 
             //set screen size to the size of the monitor (3840 x 2160)
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -374,6 +377,9 @@ namespace MainProject
             //bullet sprite
             bullet = Content.Load<Texture2D>("Bullet");
             explosion = Content.Load<Texture2D>("Explosion");
+
+            //key sprite
+            key = Content.Load<Texture2D>("TokenSpin");
             #endregion
 
             //fonts
@@ -463,7 +469,7 @@ namespace MainProject
             //(none)
 
             //level 3 enemies
-            enemies3.Add(new Enemy(7, 1000, 3500, 1300, 2600, 1300, 4400, 1300,
+            enemies3.Add(new Enemy(7, 1, 3500, 1300, 2600, 1300, 4400, 1300,
                 enemyWalking, enemyShooting, bullet, explosion, debugFont, level3.BgLevelBlueprint, level3.Rows, level3.Columns));
             enemies3.Add(new Enemy(4, 1000, 6800, 1500, 6500, 1500, 7100, 1500,
                enemyWalking, enemyShooting, bullet, explosion, debugFont, level3.BgLevelBlueprint, level3.Rows, level3.Columns));
@@ -565,9 +571,9 @@ namespace MainProject
             //(none)
 
             //level 4 keys
-            keys4.Add(new Key(1950, -2650, playerHurt));
-            keys4.Add(new Key(2900, -800, playerHurt));
-            keys4.Add(new Key(4400, 800, playerHurt));
+            keys4.Add(new Key(1950, -2650, key));
+            keys4.Add(new Key(2900, -800, key));
+            keys4.Add(new Key(4400, 800, key));
 
             //level 5 keys
             //(none)
@@ -582,20 +588,20 @@ namespace MainProject
             //(none)
 
             //level 9 keys
-            keys9.Add(new Key(1500, 1900, playerHurt));
-            keys9.Add(new Key(1800, -600, playerHurt));
-            keys9.Add(new Key(1800, -1100, playerHurt));
-            keys9.Add(new Key(6800, -1300, playerHurt));
-            keys9.Add(new Key(6700, 2100, playerHurt));
+            keys9.Add(new Key(1500, 1900, key));
+            keys9.Add(new Key(1800, -600, key));
+            keys9.Add(new Key(1800, -1100, key));
+            keys9.Add(new Key(6800, -1300, key));
+            keys9.Add(new Key(6700, 2100, key));
 
             //level 10 keys
-            keys10.Add(new Key(5600, 500, playerHurt));
-            keys10.Add(new Key(6000, 1500, playerHurt));
-            keys10.Add(new Key(6700, 1700, playerHurt));
-            keys10.Add(new Key(8000, 2500, playerHurt));
+            keys10.Add(new Key(5600, 500, key));
+            keys10.Add(new Key(6000, 1500, key));
+            keys10.Add(new Key(6700, 1700, key));
+            keys10.Add(new Key(8000, 2500, key));
 
             //level 11 keys
-            keys11.Add(new Key(3400, 0, playerHurt));
+            keys11.Add(new Key(3400, 0, key));
 
             //level 12 keys
             //(none)

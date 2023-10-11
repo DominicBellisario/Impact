@@ -215,7 +215,7 @@ namespace MainProject
                     Color.White,
                     (float)Math.PI/2,
                     new Vector2(rect.Width / 2, rect.Height / 2),
-                    SpriteEffects.None,
+                    SpriteEffects.FlipHorizontally,
                     0
                     );
             }
@@ -228,7 +228,7 @@ namespace MainProject
                     Color.White,
                     (float)Math.PI / 2,
                     new Vector2(rect.Width / 2, rect.Height / 2),
-                    SpriteEffects.FlipHorizontally,
+                    SpriteEffects.FlipVertically,
                     0
                     );
             }

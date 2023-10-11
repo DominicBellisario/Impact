@@ -5,12 +5,12 @@
   <Config />
   <SourceFiles>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Background.jpg</File>
-    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Bullet.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Bullet.png</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/CenterPlat.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/DebugFont.spritefont</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/DownTube.png</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/EnemyShooting.jpg</File>
-    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/EnemyWalking.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/EnemyWalking.png</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/ExitClosed.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/ExitOpen.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Explosion.png</File>
@@ -31,12 +31,14 @@
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/RightSpring.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/RightTube.png</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Spawn.jpg</File>
-    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Spikes.jpg</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Spikes.png</File>
+    <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/TokenSpin.png</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/UpSpring.jpg</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/UpTube.png</File>
     <File>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Wall.jpg</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
