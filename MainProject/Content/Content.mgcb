@@ -363,7 +363,7 @@
 /processorParam:TextureFormat=Color
 /build:UpSpring.jpg
 
-#begin UpTube.png
+#begin UpTube.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -373,7 +373,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:UpTube.png
+/build:UpTube.jpg
 
 #begin Wall.jpg
 /importer:TextureImporter

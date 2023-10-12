@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/Bullet.png</SourceFile>
-  <SourceTime>2023-10-11T16:33:49.9140787-04:00</SourceTime>
+  <SourceTime>2023-10-12T15:23:59.6363233-04:00</SourceTime>
   <DestFile>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/bin/DesktopGL/Content/Bullet.xnb</DestFile>
-  <DestTime>2023-10-11T16:43:52.5967111-04:00</DestTime>
+  <DestTime>2023-10-12T15:27:27.2084861-04:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T07:44:56-04:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

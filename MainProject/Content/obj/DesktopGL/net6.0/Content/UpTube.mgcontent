@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/UpTube.png</SourceFile>
-  <SourceTime>2023-08-17T18:13:11.7990452-04:00</SourceTime>
+  <SourceFile>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/UpTube.jpg</SourceFile>
+  <SourceTime>2023-10-12T15:23:55.6427167-04:00</SourceTime>
   <DestFile>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/bin/DesktopGL/Content/UpTube.xnb</DestFile>
-  <DestTime>2023-08-31T16:08:02.6118749-04:00</DestTime>
+  <DestTime>2023-10-12T15:27:27.3026092-04:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T07:44:56-04:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
