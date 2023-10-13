@@ -32,8 +32,9 @@ namespace MainProject
         private double xPos;
         private double yPos;
 
-        //player hitbox
+        //player hitboxes
         private Rectangle rect;
+        private Rectangle collRect;
 
         //current speed of the player
         private double xVelocity;
@@ -162,7 +163,7 @@ namespace MainProject
         private const double fpsIdle = 4;
         private const double fpsWalk = 12;
         private const double fpsJump = 6;
-        private const double fpsHurt = 8;
+        private const double fpsHurt = 10;
         private const double fpsFloat = 10;
         // The amount of time (in fractional seconds) per frame
         private double timePerIdleFrame;
@@ -242,6 +243,7 @@ namespace MainProject
             currentlyJumping = false;
             canDoubleJump = false;
             rect = new Rectangle((int)xPos - 100, (int)yPos - 100, 200, 200);
+            collRect = new Rectangle((int)xPos - 50, (int)yPos - 75, 100, 175);
             tubeAccelerationChance = 0;
             inHTube = false;
             inVTube = false;
@@ -828,14 +830,14 @@ namespace MainProject
                         spawnPoint.Y = (float)bgLevel[i, j].RectY;
                     }
                     //makes sure only near blocks that have collision are taken into account
-                    if (Math.Abs(bgLevel[i, j].Rect.X - rect.X) < 400 &&
-                        Math.Abs(bgLevel[i, j].Rect.Y - rect.Y) < 400 && bgLevel[i, j].CanCollide && !spawning && !done)
+                    if (Math.Abs(bgLevel[i, j].Rect.X - collRect.X) < 400 &&
+                        Math.Abs(bgLevel[i, j].Rect.Y - collRect.Y) < 400 && bgLevel[i, j].CanCollide && !spawning && !done)
                     {
                         //creates a rectangle of the overlaping area
-                        collisionRect = Rectangle.Intersect(bgLevel[i, j].Rect, rect);
+                        collisionRect = Rectangle.Intersect(bgLevel[i, j].Rect, collRect);
 
                         //if player hits the end after collecting all keys, signal the transition to the next level
-                        if (bgLevel[i, j].TypeOfCollision == "end" && bgLevel[i, j].Rect.Intersects(rect) && exitOpen)
+                        if (bgLevel[i, j].TypeOfCollision == "end" && bgLevel[i, j].Rect.Intersects(collRect) && exitOpen)
                         {
                             return true;
                         }
@@ -845,7 +847,7 @@ namespace MainProject
                             || bgLevel[i, j].TypeOfCollision == "ice" || bgLevel[i, j].TypeOfCollision == "end"))
                         {
                             //player is landing on a tile
-                            if (rect.Y <= bgLevel[i, j].Rect.Y)
+                            if (collRect.Y <= bgLevel[i, j].Rect.Y)
                             {
                                 //player is on the ground
                                 isGrounded = true;
@@ -879,7 +881,7 @@ namespace MainProject
                             && !collidingWithSpring)
                         {
                             //player is on the right side of the tile, cannot move left
-                            if (rect.X + 100 > bgLevel[i, j].Rect.X)
+                            if (collRect.X + 50 > bgLevel[i, j].Rect.X)
                             {
                                 touchingLeftWall = true;
                                 //player is not stuck in the tile
@@ -889,7 +891,7 @@ namespace MainProject
                                 
                             }
                             //player is on the left side of the tile, cannot move right
-                            else if (rect.X + 100 <= bgLevel[i, j].Rect.X)
+                            else if (collRect.X + 50 <= bgLevel[i, j].Rect.X)
                             {
                                 touchingRightWall = true;
                                 //player is not stuck in the tile
@@ -910,12 +912,12 @@ namespace MainProject
                 for (int j = 0; j < columns; j++)
                 {
                     //makes sure only near blocks that have collision are taken into account
-                    if (Math.Abs(intLevel[i, j].Rect.X - rect.X) < 400 &&
-                        Math.Abs(intLevel[i, j].Rect.Y - rect.Y) < 400 && intLevel[i, j].CanCollide)
+                    if (Math.Abs(intLevel[i, j].Rect.X - collRect.X) < 400 &&
+                        Math.Abs(intLevel[i, j].Rect.Y - collRect.Y) < 400 && intLevel[i, j].CanCollide)
                     {
                         //creates a rectangle of the overlaping area
                         //collisionRect = Rectangle.Intersect(intLevel[i, j].Rect, rect);
-                        isColliding = rect.Intersects(intLevel[i, j].Rect);
+                        isColliding = collRect.Intersects(intLevel[i, j].Rect);
 
                         //player is hiting a left spring
                         if (intLevel[i, j].TypeOfCollision == "leftSpring" && isColliding)
@@ -962,7 +964,7 @@ namespace MainProject
                             //centers x momentum if player is not attempting to leave beam 
                             if (!playerWantsOut)
                             {
-                                xVelocity = CenterPlayerInTube(intLevel[i, j].Rect, rect, false);
+                                xVelocity = CenterPlayerInTube(intLevel[i, j].Rect, collRect, false);
                             }
                             else
                             {
@@ -994,7 +996,7 @@ namespace MainProject
                             //centers x momentum if player is not attempting to leave beam 
                             if (!playerWantsOut)
                             {
-                                xVelocity = CenterPlayerInTube(intLevel[i, j].Rect, rect, false);
+                                xVelocity = CenterPlayerInTube(intLevel[i, j].Rect, collRect, false);
                             }
                             else
                             {
@@ -1025,7 +1027,7 @@ namespace MainProject
                             //centers y momentum if player is not attempting to leave beam 
                             if (!playerWantsOut)
                             {
-                                yVelocity = CenterPlayerInTube(intLevel[i, j].Rect, rect, true);
+                                yVelocity = CenterPlayerInTube(intLevel[i, j].Rect, collRect, true);
                             }
                             else
                             {
@@ -1057,7 +1059,7 @@ namespace MainProject
                             //centers y momentum if player is not attempting to leave beam 
                             if (!playerWantsOut)
                             {
-                                yVelocity = CenterPlayerInTube(intLevel[i, j].Rect, rect, true);
+                                yVelocity = CenterPlayerInTube(intLevel[i, j].Rect, collRect, true);
                             }
                             else
                             {
@@ -1117,10 +1119,10 @@ namespace MainProject
             //------ enemy / bullet collisions -------
             foreach (Enemy e in enemies)
             {
-                if (rect.Intersects(e.Hitbox))
+                if (collRect.Intersects(e.Hitbox))
                 {
-                    double launchAngle = Math.Atan2(e.Hitbox.Center.Y - rect.Center.Y,
-                    e.Hitbox.Center.X - rect.Center.X);
+                    double launchAngle = Math.Atan2(e.Hitbox.Center.Y - collRect.Center.Y,
+                    e.Hitbox.Center.X - collRect.Center.X);
                     if (!hard)
                     {
                         //update player x and y velocity
@@ -1145,11 +1147,11 @@ namespace MainProject
                 foreach (Bullet b in e.Bullets)
                 {
                     //collision
-                    if (b.Hitbox.Intersects(rect))
+                    if (b.Hitbox.Intersects(collRect))
                     {
                         //use the width and height in arctan to find the angle
-                        double launchAngle = Math.Atan2(b.Hitbox.Center.Y - rect.Center.Y, 
-                            b.Hitbox.Center.X - rect.Center.X);
+                        double launchAngle = Math.Atan2(b.Hitbox.Center.Y - collRect.Center.Y, 
+                            b.Hitbox.Center.X - collRect.Center.X);
 
                         //moves player less if hard
                         if (!hard)
