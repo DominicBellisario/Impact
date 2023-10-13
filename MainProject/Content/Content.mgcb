@@ -56,7 +56,7 @@
 /processorParam:TextureFormat=Compressed
 /build:DebugFont.spritefont
 
-#begin DownTube.png
+#begin DownTube.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -66,9 +66,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:DownTube.png
+/build:DownTube.jpg
 
-#begin EnemyShooting.jpg
+#begin EnemyShooting.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -78,7 +78,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:EnemyShooting.jpg
+/build:EnemyShooting.png
 
 #begin EnemyWalking.png
 /importer:TextureImporter
@@ -176,7 +176,7 @@
 /processorParam:TextureFormat=Color
 /build:LeftSpring.jpg
 
-#begin LeftTube.png
+#begin LeftTube.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -186,7 +186,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:LeftTube.png
+/build:LeftTube.jpg
 
 #begin LevelFont.spritefont
 /importer:FontDescriptionImporter
@@ -207,7 +207,7 @@
 /processorParam:TextureFormat=Color
 /build:Null.png
 
-#begin Player.jpg
+#begin Player.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -217,9 +217,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Player.jpg
+/build:Player.png
 
-#begin PlayerFloat.jpg
+#begin PlayerFloat.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -229,9 +229,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:PlayerFloat.jpg
+/build:PlayerFloat.png
 
-#begin PlayerHurt.jpg
+#begin PlayerHurt.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -241,9 +241,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:PlayerHurt.jpg
+/build:PlayerHurt.png
 
-#begin PlayerIdle.jpg
+#begin PlayerIdle.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -253,9 +253,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:PlayerIdle.jpg
+/build:PlayerIdle.png
 
-#begin PlayerJump.jpg
+#begin PlayerJump.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -265,9 +265,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:PlayerJump.jpg
+/build:PlayerJump.png
 
-#begin PlayerWalk.jpg
+#begin PlayerWalk.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -277,7 +277,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:PlayerWalk.jpg
+/build:PlayerWalk.png
 
 #begin RightPlat.jpg
 /importer:TextureImporter
@@ -303,7 +303,7 @@
 /processorParam:TextureFormat=Color
 /build:RightSpring.jpg
 
-#begin RightTube.png
+#begin RightTube.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -313,7 +313,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:RightTube.png
+/build:RightTube.jpg
 
 #begin Spawn.jpg
 /importer:TextureImporter

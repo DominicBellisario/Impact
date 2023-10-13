@@ -159,11 +159,11 @@ namespace MainProject
         // The amount of time that has passed
         private double timeCounter;
         // The speed of the animation
-        private const double fpsIdle = 1;
-        private const double fpsWalk = 8;
+        private const double fpsIdle = 4;
+        private const double fpsWalk = 12;
         private const double fpsJump = 6;
         private const double fpsHurt = 8;
-        private const double fpsFloat = 3;
+        private const double fpsFloat = 10;
         // The amount of time (in fractional seconds) per frame
         private double timePerIdleFrame;
         private double timePerWalkFrame;
@@ -171,12 +171,13 @@ namespace MainProject
         private double timePerHurtFrame;
         private double timePerFloatFrame;
         // The number of frames in the animation
-        private const int IdleFrameCount = 2;
-        private const int WalkFrameCount = 4;
-        private const int JumpFrameCount = 3;
+        private const int IdleFrameCount = 4;
+        private const int WalkFrameCount = 8;
+        private const int JumpFrameCount = 2;
         private const int HurtFrameCount = 2;
-        private const int FloatFrameCount = 3;
-
+        private const int FloatFrameCount = 8;
+        //keeps track of what direction the player is facing
+        private bool lookingRight;
         #endregion
 
         //keyboard stuff
@@ -217,7 +218,7 @@ namespace MainProject
         }
 
         public Player(double xPos, double yPos, Texture2D asset, Texture2D idle, Texture2D walking,
-            Texture2D jumping, Texture2D hurt, Texture2D floating, Texture2D explosion, List<Key> keys, SpriteFont debugFont)
+            Texture2D jumping, Texture2D hurt, Texture2D floating, Texture2D explosion, List<Key> keys, bool lookingRight, SpriteFont debugFont)
         {
             timer = 0;
             this.xPos = xPos;
@@ -231,6 +232,7 @@ namespace MainProject
             this.floating = floating;
             this.explosion = explosion;
             this.keys = keys;
+            this.lookingRight = lookingRight;
             collectedKeys = new List<Key>();
             xVelocity = 0;
             yVelocity = 0;
@@ -578,6 +580,18 @@ namespace MainProject
             {
                 xVelocity += airAccel;
             }
+
+            //if a is pressed and d is not pressed, flip sprites left
+            if (kbState.IsKeyDown(Keys.A) && kbState.IsKeyUp(Keys.D) && !isStunned)
+            {
+                lookingRight = false;
+            }
+            //if a is not pressed and d is pressed, flip sprites right
+            if (kbState.IsKeyUp(Keys.A) && kbState.IsKeyDown(Keys.D) && !isStunned)
+            {
+                lookingRight = true;
+            }
+
             //updates prev keyboard state
             prevKBState = kbState;
             //resets ice trigger
@@ -1411,6 +1425,16 @@ namespace MainProject
 
         private void DrawPlayer(Texture2D spriteSheet, SpriteBatch sb)
         {
+            //flips the sprite if nessisary
+            SpriteEffects effect;
+            if (lookingRight)
+            {
+                effect = SpriteEffects.None;
+            }
+            else
+            {
+                effect = SpriteEffects.FlipHorizontally;
+            }
             sb.Draw(
                     spriteSheet,
                     new Vector2(rect.X, rect.Y),
@@ -1423,7 +1447,7 @@ namespace MainProject
                     0,
                     Vector2.Zero,
                     1.0f,
-                    SpriteEffects.None,
+                    effect,
                     0);
         }
 

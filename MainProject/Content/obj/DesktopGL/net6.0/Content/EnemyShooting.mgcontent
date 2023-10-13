@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/EnemyShooting.jpg</SourceFile>
-  <SourceTime>2023-09-01T13:40:40.7005168-04:00</SourceTime>
+  <SourceFile>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/EnemyShooting.png</SourceFile>
+  <SourceTime>2023-10-13T17:23:27.200569-04:00</SourceTime>
   <DestFile>C:/Users/lbell/Source/Repos/Impact/MainProject/Content/bin/DesktopGL/Content/EnemyShooting.xnb</DestFile>
-  <DestTime>2023-09-01T14:02:13.8012709-04:00</DestTime>
+  <DestTime>2023-10-13T17:23:32.8531317-04:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T07:44:56-04:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

@@ -197,9 +197,6 @@ namespace MainProject
                 {
                     isWalking = false;
                 }
-
-                //update animations
-                UpdateAnimation(gameTime);
             }
 
             //actions that take place while enemy is shooting
@@ -279,7 +276,9 @@ namespace MainProject
                     return;
                 }
             }
-            
+
+            //update animations
+            UpdateAnimation(gameTime);
         }
         private void UpdateAnimation(GameTime gameTime)
         {

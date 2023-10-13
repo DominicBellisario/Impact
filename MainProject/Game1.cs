@@ -224,7 +224,7 @@ namespace MainProject
         {
             // TODO: Add your initialization logic here
             //game starts on the level select screen
-            currentLevel = CurrentLevel.Test;
+            currentLevel = CurrentLevel.LevelSelect;
 
             //set screen size to the size of the monitor (3840 x 2160)
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -426,33 +426,33 @@ namespace MainProject
             #region players
             //player loading
             player = new Player(width/2, height/2, playerSprite, playerIdle, playerWalk, playerJump, 
-                playerHurt, playerFloat, explosion, keys, debugFont);
+                playerHurt, playerFloat, explosion, keys, true, debugFont);
             player1 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
-                playerHurt, playerFloat, explosion, keys1, debugFont);
+                playerHurt, playerFloat, explosion, keys1, true, debugFont);
             player2 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
-                playerHurt, playerFloat, explosion, keys2, debugFont);
+                playerHurt, playerFloat, explosion, keys2, true, debugFont);
             player3 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
-                playerHurt, playerFloat, explosion, keys3, debugFont);
+                playerHurt, playerFloat, explosion, keys3, true, debugFont);
             player4 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
-                playerHurt, playerFloat, explosion, keys4, debugFont);
+                playerHurt, playerFloat, explosion, keys4, true, debugFont);
             player5 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
-                playerHurt, playerFloat, explosion, keys5, debugFont);
+                playerHurt, playerFloat, explosion, keys5, true, debugFont);
             player6 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
-                playerHurt, playerFloat, explosion, keys6, debugFont);
+                playerHurt, playerFloat, explosion, keys6, true, debugFont);
             player7 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
-                playerHurt, playerFloat, explosion, keys7, debugFont);
+                playerHurt, playerFloat, explosion, keys7, true, debugFont);
             player8 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
-                playerHurt, playerFloat, explosion, keys8, debugFont);
+                playerHurt, playerFloat, explosion, keys8, true, debugFont);
             player9 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
-                playerHurt, playerFloat, explosion, keys9, debugFont);
+                playerHurt, playerFloat, explosion, keys9, true, debugFont);
             player10 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
-                playerHurt, playerFloat, explosion, keys10, debugFont);
+                playerHurt, playerFloat, explosion, keys10, true, debugFont);
             player11 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
-                playerHurt, playerFloat, explosion, keys11, debugFont);
+                playerHurt, playerFloat, explosion, keys11, true, debugFont);
             player12 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
-                playerHurt, playerFloat, explosion, keys12, debugFont);
+                playerHurt, playerFloat, explosion, keys12, true, debugFont);
             player13 = new Player(width / 2, height / 2, playerSprite, playerIdle, playerWalk, playerJump,
-                playerHurt, playerFloat, explosion, keys13, debugFont);
+                playerHurt, playerFloat, explosion, keys13, false, debugFont);
             #endregion
 
             #region enemies
