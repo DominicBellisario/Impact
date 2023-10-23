@@ -1411,9 +1411,9 @@ namespace MainProject
             int test1 = (int)spawnPoint.X - rect.X;
             int test2 = (int)spawnPoint.Y - rect.Y;
 
-            sb.DrawString(debugFont, isStunned + ", " + isGrounded + ", " + touchingLeftWall + ", " + touchingRightWall + 
-                ", "  + debugText + ", " + xVelocity + ", " + test1 + ", " + test2,
-                new Vector2(100, 100), Color.Red);
+            //sb.DrawString(debugFont, isStunned + ", " + isGrounded + ", " + touchingLeftWall + ", " + touchingRightWall + 
+               // ", "  + debugText + ", " + xVelocity + ", " + test1 + ", " + test2,
+               // new Vector2(100, 100), Color.Red);
 
             sb.DrawString(debugFont, "Keys Left: " + keys.Count, new Vector2(3400, 100), Color.Red);
 
